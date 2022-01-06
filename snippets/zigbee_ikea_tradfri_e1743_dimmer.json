@@ -1,0 +1,547 @@
+[
+    {
+        "id": "2cea69edd6169837",
+        "type": "mqtt in",
+        "z": "657a8b3.1526074",
+        "name": "Switch 1",
+        "topic": "zigbee2mqtt/0xXXX",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "e314300a.e8a55",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 1280,
+        "y": 700,
+        "wires": [
+            [
+                "f6e8aebba182b1e3"
+            ]
+        ]
+    },
+    {
+        "id": "f6e8aebba182b1e3",
+        "type": "json",
+        "z": "657a8b3.1526074",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1430,
+        "y": 700,
+        "wires": [
+            [
+                "c52ad7fa496a65e4",
+                "d843a705adcdda0e",
+                "723c710bb0a73c9e",
+                "bb7673de91e7ee8b",
+                "4d6e69b6a0af3084"
+            ]
+        ]
+    },
+    {
+        "id": "c52ad7fa496a65e4",
+        "type": "debug",
+        "z": "657a8b3.1526074",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 1590,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "d843a705adcdda0e",
+        "type": "switch",
+        "z": "657a8b3.1526074",
+        "name": "",
+        "property": "payload.action",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "on",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "off",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "brightness_move_up",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "brightness_move_down",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 4,
+        "x": 1590,
+        "y": 700,
+        "wires": [
+            [
+                "7c16fcbf2a6e0eb7"
+            ],
+            [
+                "5dbcfb3f29c4537b"
+            ],
+            [
+                "e6b271b8451647df"
+            ],
+            [
+                "2c9b51f932956479"
+            ]
+        ]
+    },
+    {
+        "id": "723c710bb0a73c9e",
+        "type": "change",
+        "z": "657a8b3.1526074",
+        "name": "battery",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.battery",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1600,
+        "y": 820,
+        "wires": [
+            [
+                "7f5b794273c6f88f",
+                "3b22d62b7fd16c2b"
+            ]
+        ]
+    },
+    {
+        "id": "bb7673de91e7ee8b",
+        "type": "change",
+        "z": "657a8b3.1526074",
+        "name": "linkquality",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.linkquality",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1600,
+        "y": 860,
+        "wires": [
+            [
+                "deee5bac149feea4"
+            ]
+        ]
+    },
+    {
+        "id": "7f5b794273c6f88f",
+        "type": "ui_gauge",
+        "z": "657a8b3.1526074",
+        "name": "",
+        "group": "4229bceb.57ece4",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Switch 1 battery",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#ff0000",
+            "#e6e600",
+            "#80ff00"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 1780,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "deee5bac149feea4",
+        "type": "ui_gauge",
+        "z": "657a8b3.1526074",
+        "name": "",
+        "group": "4229bceb.57ece4",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Switch 1 signal",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#ff0000",
+            "#e6e600",
+            "#80ff00"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 1780,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "222aca8a4466f34a",
+        "type": "comment",
+        "z": "657a8b3.1526074",
+        "name": "Switch 1 (0xXXX): Livingroom",
+        "info": "",
+        "x": 1320,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "3b22d62b7fd16c2b",
+        "type": "function",
+        "z": "657a8b3.1526074",
+        "name": "check",
+        "func": "    flow.set(\"batteryEmptySwitch1\", (msg.payload<=20));\n    msg.payload=(msg.payload<=20);\n    \nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1970,
+        "y": 820,
+        "wires": [
+            [
+                "17d3c3cdeac32c69",
+                "6ac72071e7191599"
+            ]
+        ]
+    },
+    {
+        "id": "17d3c3cdeac32c69",
+        "type": "trigger",
+        "z": "657a8b3.1526074",
+        "name": "",
+        "op1": "Battery charge of switch 1(Livingroom) is below 20%.",
+        "op2": "0",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "0",
+        "extend": false,
+        "overrideDelay": false,
+        "units": "ms",
+        "reset": "false",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 2010,
+        "y": 860,
+        "wires": [
+            [
+                "72013dd2371e1bfa",
+                "1d343c1950ad5362",
+                "9f54e33ee54c5697"
+            ]
+        ]
+    },
+    {
+        "id": "6ac72071e7191599",
+        "type": "debug",
+        "z": "657a8b3.1526074",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 2130,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "db8fbb102bd3a6f0",
+        "type": "ui_button",
+        "z": "657a8b3.1526074",
+        "name": "",
+        "group": "4229bceb.57ece4",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Switch 1 update",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "0xXXX",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "x": 1880,
+        "y": 780,
+        "wires": [
+            [
+                "90e3287f9cc5e193"
+            ]
+        ]
+    },
+    {
+        "id": "90e3287f9cc5e193",
+        "type": "mqtt out",
+        "z": "657a8b3.1526074",
+        "name": "Update",
+        "topic": "zigbee2mqtt/bridge/ota_update/update",
+        "qos": "",
+        "retain": "",
+        "broker": "e314300a.e8a55",
+        "x": 2060,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "65925498662b9982",
+        "type": "inject",
+        "z": "657a8b3.1526074",
+        "name": "",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "false",
+        "payloadType": "bool",
+        "x": 1850,
+        "y": 740,
+        "wires": [
+            [
+                "f378b23ae78d23ca"
+            ]
+        ]
+    },
+    {
+        "id": "f378b23ae78d23ca",
+        "type": "change",
+        "z": "657a8b3.1526074",
+        "name": "disable",
+        "rules": [
+            {
+                "t": "set",
+                "p": "enabled",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1980,
+        "y": 740,
+        "wires": [
+            [
+                "db8fbb102bd3a6f0"
+            ]
+        ]
+    },
+    {
+        "id": "72013dd2371e1bfa",
+        "type": "link out",
+        "z": "657a8b3.1526074",
+        "name": "switch_1_low_bat_alarm",
+        "mode": "link",
+        "links": [
+            "315c6c21.332d64",
+            "e056fd99.d1485",
+            "e25be39c.62b32",
+            "fde57766.cf3338"
+        ],
+        "x": 2155,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "4d6e69b6a0af3084",
+        "type": "function",
+        "z": "657a8b3.1526074",
+        "name": "update?",
+        "func": "\nmsg.enabled=msg.payload.update.state==\"available\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1600,
+        "y": 780,
+        "wires": [
+            [
+                "db8fbb102bd3a6f0"
+            ]
+        ]
+    },
+    {
+        "id": "7c16fcbf2a6e0eb7",
+        "type": "debug",
+        "z": "657a8b3.1526074",
+        "name": "action on",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1840,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "5dbcfb3f29c4537b",
+        "type": "debug",
+        "z": "657a8b3.1526074",
+        "name": "action off",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1840,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "e6b271b8451647df",
+        "type": "debug",
+        "z": "657a8b3.1526074",
+        "name": "action long press off",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1880,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "2c9b51f932956479",
+        "type": "debug",
+        "z": "657a8b3.1526074",
+        "name": "action long press on",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1880,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "1d343c1950ad5362",
+        "type": "pushbullet",
+        "z": "657a8b3.1526074",
+        "pushtype": "note",
+        "title": "",
+        "chan": "",
+        "name": "",
+        "x": 2210,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "9f54e33ee54c5697",
+        "type": "pushover",
+        "z": "657a8b3.1526074",
+        "name": "",
+        "device": "",
+        "title": "",
+        "priority": 0,
+        "sound": "",
+        "url": "",
+        "url_title": "",
+        "html": false,
+        "x": 2200,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "e314300a.e8a55",
+        "type": "mqtt-broker",
+        "name": "Server-Mqtt",
+        "broker": "servy.fritz.box",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "4229bceb.57ece4",
+        "type": "ui_group",
+        "name": "Zigbee",
+        "tab": "b128bba3.f99e38",
+        "order": 5,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "b128bba3.f99e38",
+        "type": "ui_tab",
+        "name": "Einstellungen",
+        "icon": "dashboard",
+        "order": 6,
+        "disabled": false,
+        "hidden": false
+    }
+]

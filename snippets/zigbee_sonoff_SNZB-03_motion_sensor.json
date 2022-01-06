@@ -1,0 +1,619 @@
+[
+    {
+        "id": "942a4d66062819cc",
+        "type": "mqtt in",
+        "z": "3f4bfd26.20bba2",
+        "name": "Motion Sensor SNZB-03 1",
+        "topic": "zigbee2mqtt/0xXXX",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "e314300a.e8a55",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 1850,
+        "y": 3900,
+        "wires": [
+            [
+                "ece2a3ae038ad0df"
+            ]
+        ]
+    },
+    {
+        "id": "ece2a3ae038ad0df",
+        "type": "json",
+        "z": "3f4bfd26.20bba2",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 2030,
+        "y": 3900,
+        "wires": [
+            [
+                "5d56e33ee73071e7",
+                "b15620e4c0b00210",
+                "02e26cf4b07e685f",
+                "8317955426838036",
+                "39d023d28cd07d18",
+                "912d7f3fe3117a9e"
+            ]
+        ]
+    },
+    {
+        "id": "5d56e33ee73071e7",
+        "type": "debug",
+        "z": "3f4bfd26.20bba2",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 2170,
+        "y": 3860,
+        "wires": []
+    },
+    {
+        "id": "b15620e4c0b00210",
+        "type": "change",
+        "z": "3f4bfd26.20bba2",
+        "name": "linkquality",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.linkquality",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2180,
+        "y": 3900,
+        "wires": [
+            [
+                "9c7a176476b4e3fa"
+            ]
+        ]
+    },
+    {
+        "id": "02e26cf4b07e685f",
+        "type": "change",
+        "z": "3f4bfd26.20bba2",
+        "name": "tamper",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.tamper",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2180,
+        "y": 4020,
+        "wires": [
+            [
+                "7ba476dd6b3a658d"
+            ]
+        ]
+    },
+    {
+        "id": "01fdb02f10986dae",
+        "type": "comment",
+        "z": "3f4bfd26.20bba2",
+        "name": "Motion-Sensor(SNZB-03) 1: Hallway",
+        "info": "",
+        "x": 1860,
+        "y": 3800,
+        "wires": []
+    },
+    {
+        "id": "9c7a176476b4e3fa",
+        "type": "ui_gauge",
+        "z": "3f4bfd26.20bba2",
+        "name": "",
+        "group": "19eb5412d43c613b",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Motion Sensor SNZB-03 1 signal",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#ff0000",
+            "#e6e600",
+            "#80ff00"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 2720,
+        "y": 3900,
+        "wires": []
+    },
+    {
+        "id": "8317955426838036",
+        "type": "change",
+        "z": "3f4bfd26.20bba2",
+        "name": "update_available",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.update_available",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2220,
+        "y": 4100,
+        "wires": [
+            [
+                "2e4ad5338a5e3c7e"
+            ]
+        ]
+    },
+    {
+        "id": "2e4ad5338a5e3c7e",
+        "type": "ui_button",
+        "z": "3f4bfd26.20bba2",
+        "name": "",
+        "group": "19eb5412d43c613b",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Motion Sensor SNZB-03 1 update",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "0xXXX",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "x": 2270,
+        "y": 4140,
+        "wires": [
+            [
+                "8d3553d58bd84cb7"
+            ]
+        ]
+    },
+    {
+        "id": "8d3553d58bd84cb7",
+        "type": "mqtt out",
+        "z": "3f4bfd26.20bba2",
+        "name": "Update",
+        "topic": "zigbee2mqtt/bridge/ota_update/update",
+        "qos": "",
+        "retain": "",
+        "broker": "e314300a.e8a55",
+        "x": 2510,
+        "y": 4140,
+        "wires": []
+    },
+    {
+        "id": "563644d15245fd5b",
+        "type": "inject",
+        "z": "3f4bfd26.20bba2",
+        "name": "",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "false",
+        "payloadType": "bool",
+        "x": 2180,
+        "y": 4180,
+        "wires": [
+            [
+                "61145820ef1121e4"
+            ]
+        ]
+    },
+    {
+        "id": "61145820ef1121e4",
+        "type": "change",
+        "z": "3f4bfd26.20bba2",
+        "name": "disable",
+        "rules": [
+            {
+                "t": "set",
+                "p": "enabled",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2310,
+        "y": 4180,
+        "wires": [
+            [
+                "2e4ad5338a5e3c7e"
+            ]
+        ]
+    },
+    {
+        "id": "39d023d28cd07d18",
+        "type": "change",
+        "z": "3f4bfd26.20bba2",
+        "name": "movement?",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.occupancy",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2200,
+        "y": 4060,
+        "wires": [
+            [
+                "bb7146ac4b75f7e7",
+                "fed3fd35c8c53909"
+            ]
+        ]
+    },
+    {
+        "id": "aa71610d2e89e51d",
+        "type": "ui_chart",
+        "z": "3f4bfd26.20bba2",
+        "name": "",
+        "group": "19eb5412d43c613b",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "label": "Motion Sensor SNZB-03 1 tamper history",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "1",
+        "removeOlder": "6",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "604800",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 2740,
+        "y": 4020,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7ba476dd6b3a658d",
+        "type": "function",
+        "z": "3f4bfd26.20bba2",
+        "name": "true/false to 1/0 converter",
+        "func": "\nmsg.payload=msg.payload ? 1: 0;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2420,
+        "y": 4020,
+        "wires": [
+            [
+                "aa71610d2e89e51d"
+            ]
+        ]
+    },
+    {
+        "id": "94acb7abd00e0518",
+        "type": "ui_chart",
+        "z": "3f4bfd26.20bba2",
+        "name": "",
+        "group": "19eb5412d43c613b",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "label": "Motion Sensor SNZB-03 1 movement history",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "1",
+        "removeOlder": "6",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "604800",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 2750,
+        "y": 4060,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "bb7146ac4b75f7e7",
+        "type": "function",
+        "z": "3f4bfd26.20bba2",
+        "name": "true/false to 1/0 converter",
+        "func": "\nmsg.payload=msg.payload ? 1: 0;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2420,
+        "y": 4060,
+        "wires": [
+            [
+                "94acb7abd00e0518",
+                "37ba030a6723cfbb"
+            ]
+        ]
+    },
+    {
+        "id": "37ba030a6723cfbb",
+        "type": "link out",
+        "z": "3f4bfd26.20bba2",
+        "name": "movement_snzb_03_1_detected(1/0)",
+        "mode": "link",
+        "links": [],
+        "x": 2685,
+        "y": 4100,
+        "wires": []
+    },
+    {
+        "id": "fed3fd35c8c53909",
+        "type": "link out",
+        "z": "3f4bfd26.20bba2",
+        "name": "movement_snzb_03_1_detected(true/false)",
+        "mode": "link",
+        "links": [
+            "e2cbf18f9d11d1bf",
+            "788aeea01c020510"
+        ],
+        "x": 2685,
+        "y": 4140,
+        "wires": []
+    },
+    {
+        "id": "912d7f3fe3117a9e",
+        "type": "change",
+        "z": "3f4bfd26.20bba2",
+        "name": "battery",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.battery",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2180,
+        "y": 3940,
+        "wires": [
+            [
+                "edd73f7cc6945f60",
+                "a63d08e0691c6d80"
+            ]
+        ]
+    },
+    {
+        "id": "edd73f7cc6945f60",
+        "type": "ui_gauge",
+        "z": "3f4bfd26.20bba2",
+        "name": "",
+        "group": "4229bceb.57ece4",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "MotionSensor SNZB-03 1 battery",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#ff0000",
+            "#e6e600",
+            "#80ff00"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 2720,
+        "y": 3940,
+        "wires": []
+    },
+    {
+        "id": "a63d08e0691c6d80",
+        "type": "function",
+        "z": "3f4bfd26.20bba2",
+        "name": "check",
+        "func": "    flow.set(\"batteryEmpty-MotionSensor1\", (msg.payload<=20));\n    msg.payload=(msg.payload<=20);\n    \nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 2630,
+        "y": 3980,
+        "wires": [
+            [
+                "a9f856e863cea284"
+            ]
+        ]
+    },
+    {
+        "id": "a9f856e863cea284",
+        "type": "trigger",
+        "z": "3f4bfd26.20bba2",
+        "name": "",
+        "op1": "Battery level of motion sensor 1 (Hallway) is below 20%.",
+        "op2": "0",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "0",
+        "extend": false,
+        "overrideDelay": false,
+        "units": "ms",
+        "reset": "false",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 2800,
+        "y": 3980,
+        "wires": [
+            [
+                "76c3d4e9c4c999d9"
+            ]
+        ]
+    },
+    {
+        "id": "76c3d4e9c4c999d9",
+        "type": "link out",
+        "z": "3f4bfd26.20bba2",
+        "name": "",
+        "mode": "link",
+        "links": [
+            "e056fd99.d1485",
+            "fde57766.cf3338"
+        ],
+        "x": 2955,
+        "y": 3980,
+        "wires": []
+    },
+    {
+        "id": "e314300a.e8a55",
+        "type": "mqtt-broker",
+        "name": "Server-Mqtt",
+        "broker": "servy.fritz.box",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "19eb5412d43c613b",
+        "type": "ui_group",
+        "name": "Motion-Sensor(SNZB-03) 1",
+        "tab": "b881d91c.f73d98",
+        "order": 4,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "4229bceb.57ece4",
+        "type": "ui_group",
+        "name": "Zigbee",
+        "tab": "b128bba3.f99e38",
+        "order": 5,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "b881d91c.f73d98",
+        "type": "ui_tab",
+        "name": "Status",
+        "icon": "dashboard",
+        "order": 4,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "b128bba3.f99e38",
+        "type": "ui_tab",
+        "name": "Einstellungen",
+        "icon": "dashboard",
+        "order": 6,
+        "disabled": false,
+        "hidden": false
+    }
+]
