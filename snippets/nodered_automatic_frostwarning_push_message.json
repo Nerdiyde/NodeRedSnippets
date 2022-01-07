@@ -1,0 +1,431 @@
+[
+    {
+        "id": "8bf0f7c1.2b86c8",
+        "type": "function",
+        "z": "713cbad1.f30474",
+        "name": "calculate average Temp",
+        "func": "\nvar valueCounterTomorrow=0;\nvar averageTempTomorrow=0;\n\nvar date = new Date();\n\nvar tomorrowTimestampStart = Date.parse(date.getFullYear()+\"-\"+(date.getMonth()+1)+\"-\"+(date.getDate()+1)+\" 01:00:00\")/1000;\nvar tomottowTimestampEnd = Date.parse(date.getFullYear()+\"-\"+(date.getMonth()+1)+\"-\"+(date.getDate()+1)+\" 07:00:00\")/1000;\n\nmsg.usedForecastTemps = [];\nmsg.usedForecastDates = [];\n\n\nfor (var i = 0; i<msg.payload.length; i++) \n{\n    if (msg.payload[i].dt!==undefined)\n    {\n        if (tomorrowTimestampStart<=msg.payload[i].dt && tomottowTimestampEnd>=msg.payload[i].dt)\n        {\n            valueCounterTomorrow++;\n            averageTempTomorrow+=msg.payload[i].main.temp;\n            msg.usedForecastTemps.push(msg.payload[i].main.temp);\n            msg.usedForecastDates.push(msg.payload[i].dt);\n        }\n    }\n    \n}\nmsg.tomorrowTimestampStart=tomorrowTimestampStart;\nmsg.tomottowTimestampEnd=tomottowTimestampEnd;\n\n/*\nfor (var i = 0; i<3; i++) \n{\n    if (msg.payload[i].dt!==undefined)\n    {\n            valueCounter++;\n            averageTemp+=msg.payload[i].main.temp;\n    }\n    \n}*/\n\n    \nmsg.payloadLength=msg.payload.length;\nmsg.averageTempTomorrow=averageTempTomorrow/valueCounterTomorrow;\nmsg.valueCounterTomorrow=valueCounterTomorrow;\nmsg.frostTomorrow=(msg.averageTempTomorrow<=flow.get(\"frostWarnTemp\"));\nmsg.frostToday=(msg.payload[0].main.temp<=flow.get(\"frostWarnTemp\"));\nmsg.frostWarnTimeHour=flow.get(\"frostWarnHour\");\nmsg.frostWarnTimeMinute=flow.get(\"frostWarnMin\");\nmsg.actualHour=date.getHours();\nmsg.actualMinute=date.getMinutes();\nmsg.tempToday=msg.payload[0].main.temp;\nmsg.frostWarnTemp=flow.get(\"frostWarnTemp\");\n\nif (date.getHours()===flow.get(\"frostWarnHour\") && date.getMinutes()===flow.get(\"frostWarnMin\"))\n{\n    \n    var msgForecast;\n    var msgToday;\n    \n    if (msg.frostToday)\n    {\n        msgToday = { payload: \"Frostwarning: Temperature right now is \"+msg.tempToday.toFixed(2)+\"°C.\"};\n    } else\n    {\n        msgToday=null;\n    }\n    \n    if (msg.frostTomorrow)\n    {\n        msgForecast = { payload: \"Frostwarning: Tomorrow morning temperature \"+msg.averageTempTomorrow.toFixed(2)+\"°C.\"};\n    } else\n    {\n        msgForecast=null;\n    }\n    \n    return [msg, msgForecast, msgToday];\n\n} else\n{\n    return [msg, null, null];\n}",
+        "outputs": 3,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 3140,
+        "wires": [
+            [
+                "3bc42697.e2c1ca"
+            ],
+            [
+                "ac064a5c.38cfb8",
+                "3c7191c23bc4fc8c",
+                "960cb438724bb951",
+                "4a490c04850d18b3"
+            ],
+            [
+                "3a12cf31.72d44",
+                "3c7191c23bc4fc8c",
+                "960cb438724bb951",
+                "4a490c04850d18b3"
+            ]
+        ]
+    },
+    {
+        "id": "ed95b498.22ce88",
+        "type": "inject",
+        "z": "713cbad1.f30474",
+        "name": "",
+        "props": [
+            {
+                "p": "payload",
+                "v": "",
+                "vt": "date"
+            },
+            {
+                "p": "topic",
+                "v": "",
+                "vt": "str"
+            }
+        ],
+        "repeat": "60",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 3080,
+        "wires": [
+            [
+                "cd651a1c.72e718"
+            ]
+        ]
+    },
+    {
+        "id": "ca7b1b58.725af8",
+        "type": "debug",
+        "z": "713cbad1.f30474",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 390,
+        "y": 3080,
+        "wires": []
+    },
+    {
+        "id": "ba30473c.03c628",
+        "type": "comment",
+        "z": "713cbad1.f30474",
+        "name": "Frostwarning alarm",
+        "info": "",
+        "x": 130,
+        "y": 2980,
+        "wires": []
+    },
+    {
+        "id": "3bc42697.e2c1ca",
+        "type": "debug",
+        "z": "713cbad1.f30474",
+        "name": "Forecast Alarm Infos",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 1020,
+        "y": 3040,
+        "wires": []
+    },
+    {
+        "id": "ac064a5c.38cfb8",
+        "type": "debug",
+        "z": "713cbad1.f30474",
+        "name": "Forecast Alarm",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 1000,
+        "y": 3080,
+        "wires": []
+    },
+    {
+        "id": "9203c60b.f1be48",
+        "type": "change",
+        "z": "713cbad1.f30474",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "frostWarnTemp",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 690,
+        "y": 3240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2707bc32.dd56c4",
+        "type": "change",
+        "z": "713cbad1.f30474",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "frostWarnMin",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 690,
+        "y": 3280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "416af5e9.9c3fbc",
+        "type": "change",
+        "z": "713cbad1.f30474",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "frostWarnHour",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 690,
+        "y": 3320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ce69a150.3b4db",
+        "type": "inject",
+        "z": "713cbad1.f30474",
+        "name": "",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "4.0",
+        "payloadType": "num",
+        "x": 150,
+        "y": 3240,
+        "wires": [
+            [
+                "7b69d0f8.570b5"
+            ]
+        ]
+    },
+    {
+        "id": "3cc06b68.4a3064",
+        "type": "inject",
+        "z": "713cbad1.f30474",
+        "name": "",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0",
+        "payloadType": "num",
+        "x": 150,
+        "y": 3280,
+        "wires": [
+            [
+                "c0cfc9cb.ac3ad8"
+            ]
+        ]
+    },
+    {
+        "id": "9e8486d8.bbe6d8",
+        "type": "inject",
+        "z": "713cbad1.f30474",
+        "name": "",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "20",
+        "payloadType": "num",
+        "x": 150,
+        "y": 3320,
+        "wires": [
+            [
+                "5e1d35cc.18c4ec"
+            ]
+        ]
+    },
+    {
+        "id": "3a12cf31.72d44",
+        "type": "debug",
+        "z": "713cbad1.f30474",
+        "name": "Today Alarm",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 990,
+        "y": 3120,
+        "wires": []
+    },
+    {
+        "id": "7b69d0f8.570b5",
+        "type": "ui_numeric",
+        "z": "713cbad1.f30474",
+        "name": "",
+        "label": "Frost warning temperature",
+        "tooltip": "",
+        "group": "337e8fc5.62123",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "wrap": false,
+        "passthru": true,
+        "topic": "",
+        "topicType": "str",
+        "format": "{{value}}",
+        "min": "-5",
+        "max": 10,
+        "step": "0.5",
+        "className": "",
+        "x": 420,
+        "y": 3240,
+        "wires": [
+            [
+                "9203c60b.f1be48"
+            ]
+        ]
+    },
+    {
+        "id": "c0cfc9cb.ac3ad8",
+        "type": "ui_numeric",
+        "z": "713cbad1.f30474",
+        "name": "",
+        "label": "Frost Warntime minute",
+        "tooltip": "",
+        "group": "337e8fc5.62123",
+        "order": 4,
+        "width": "3",
+        "height": "2",
+        "wrap": false,
+        "passthru": true,
+        "topic": "",
+        "topicType": "str",
+        "format": "{{value}}",
+        "min": "0",
+        "max": "59",
+        "step": "1",
+        "className": "",
+        "x": 400,
+        "y": 3280,
+        "wires": [
+            [
+                "2707bc32.dd56c4"
+            ]
+        ]
+    },
+    {
+        "id": "5e1d35cc.18c4ec",
+        "type": "ui_numeric",
+        "z": "713cbad1.f30474",
+        "name": "",
+        "label": "Frost Warntime hour",
+        "tooltip": "",
+        "group": "337e8fc5.62123",
+        "order": 5,
+        "width": "3",
+        "height": "2",
+        "wrap": false,
+        "passthru": true,
+        "topic": "",
+        "topicType": "str",
+        "format": "{{value}}",
+        "min": "0",
+        "max": "24",
+        "step": "1",
+        "className": "",
+        "x": 400,
+        "y": 3320,
+        "wires": [
+            [
+                "416af5e9.9c3fbc"
+            ]
+        ]
+    },
+    {
+        "id": "cd651a1c.72e718",
+        "type": "openweathermap",
+        "z": "713cbad1.f30474",
+        "name": "",
+        "wtype": "forecast",
+        "lon": "",
+        "lat": "",
+        "city": "Bochum",
+        "country": "Germany",
+        "language": "de",
+        "x": 230,
+        "y": 3140,
+        "wires": [
+            [
+                "ca7b1b58.725af8",
+                "8bf0f7c1.2b86c8"
+            ]
+        ]
+    },
+    {
+        "id": "3c7191c23bc4fc8c",
+        "type": "pushover",
+        "z": "713cbad1.f30474",
+        "name": "",
+        "device": "",
+        "title": "",
+        "priority": 0,
+        "sound": "",
+        "url": "",
+        "url_title": "",
+        "html": false,
+        "x": 980,
+        "y": 3200,
+        "wires": []
+    },
+    {
+        "id": "960cb438724bb951",
+        "type": "pushbullet",
+        "z": "713cbad1.f30474",
+        "pushtype": "note",
+        "title": "",
+        "chan": "",
+        "name": "",
+        "x": 990,
+        "y": 3160,
+        "wires": []
+    },
+    {
+        "id": "4a490c04850d18b3",
+        "type": "e-mail",
+        "z": "713cbad1.f30474",
+        "server": "smtp.gmail.com",
+        "port": "465",
+        "secure": true,
+        "tls": true,
+        "name": "",
+        "dname": "",
+        "x": 970,
+        "y": 3240,
+        "wires": []
+    },
+    {
+        "id": "337e8fc5.62123",
+        "type": "ui_group",
+        "name": "Automatisierung",
+        "tab": "b128bba3.f99e38",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "b128bba3.f99e38",
+        "type": "ui_tab",
+        "name": "Einstellungen",
+        "icon": "dashboard",
+        "order": 6,
+        "disabled": false,
+        "hidden": false
+    }
+]
