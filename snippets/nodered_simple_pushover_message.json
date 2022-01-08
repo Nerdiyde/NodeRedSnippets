@@ -1,0 +1,73 @@
+[
+    {
+        "id": "f7273a75929f9b7e",
+        "type": "pushover",
+        "z": "2bfb0626.bbf15a",
+        "name": "",
+        "device": "",
+        "title": "",
+        "priority": 0,
+        "sound": "",
+        "url": "",
+        "url_title": "",
+        "html": false,
+        "x": 1320,
+        "y": 1520,
+        "wires": []
+    },
+    {
+        "id": "501f5606b969f268",
+        "type": "inject",
+        "z": "2bfb0626.bbf15a",
+        "name": "Initiate",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payloadType": "date",
+        "x": 1000,
+        "y": 1520,
+        "wires": [
+            [
+                "cf04fbf2a6606731"
+            ]
+        ]
+    },
+    {
+        "id": "cf04fbf2a6606731",
+        "type": "change",
+        "z": "2bfb0626.bbf15a",
+        "name": "set message",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Hello World! Here comes a test message example provided by Nerdiy.de.",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1150,
+        "y": 1520,
+        "wires": [
+            [
+                "f7273a75929f9b7e"
+            ]
+        ]
+    }
+]

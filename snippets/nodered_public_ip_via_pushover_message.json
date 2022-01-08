@@ -1,0 +1,88 @@
+[
+    {
+        "id": "0bab7239cfd425ef",
+        "type": "inject",
+        "z": "2bfb0626.bbf15a",
+        "name": "Initiate",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payloadType": "date",
+        "x": 190,
+        "y": 2080,
+        "wires": [
+            [
+                "37350d9af9eee300"
+            ]
+        ]
+    },
+    {
+        "id": "37350d9af9eee300",
+        "type": "exec",
+        "z": "2bfb0626.bbf15a",
+        "command": "curl ifconfig.me",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "Retrieve IP address",
+        "x": 370,
+        "y": 2080,
+        "wires": [
+            [
+                "70b929ea32070ec0"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "bdd562b9bbea3858",
+        "type": "pushover",
+        "z": "2bfb0626.bbf15a",
+        "name": "",
+        "device": "",
+        "title": "",
+        "priority": 0,
+        "sound": "",
+        "url": "",
+        "url_title": "",
+        "html": false,
+        "credentials": {},
+        "x": 740,
+        "y": 2080,
+        "wires": []
+    },
+    {
+        "id": "70b929ea32070ec0",
+        "type": "function",
+        "z": "2bfb0626.bbf15a",
+        "name": "",
+        "func": "msg.payload = \"Pushover example! Your public IP address is: \" + msg.payload;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 2080,
+        "wires": [
+            [
+                "bdd562b9bbea3858"
+            ]
+        ]
+    }
+]
