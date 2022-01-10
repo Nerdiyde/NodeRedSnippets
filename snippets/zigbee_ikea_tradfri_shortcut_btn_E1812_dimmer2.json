@@ -1,0 +1,496 @@
+[
+    {
+        "id": "c645d4bc23af1445",
+        "type": "mqtt in",
+        "z": "657a8b3.1526074",
+        "name": "Shortcut button 1",
+        "topic": "zigbee2mqtt/0xXXX",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "e314300a.e8a55",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 2900,
+        "y": 4200,
+        "wires": [
+            [
+                "5f25a30c77088edc"
+            ]
+        ]
+    },
+    {
+        "id": "5f25a30c77088edc",
+        "type": "json",
+        "z": "657a8b3.1526074",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 3050,
+        "y": 4200,
+        "wires": [
+            [
+                "b65acc30c4c268d6",
+                "7485b8d5acbf2bb5",
+                "b1c8984e37243d79",
+                "201037c7f660390c",
+                "e17f332286500d6d"
+            ]
+        ]
+    },
+    {
+        "id": "b65acc30c4c268d6",
+        "type": "debug",
+        "z": "657a8b3.1526074",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 3210,
+        "y": 4100,
+        "wires": []
+    },
+    {
+        "id": "7485b8d5acbf2bb5",
+        "type": "switch",
+        "z": "657a8b3.1526074",
+        "name": "",
+        "property": "payload.action",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "on",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "brightness_move_up",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "brightness_stop",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 3210,
+        "y": 4160,
+        "wires": [
+            [
+                "7913d7b00ed35a19"
+            ],
+            [
+                "d3bb541499d24094"
+            ],
+            [
+                "83e638a6645cc414"
+            ]
+        ]
+    },
+    {
+        "id": "b1c8984e37243d79",
+        "type": "change",
+        "z": "657a8b3.1526074",
+        "name": "battery",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.battery",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 3220,
+        "y": 4300,
+        "wires": [
+            [
+                "0a934d90f588db27",
+                "3384a33874a6cc14"
+            ]
+        ]
+    },
+    {
+        "id": "201037c7f660390c",
+        "type": "change",
+        "z": "657a8b3.1526074",
+        "name": "linkquality",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.linkquality",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 3220,
+        "y": 4340,
+        "wires": [
+            [
+                "f9812a051b44de70"
+            ]
+        ]
+    },
+    {
+        "id": "0a934d90f588db27",
+        "type": "ui_gauge",
+        "z": "657a8b3.1526074",
+        "name": "",
+        "group": "358bae5d0415d833",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Shortcut btn 1 battery",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#ff0000",
+            "#e6e600",
+            "#80ff00"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 3440,
+        "y": 4300,
+        "wires": []
+    },
+    {
+        "id": "f9812a051b44de70",
+        "type": "ui_gauge",
+        "z": "657a8b3.1526074",
+        "name": "",
+        "group": "358bae5d0415d833",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Shortcut btn 1 signal",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#ff0000",
+            "#e6e600",
+            "#80ff00"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 3440,
+        "y": 4340,
+        "wires": []
+    },
+    {
+        "id": "ada99abb8cb1d935",
+        "type": "comment",
+        "z": "657a8b3.1526074",
+        "name": "Shortcut button 1",
+        "info": "",
+        "x": 2900,
+        "y": 4080,
+        "wires": []
+    },
+    {
+        "id": "3384a33874a6cc14",
+        "type": "function",
+        "z": "657a8b3.1526074",
+        "name": "check",
+        "func": "    flow.set(\"batteryEmptyShortCutBtn_1\", (msg.payload<=20));\n    msg.payload=(msg.payload<=20);\n    \nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 3630,
+        "y": 4300,
+        "wires": [
+            [
+                "59d4b0728e162ec2",
+                "c4813fa5690a6526"
+            ]
+        ]
+    },
+    {
+        "id": "59d4b0728e162ec2",
+        "type": "trigger",
+        "z": "657a8b3.1526074",
+        "name": "",
+        "op1": "Battery of shortcut button 1 is below 20%.",
+        "op2": "0",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "0",
+        "extend": false,
+        "overrideDelay": false,
+        "units": "ms",
+        "reset": "false",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 3670,
+        "y": 4340,
+        "wires": [
+            [
+                "c4355da776253e2d"
+            ]
+        ]
+    },
+    {
+        "id": "c4813fa5690a6526",
+        "type": "debug",
+        "z": "657a8b3.1526074",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 3770,
+        "y": 4300,
+        "wires": []
+    },
+    {
+        "id": "01f5d7fcf49a9598",
+        "type": "ui_button",
+        "z": "657a8b3.1526074",
+        "name": "",
+        "group": "358bae5d0415d833",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Shortcut btn 1 update",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "0xXXX",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "x": 3440,
+        "y": 4260,
+        "wires": [
+            [
+                "bed7e8b1040c23de"
+            ]
+        ]
+    },
+    {
+        "id": "bed7e8b1040c23de",
+        "type": "mqtt out",
+        "z": "657a8b3.1526074",
+        "name": "Update",
+        "topic": "zigbee2mqtt/bridge/ota_update/update",
+        "qos": "",
+        "retain": "",
+        "broker": "e314300a.e8a55",
+        "x": 3860,
+        "y": 4260,
+        "wires": []
+    },
+    {
+        "id": "065070cb2f2c1ac8",
+        "type": "inject",
+        "z": "657a8b3.1526074",
+        "name": "",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "false",
+        "payloadType": "bool",
+        "x": 3390,
+        "y": 4220,
+        "wires": [
+            [
+                "1ae7a9604f42b68c"
+            ]
+        ]
+    },
+    {
+        "id": "1ae7a9604f42b68c",
+        "type": "change",
+        "z": "657a8b3.1526074",
+        "name": "disable",
+        "rules": [
+            {
+                "t": "set",
+                "p": "enabled",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 3520,
+        "y": 4220,
+        "wires": [
+            [
+                "01f5d7fcf49a9598"
+            ]
+        ]
+    },
+    {
+        "id": "c4355da776253e2d",
+        "type": "link out",
+        "z": "657a8b3.1526074",
+        "name": "shortcut_btn1_low_bat_alarm",
+        "mode": "link",
+        "links": [
+            "315c6c21.332d64",
+            "e056fd99.d1485",
+            "e25be39c.62b32",
+            "fde57766.cf3338"
+        ],
+        "x": 3815,
+        "y": 4340,
+        "wires": []
+    },
+    {
+        "id": "e17f332286500d6d",
+        "type": "function",
+        "z": "657a8b3.1526074",
+        "name": "update?",
+        "func": "\nmsg.enabled=msg.payload.update.state==\"available\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 3220,
+        "y": 4260,
+        "wires": [
+            [
+                "01f5d7fcf49a9598"
+            ]
+        ]
+    },
+    {
+        "id": "7913d7b00ed35a19",
+        "type": "debug",
+        "z": "657a8b3.1526074",
+        "name": "short press",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 3410,
+        "y": 4100,
+        "wires": []
+    },
+    {
+        "id": "d3bb541499d24094",
+        "type": "debug",
+        "z": "657a8b3.1526074",
+        "name": "long press",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 3410,
+        "y": 4140,
+        "wires": []
+    },
+    {
+        "id": "83e638a6645cc414",
+        "type": "debug",
+        "z": "657a8b3.1526074",
+        "name": "long press released",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 3430,
+        "y": 4180,
+        "wires": []
+    },
+    {
+        "id": "e314300a.e8a55",
+        "type": "mqtt-broker",
+        "name": "Server-Mqtt",
+        "broker": "servy.fritz.box",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "358bae5d0415d833",
+        "type": "ui_group",
+        "name": "IKEA Tradfri shortcut btn",
+        "tab": "b881d91c.f73d98",
+        "order": 6,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "b881d91c.f73d98",
+        "type": "ui_tab",
+        "name": "Status",
+        "icon": "dashboard",
+        "order": 4,
+        "disabled": false,
+        "hidden": false
+    }
+]

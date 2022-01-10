@@ -1,0 +1,386 @@
+[
+    {
+        "id": "4881c0f09208b839",
+        "type": "mqtt in",
+        "z": "3f4bfd26.20bba2",
+        "name": "Clima Sensor 1",
+        "topic": "zigbee2mqtt/0xXXX",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "e314300a.e8a55",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 2520,
+        "y": 380,
+        "wires": [
+            [
+                "ec05e8098829acc0"
+            ]
+        ]
+    },
+    {
+        "id": "ec05e8098829acc0",
+        "type": "json",
+        "z": "3f4bfd26.20bba2",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 2670,
+        "y": 380,
+        "wires": [
+            [
+                "9f1fea1f450c75fc",
+                "a65a17600e8cf15f",
+                "b3c1e3d30dd52405",
+                "5a3910831a1c310d",
+                "a205ebfe9bb76b8e"
+            ]
+        ]
+    },
+    {
+        "id": "9f1fea1f450c75fc",
+        "type": "debug",
+        "z": "3f4bfd26.20bba2",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 2810,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "a65a17600e8cf15f",
+        "type": "change",
+        "z": "3f4bfd26.20bba2",
+        "name": "linkquality",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.linkquality",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2820,
+        "y": 380,
+        "wires": [
+            [
+                "c42d974def9a96c6"
+            ]
+        ]
+    },
+    {
+        "id": "b3c1e3d30dd52405",
+        "type": "change",
+        "z": "3f4bfd26.20bba2",
+        "name": "temperature",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.temperature",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2830,
+        "y": 420,
+        "wires": [
+            [
+                "60edf4056c9fe5cb"
+            ]
+        ]
+    },
+    {
+        "id": "7a6adcd368bddada",
+        "type": "comment",
+        "z": "3f4bfd26.20bba2",
+        "name": "Clima-Sensor(TS0201) 1",
+        "info": "",
+        "x": 2530,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "c42d974def9a96c6",
+        "type": "ui_gauge",
+        "z": "3f4bfd26.20bba2",
+        "name": "",
+        "group": "4229bceb.57ece4",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Clima Sensor 1 Signal",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#ff0000",
+            "#e6e600",
+            "#80ff00"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 3040,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "60edf4056c9fe5cb",
+        "type": "ui_gauge",
+        "z": "3f4bfd26.20bba2",
+        "name": "",
+        "group": "4229bceb.57ece4",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Clima Sensor 1 temperature",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "50",
+        "colors": [
+            "#ff0000",
+            "#e6e600",
+            "#80ff00"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 3060,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "5a3910831a1c310d",
+        "type": "change",
+        "z": "3f4bfd26.20bba2",
+        "name": "update_available",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.update_available",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2850,
+        "y": 500,
+        "wires": [
+            [
+                "4a75cb652a5490e2"
+            ]
+        ]
+    },
+    {
+        "id": "4a75cb652a5490e2",
+        "type": "ui_button",
+        "z": "3f4bfd26.20bba2",
+        "name": "",
+        "group": "4229bceb.57ece4",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Clima Sensor 1 update",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "0xXXX",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "x": 3080,
+        "y": 500,
+        "wires": [
+            [
+                "94cfa6d1aeb9cef8"
+            ]
+        ]
+    },
+    {
+        "id": "94cfa6d1aeb9cef8",
+        "type": "mqtt out",
+        "z": "3f4bfd26.20bba2",
+        "name": "Update",
+        "topic": "zigbee2mqtt/bridge/ota_update/update",
+        "qos": "",
+        "retain": "",
+        "broker": "e314300a.e8a55",
+        "x": 3300,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "fc7d2eed698a2c4a",
+        "type": "inject",
+        "z": "3f4bfd26.20bba2",
+        "name": "",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "false",
+        "payloadType": "bool",
+        "x": 2830,
+        "y": 540,
+        "wires": [
+            [
+                "8849b59d18a63b57"
+            ]
+        ]
+    },
+    {
+        "id": "8849b59d18a63b57",
+        "type": "change",
+        "z": "3f4bfd26.20bba2",
+        "name": "disable",
+        "rules": [
+            {
+                "t": "set",
+                "p": "enabled",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2960,
+        "y": 540,
+        "wires": [
+            [
+                "4a75cb652a5490e2"
+            ]
+        ]
+    },
+    {
+        "id": "a205ebfe9bb76b8e",
+        "type": "change",
+        "z": "3f4bfd26.20bba2",
+        "name": "temperature",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.humidity",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2830,
+        "y": 460,
+        "wires": [
+            [
+                "c90850085d9bbfbb"
+            ]
+        ]
+    },
+    {
+        "id": "c90850085d9bbfbb",
+        "type": "ui_gauge",
+        "z": "3f4bfd26.20bba2",
+        "name": "",
+        "group": "4229bceb.57ece4",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Clima Sensor 1 humidity",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#ff0000",
+            "#e6e600",
+            "#80ff00"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 3050,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "e314300a.e8a55",
+        "type": "mqtt-broker",
+        "name": "Server-Mqtt",
+        "broker": "servy.fritz.box",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "4229bceb.57ece4",
+        "type": "ui_group",
+        "name": "Zigbee",
+        "tab": "b128bba3.f99e38",
+        "order": 5,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "b128bba3.f99e38",
+        "type": "ui_tab",
+        "name": "Einstellungen",
+        "icon": "dashboard",
+        "order": 6,
+        "disabled": false,
+        "hidden": false
+    }
+]
