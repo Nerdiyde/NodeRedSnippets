@@ -1,0 +1,375 @@
+[
+    {
+        "id": "64ad4f43.c6771",
+        "type": "fritzbox-in",
+        "z": "2e68d900.994fb",
+        "device": "358f95ae.ef43ea",
+        "name": "",
+        "service": "urn:dslforum-org:service:DeviceConfig:1",
+        "action": "X_AVM-DE_CreateUrlSID",
+        "arguments": "{}",
+        "x": 370,
+        "y": 1040,
+        "wires": [
+            [
+                "80a66464.d3aa68"
+            ]
+        ]
+    },
+    {
+        "id": "a581ebc8.86a228",
+        "type": "debug",
+        "z": "2e68d900.994fb",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 730,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "17a38f2f.19c211",
+        "type": "template",
+        "z": "2e68d900.994fb",
+        "name": "gettemp",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "/webservices/homeautoswitch.lua?ain={{ain}}&switchcmd=gettemperature&sid={{payload.NewX_AVM-DE_UrlSID}}",
+        "output": "str",
+        "x": 220,
+        "y": 1100,
+        "wires": [
+            [
+                "89749077.23e67"
+            ]
+        ]
+    },
+    {
+        "id": "89749077.23e67",
+        "type": "http request",
+        "z": "2e68d900.994fb",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://fritz.box:443{{{payload}}}",
+        "tls": "4d003b96.a44bf4",
+        "proxy": "",
+        "authType": "",
+        "x": 390,
+        "y": 1100,
+        "wires": [
+            [
+                "a93716302c6adf74"
+            ]
+        ]
+    },
+    {
+        "id": "80a66464.d3aa68",
+        "type": "change",
+        "z": "2e68d900.994fb",
+        "name": "clean SID",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload.NewX_AVM-DE_UrlSID",
+                "pt": "msg",
+                "from": "sid=",
+                "fromt": "str",
+                "to": "",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "ain",
+                "pt": "msg",
+                "to": "dect_repeater_ain_1",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 550,
+        "y": 1040,
+        "wires": [
+            [
+                "17a38f2f.19c211"
+            ]
+        ]
+    },
+    {
+        "id": "49b7d6de.4b7728",
+        "type": "inject",
+        "z": "2e68d900.994fb",
+        "name": "get temp",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "3",
+        "topic": "temp",
+        "payload": "",
+        "payloadType": "date",
+        "x": 200,
+        "y": 1040,
+        "wires": [
+            [
+                "64ad4f43.c6771"
+            ]
+        ]
+    },
+    {
+        "id": "c75c8c17ca33d503",
+        "type": "inject",
+        "z": "2e68d900.994fb",
+        "name": "set ain",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "116570524800",
+        "payloadType": "str",
+        "x": 180,
+        "y": 940,
+        "wires": [
+            [
+                "b4321d89a08b9762"
+            ]
+        ]
+    },
+    {
+        "id": "92d0dc9a18695d49",
+        "type": "change",
+        "z": "2e68d900.994fb",
+        "name": "save ain",
+        "rules": [
+            {
+                "t": "set",
+                "p": "dect_repeater_ain_1",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 600,
+        "y": 940,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a93716302c6adf74",
+        "type": "function",
+        "z": "2e68d900.994fb",
+        "name": "convert value",
+        "func": "msg.payload = parseInt(msg.payload, 10)/10;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 570,
+        "y": 1100,
+        "wires": [
+            [
+                "a581ebc8.86a228",
+                "4a342158c72df4ad",
+                "1a537787.523048"
+            ]
+        ]
+    },
+    {
+        "id": "4a342158c72df4ad",
+        "type": "ui_gauge",
+        "z": "2e68d900.994fb",
+        "name": "",
+        "group": "3f12fa09dae9d974",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "FRITZ!DECT Repeater temperature",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": "10",
+        "max": "40",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 820,
+        "y": 1140,
+        "wires": []
+    },
+    {
+        "id": "b4321d89a08b9762",
+        "type": "ui_text_input",
+        "z": "2e68d900.994fb",
+        "name": "",
+        "label": "FRITZ!DECT Repeater AIN",
+        "tooltip": "Enter the AIN of your DECT Repeater",
+        "group": "3f12fa09dae9d974",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "mode": "text",
+        "delay": 300,
+        "topic": "topic",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "msg",
+        "x": 390,
+        "y": 940,
+        "wires": [
+            [
+                "92d0dc9a18695d49"
+            ]
+        ]
+    },
+    {
+        "id": "ef984f68c56611b9",
+        "type": "ui_button",
+        "z": "2e68d900.994fb",
+        "name": "",
+        "group": "3f12fa09dae9d974",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Update temperature",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 210,
+        "y": 980,
+        "wires": [
+            [
+                "64ad4f43.c6771"
+            ]
+        ]
+    },
+    {
+        "id": "5aedfa40.c65e64",
+        "type": "ui_text",
+        "z": "2e68d900.994fb",
+        "group": "3f12fa09dae9d974",
+        "order": 3,
+        "width": "6",
+        "height": "2",
+        "name": "",
+        "label": "Last update",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "className": "",
+        "x": 750,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "24c93ecceee0179e",
+        "type": "debug",
+        "z": "2e68d900.994fb",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 730,
+        "y": 1220,
+        "wires": []
+    },
+    {
+        "id": "1a537787.523048",
+        "type": "function",
+        "z": "2e68d900.994fb",
+        "name": "",
+        "func": "msg.payload=Date(Date.now());\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 580,
+        "y": 1180,
+        "wires": [
+            [
+                "5aedfa40.c65e64",
+                "24c93ecceee0179e"
+            ]
+        ]
+    },
+    {
+        "id": "358f95ae.ef43ea",
+        "type": "fritzbox-config",
+        "name": "fritzBox",
+        "host": "fritz.box",
+        "port": "49443",
+        "ssl": true,
+        "user": "Fabeulous"
+    },
+    {
+        "id": "4d003b96.a44bf4",
+        "type": "tls-config",
+        "name": "",
+        "cert": "",
+        "key": "",
+        "ca": "",
+        "certname": "",
+        "keyname": "",
+        "caname": "",
+        "servername": "",
+        "verifyservercert": false
+    },
+    {
+        "id": "3f12fa09dae9d974",
+        "type": "ui_group",
+        "name": "FRITZ!DECT Repeater",
+        "tab": "5f53397e800d4085",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "5f53397e800d4085",
+        "type": "ui_tab",
+        "name": "Status",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
