@@ -1,0 +1,668 @@
+[
+    {
+        "id": "6542ef1a0af29f95",
+        "type": "mqtt in",
+        "z": "657a8b3.1526074",
+        "name": "4xTuyaSwitch 1",
+        "topic": "zigbee2mqtt/0xXXX",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "e314300a.e8a55",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 2120,
+        "y": 1200,
+        "wires": [
+            [
+                "d0604bd11e3fbc05"
+            ]
+        ]
+    },
+    {
+        "id": "d0604bd11e3fbc05",
+        "type": "json",
+        "z": "657a8b3.1526074",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 2270,
+        "y": 1200,
+        "wires": [
+            [
+                "738a48ec1f915a7b",
+                "71c71f651f5b69ab",
+                "9e9e89663e84d3e5",
+                "3fd3fbc55e8f68fd",
+                "1fa509d51e1a6305"
+            ]
+        ]
+    },
+    {
+        "id": "738a48ec1f915a7b",
+        "type": "debug",
+        "z": "657a8b3.1526074",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 2430,
+        "y": 1140,
+        "wires": []
+    },
+    {
+        "id": "71c71f651f5b69ab",
+        "type": "switch",
+        "z": "657a8b3.1526074",
+        "name": "",
+        "property": "payload.action",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1_single",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "2_single",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "3_single",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "4_single",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "1_hold",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "2_hold",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "3_hold",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "4_hold",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "1_double",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "2_double",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "3_double",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "4_double",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 12,
+        "x": 2430,
+        "y": 1260,
+        "wires": [
+            [
+                "76c483a95f89a656"
+            ],
+            [
+                "1dd00e7f2a7a0776"
+            ],
+            [
+                "828a9c7e14a2de62"
+            ],
+            [
+                "63e905e1ae2b86e9"
+            ],
+            [
+                "cc701a5c7540eb83"
+            ],
+            [
+                "1809b4de88b2e4d3"
+            ],
+            [
+                "66640abb09a29d09"
+            ],
+            [
+                "08432c4a1abf1c55"
+            ],
+            [
+                "8412e1b99107b76a"
+            ],
+            [
+                "c0b3c3567f960694"
+            ],
+            [
+                "06daff4f4a318be5"
+            ],
+            [
+                "587197ba1c720c7e"
+            ]
+        ]
+    },
+    {
+        "id": "9e9e89663e84d3e5",
+        "type": "change",
+        "z": "657a8b3.1526074",
+        "name": "battery",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.battery",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2440,
+        "y": 1380,
+        "wires": [
+            [
+                "0bf5049b38f79631",
+                "5a9fe05b1d346746"
+            ]
+        ]
+    },
+    {
+        "id": "3fd3fbc55e8f68fd",
+        "type": "change",
+        "z": "657a8b3.1526074",
+        "name": "linkquality",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.linkquality",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2440,
+        "y": 1420,
+        "wires": [
+            [
+                "e8e5535ca2ab67b2"
+            ]
+        ]
+    },
+    {
+        "id": "0bf5049b38f79631",
+        "type": "ui_gauge",
+        "z": "657a8b3.1526074",
+        "name": "",
+        "group": "82d4e31366e76e39",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "4xTuYa switch battery",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#ff0000",
+            "#e6e600",
+            "#80ff00"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 2690,
+        "y": 1380,
+        "wires": []
+    },
+    {
+        "id": "e8e5535ca2ab67b2",
+        "type": "ui_gauge",
+        "z": "657a8b3.1526074",
+        "name": "",
+        "group": "82d4e31366e76e39",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "4xTuYa switch signal",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#ff0000",
+            "#e6e600",
+            "#80ff00"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 2690,
+        "y": 1420,
+        "wires": []
+    },
+    {
+        "id": "ca2cd0caa998e5d0",
+        "type": "comment",
+        "z": "657a8b3.1526074",
+        "name": "4x Tuya switch TS0044: ",
+        "info": "",
+        "x": 2120,
+        "y": 1080,
+        "wires": []
+    },
+    {
+        "id": "5a9fe05b1d346746",
+        "type": "function",
+        "z": "657a8b3.1526074",
+        "name": "check",
+        "func": "    flow.set(\"batteryEmpty4xTuYa1\", (msg.payload<=20));\n    msg.payload=(msg.payload<=20);\n    \nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2870,
+        "y": 1380,
+        "wires": [
+            [
+                "057b4df79cf04fc8",
+                "40465a7cdec3622e"
+            ]
+        ]
+    },
+    {
+        "id": "057b4df79cf04fc8",
+        "type": "trigger",
+        "z": "657a8b3.1526074",
+        "name": "",
+        "op1": "Battery level of 4xTuYa switch is below 20%.",
+        "op2": "0",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "0",
+        "extend": false,
+        "overrideDelay": false,
+        "units": "ms",
+        "reset": "false",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 2910,
+        "y": 1420,
+        "wires": [
+            [
+                "b9c21adf1d38de0c"
+            ]
+        ]
+    },
+    {
+        "id": "40465a7cdec3622e",
+        "type": "debug",
+        "z": "657a8b3.1526074",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 3010,
+        "y": 1380,
+        "wires": []
+    },
+    {
+        "id": "b9c21adf1d38de0c",
+        "type": "link out",
+        "z": "657a8b3.1526074",
+        "name": "switch_low_bat_alarm",
+        "links": [
+            "315c6c21.332d64",
+            "e25be39c.62b32",
+            "e056fd99.d1485",
+            "ba9aeb06.abafd8",
+            "fde57766.cf3338"
+        ],
+        "x": 3055,
+        "y": 1420,
+        "wires": []
+    },
+    {
+        "id": "1fa509d51e1a6305",
+        "type": "change",
+        "z": "657a8b3.1526074",
+        "name": "voltage",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.voltage",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2440,
+        "y": 1460,
+        "wires": [
+            [
+                "bf91a841614a3cb6"
+            ]
+        ]
+    },
+    {
+        "id": "bf91a841614a3cb6",
+        "type": "ui_gauge",
+        "z": "657a8b3.1526074",
+        "name": "",
+        "group": "82d4e31366e76e39",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "4xTuYa switch battery voltage",
+        "label": "mV",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "3000",
+        "colors": [
+            "#ff0000",
+            "#e6e600",
+            "#80ff00"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 2720,
+        "y": 1460,
+        "wires": []
+    },
+    {
+        "id": "76c483a95f89a656",
+        "type": "debug",
+        "z": "657a8b3.1526074",
+        "name": "Short press 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2740,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "1dd00e7f2a7a0776",
+        "type": "debug",
+        "z": "657a8b3.1526074",
+        "name": "Short press 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2740,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "828a9c7e14a2de62",
+        "type": "debug",
+        "z": "657a8b3.1526074",
+        "name": "Short press 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2740,
+        "y": 1140,
+        "wires": []
+    },
+    {
+        "id": "63e905e1ae2b86e9",
+        "type": "debug",
+        "z": "657a8b3.1526074",
+        "name": "Short press 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2740,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "cc701a5c7540eb83",
+        "type": "debug",
+        "z": "657a8b3.1526074",
+        "name": "Long press 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2970,
+        "y": 1140,
+        "wires": []
+    },
+    {
+        "id": "1809b4de88b2e4d3",
+        "type": "debug",
+        "z": "657a8b3.1526074",
+        "name": "Long press 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2970,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "66640abb09a29d09",
+        "type": "debug",
+        "z": "657a8b3.1526074",
+        "name": "Long press 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2970,
+        "y": 1220,
+        "wires": []
+    },
+    {
+        "id": "08432c4a1abf1c55",
+        "type": "debug",
+        "z": "657a8b3.1526074",
+        "name": "Long press 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2970,
+        "y": 1260,
+        "wires": []
+    },
+    {
+        "id": "8412e1b99107b76a",
+        "type": "debug",
+        "z": "657a8b3.1526074",
+        "name": "Double press 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2740,
+        "y": 1220,
+        "wires": []
+    },
+    {
+        "id": "c0b3c3567f960694",
+        "type": "debug",
+        "z": "657a8b3.1526074",
+        "name": "Double press 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2740,
+        "y": 1260,
+        "wires": []
+    },
+    {
+        "id": "06daff4f4a318be5",
+        "type": "debug",
+        "z": "657a8b3.1526074",
+        "name": "Double press 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2740,
+        "y": 1300,
+        "wires": []
+    },
+    {
+        "id": "587197ba1c720c7e",
+        "type": "debug",
+        "z": "657a8b3.1526074",
+        "name": "Double press 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2740,
+        "y": 1340,
+        "wires": []
+    },
+    {
+        "id": "e314300a.e8a55",
+        "type": "mqtt-broker",
+        "name": "Server-Mqtt",
+        "broker": "servy.fritz.box",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "82d4e31366e76e39",
+        "type": "ui_group",
+        "name": "4xTuYa switch",
+        "tab": "b881d91c.f73d98",
+        "order": 5,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "b881d91c.f73d98",
+        "type": "ui_tab",
+        "name": "Status",
+        "icon": "dashboard",
+        "order": 4,
+        "disabled": false,
+        "hidden": false
+    }
+]
