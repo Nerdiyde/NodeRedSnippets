@@ -1,0 +1,465 @@
+[
+    {
+        "id": "c87c68283b8930d4",
+        "type": "mqtt in",
+        "z": "667cd0383cc846af",
+        "name": "Door-Contact 1",
+        "topic": "zigbee2mqtt/0xXXX",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "e314300a.e8a55",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 2060,
+        "y": 500,
+        "wires": [
+            [
+                "646e2c4ff7f6f961"
+            ]
+        ]
+    },
+    {
+        "id": "646e2c4ff7f6f961",
+        "type": "json",
+        "z": "667cd0383cc846af",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 2230,
+        "y": 500,
+        "wires": [
+            [
+                "97d6f439208205bb",
+                "7864e8602959ceba",
+                "3276256ce551abb0",
+                "0c1857ac73c0c3c6",
+                "3a3bbb8c20b64a33",
+                "1ae0f085521e8a83"
+            ]
+        ]
+    },
+    {
+        "id": "97d6f439208205bb",
+        "type": "debug",
+        "z": "667cd0383cc846af",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 2370,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "7864e8602959ceba",
+        "type": "change",
+        "z": "667cd0383cc846af",
+        "name": "linkquality",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.linkquality",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2380,
+        "y": 540,
+        "wires": [
+            [
+                "ff7e3ea8913bb693"
+            ]
+        ]
+    },
+    {
+        "id": "3276256ce551abb0",
+        "type": "change",
+        "z": "667cd0383cc846af",
+        "name": "contact",
+        "rules": [
+            {
+                "t": "set",
+                "p": "doorContact1-State",
+                "pt": "flow",
+                "to": "payload.contact",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.contact",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "doorContact1-timestampLastState",
+                "pt": "flow",
+                "to": "",
+                "tot": "date"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2380,
+        "y": 580,
+        "wires": [
+            [
+                "1c6f86b89d4f06e6"
+            ]
+        ]
+    },
+    {
+        "id": "0c1857ac73c0c3c6",
+        "type": "change",
+        "z": "667cd0383cc846af",
+        "name": "battery",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.battery",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2380,
+        "y": 620,
+        "wires": [
+            [
+                "ae2abf47c891b19f"
+            ]
+        ]
+    },
+    {
+        "id": "3a3bbb8c20b64a33",
+        "type": "change",
+        "z": "667cd0383cc846af",
+        "name": "voltage",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.voltage",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2380,
+        "y": 700,
+        "wires": [
+            [
+                "fb7d34d033d9bcbb"
+            ]
+        ]
+    },
+    {
+        "id": "52ab500df34a2ef2",
+        "type": "comment",
+        "z": "667cd0383cc846af",
+        "name": "Door-Contact Xiaomi Aqara MCCGQ11LM",
+        "info": "",
+        "x": 2120,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "ff7e3ea8913bb693",
+        "type": "ui_gauge",
+        "z": "667cd0383cc846af",
+        "name": "",
+        "group": "316eb3990d51122a",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Door-Contact 1 signal",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#ff0000",
+            "#e6e600",
+            "#80ff00"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 2600,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "ae2abf47c891b19f",
+        "type": "ui_gauge",
+        "z": "667cd0383cc846af",
+        "name": "",
+        "group": "316eb3990d51122a",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Door-Contact 1 battery",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#ff0000",
+            "#e6e600",
+            "#80ff00"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 2600,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "1c6f86b89d4f06e6",
+        "type": "function",
+        "z": "667cd0383cc846af",
+        "name": "convert doorState",
+        "func": "\nvar date=Date.now();\n\nvar seconds=(((date % 3600000) % 60000) / 1000).toFixed(0);\nvar minutes=((date % 3600000) / 60000).toFixed(0);\nvar hours=date / 3600000;\nvar ms=((date % 3600000) % 60000) % 1000;\nvar days=hours / 24;\nvar weeks=(days / 7).toFixed(0);\n    days=(days % 7).toFixed(0);\n    hours=(hours % 24).toFixed(0);\n    \nif (hours<10)\n{\n    hours= \"0\"+String(hours);\n}    \n\nif (minutes<10)\n{\n    minutes= \"0\"+String(minutes);\n}\n\nif (seconds<10)\n{\n    seconds= \"0\"+String(seconds);\n}\n \n//convert time:\nvar time=String(hours) + \":\" + String(minutes) + \":\" + String(seconds);\n\nvar output= flow.get(\"doorContact1-State\")? \"opened at (\"+time+\")\": \"closed at (\"+time+\")\";\nvar msgOut= {payload: output};\nreturn msgOut;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2590,
+        "y": 580,
+        "wires": [
+            [
+                "8f5a378225b50414"
+            ]
+        ]
+    },
+    {
+        "id": "8f5a378225b50414",
+        "type": "ui_text",
+        "z": "667cd0383cc846af",
+        "group": "316eb3990d51122a",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Freezer door",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "className": "",
+        "x": 2790,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "1ae0f085521e8a83",
+        "type": "change",
+        "z": "667cd0383cc846af",
+        "name": "temperature",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.temperature",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2390,
+        "y": 660,
+        "wires": [
+            [
+                "8b8d6952d1ddcb47"
+            ]
+        ]
+    },
+    {
+        "id": "8b8d6952d1ddcb47",
+        "type": "ui_gauge",
+        "z": "667cd0383cc846af",
+        "name": "",
+        "group": "316eb3990d51122a",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Door Contact 1 temperature",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "50",
+        "colors": [
+            "#ff0000",
+            "#e6e600",
+            "#80ff00"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 2620,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "eda9c3c1bedb805d",
+        "type": "inject",
+        "z": "667cd0383cc846af",
+        "name": "simulate opened",
+        "props": [
+            {
+                "p": "payload.contact",
+                "v": "false",
+                "vt": "bool"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 2160,
+        "y": 560,
+        "wires": [
+            [
+                "3276256ce551abb0"
+            ]
+        ]
+    },
+    {
+        "id": "b4ee45b65fd9da92",
+        "type": "inject",
+        "z": "667cd0383cc846af",
+        "name": "simulate closed",
+        "props": [
+            {
+                "p": "payload.contact",
+                "v": "true",
+                "vt": "bool"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 2160,
+        "y": 600,
+        "wires": [
+            [
+                "3276256ce551abb0"
+            ]
+        ]
+    },
+    {
+        "id": "fb7d34d033d9bcbb",
+        "type": "ui_gauge",
+        "z": "667cd0383cc846af",
+        "name": "",
+        "group": "316eb3990d51122a",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Door-Contact 1 voltage",
+        "label": "mV",
+        "format": "{{value}}",
+        "min": "2500",
+        "max": "3300",
+        "colors": [
+            "#ff0000",
+            "#e6e600",
+            "#80ff00"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 2610,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "e314300a.e8a55",
+        "type": "mqtt-broker",
+        "name": "Server-Mqtt",
+        "broker": "servy.fritz.box",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "316eb3990d51122a",
+        "type": "ui_group",
+        "name": "Xiaomi Aqara MCCGQ11LM",
+        "tab": "b881d91c.f73d98",
+        "order": 6,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "b881d91c.f73d98",
+        "type": "ui_tab",
+        "name": "Status",
+        "icon": "dashboard",
+        "order": 4,
+        "disabled": false,
+        "hidden": false
+    }
+]
