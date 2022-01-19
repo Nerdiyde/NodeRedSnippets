@@ -1,0 +1,920 @@
+[
+    {
+        "id": "c1b73a94caac413e",
+        "type": "mqtt in",
+        "z": "657a8b3.1526074",
+        "name": "STYRBAR switch 1",
+        "topic": "zigbee2mqtt/0xXXX",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "e314300a.e8a55",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 1810,
+        "y": 3040,
+        "wires": [
+            [
+                "49a104efcc67239f"
+            ]
+        ]
+    },
+    {
+        "id": "49a104efcc67239f",
+        "type": "json",
+        "z": "657a8b3.1526074",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1970,
+        "y": 3040,
+        "wires": [
+            [
+                "b883d1758c09ed72",
+                "a5de0169563e1acd",
+                "9e9ecd0f2770cb8c",
+                "a44b59c83a464f6d",
+                "bc41904653e3bf1d"
+            ]
+        ]
+    },
+    {
+        "id": "b883d1758c09ed72",
+        "type": "debug",
+        "z": "657a8b3.1526074",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 2130,
+        "y": 2860,
+        "wires": []
+    },
+    {
+        "id": "a5de0169563e1acd",
+        "type": "switch",
+        "z": "657a8b3.1526074",
+        "name": "",
+        "property": "payload.action",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "on",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "off",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "brightness_move_up",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "brightness_move_down",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "arrow_left_click",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "arrow_right_click",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "arrow_left_hold",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "arrow_right_hold",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "arrow_left_release",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "arrow_right_release",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 10,
+        "x": 2130,
+        "y": 2960,
+        "wires": [
+            [
+                "220de486ee8a44fb"
+            ],
+            [
+                "d416ed25c97dd6d3"
+            ],
+            [
+                "fcf0c3375e8eb8e2"
+            ],
+            [
+                "9dc9193d86860659"
+            ],
+            [
+                "0c5f122a4e3ffa37"
+            ],
+            [
+                "8ef9b5cb3dfcb4c7"
+            ],
+            [
+                "5a225e261ee50164"
+            ],
+            [
+                "f4146b24171b9f69"
+            ],
+            [
+                "b0b1be40a7611544"
+            ],
+            [
+                "ea4519fdde985afd"
+            ]
+        ]
+    },
+    {
+        "id": "9e9ecd0f2770cb8c",
+        "type": "change",
+        "z": "657a8b3.1526074",
+        "name": "battery",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.battery",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2130,
+        "y": 3380,
+        "wires": [
+            [
+                "ef466991263796ac",
+                "552fdbcdc38e5ccd"
+            ]
+        ]
+    },
+    {
+        "id": "a44b59c83a464f6d",
+        "type": "change",
+        "z": "657a8b3.1526074",
+        "name": "linkquality",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.linkquality",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2140,
+        "y": 3420,
+        "wires": [
+            [
+                "348afc84731224bf"
+            ]
+        ]
+    },
+    {
+        "id": "ef466991263796ac",
+        "type": "ui_gauge",
+        "z": "657a8b3.1526074",
+        "name": "",
+        "group": "4229bceb.57ece4",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "STYRBAR switch 1 battery",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#ff0000",
+            "#e6e600",
+            "#80ff00"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 2380,
+        "y": 3380,
+        "wires": []
+    },
+    {
+        "id": "348afc84731224bf",
+        "type": "ui_gauge",
+        "z": "657a8b3.1526074",
+        "name": "",
+        "group": "4229bceb.57ece4",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "STYRBAR switch 1 signal",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#ff0000",
+            "#e6e600",
+            "#80ff00"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 2370,
+        "y": 3420,
+        "wires": []
+    },
+    {
+        "id": "63e4df2573b8e423",
+        "type": "comment",
+        "z": "657a8b3.1526074",
+        "name": "IKEA STYRBAR",
+        "info": "",
+        "x": 1780,
+        "y": 2820,
+        "wires": []
+    },
+    {
+        "id": "552fdbcdc38e5ccd",
+        "type": "function",
+        "z": "657a8b3.1526074",
+        "name": "check",
+        "func": "    flow.set(\"batteryEmptyStyrbar1\", (msg.payload<=20));\n    msg.payload=(msg.payload<=20);\n    \nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2590,
+        "y": 3380,
+        "wires": [
+            [
+                "1126a75d78ddd351",
+                "b4e307abd2e1a3fb"
+            ]
+        ]
+    },
+    {
+        "id": "1126a75d78ddd351",
+        "type": "trigger",
+        "z": "657a8b3.1526074",
+        "name": "",
+        "op1": "Battery level of STYRBAR switch 1 is below 20%.",
+        "op2": "0",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "0",
+        "extend": false,
+        "overrideDelay": false,
+        "units": "ms",
+        "reset": "false",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 2630,
+        "y": 3420,
+        "wires": [
+            [
+                "aaabe76fd99deb1a"
+            ]
+        ]
+    },
+    {
+        "id": "b4e307abd2e1a3fb",
+        "type": "debug",
+        "z": "657a8b3.1526074",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 2730,
+        "y": 3380,
+        "wires": []
+    },
+    {
+        "id": "4f3691539f130552",
+        "type": "ui_button",
+        "z": "657a8b3.1526074",
+        "name": "",
+        "group": "4229bceb.57ece4",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "STYRBAR switch 1 update",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "0xXXX",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "x": 2380,
+        "y": 3340,
+        "wires": [
+            [
+                "ef1c0857e246ccfe"
+            ]
+        ]
+    },
+    {
+        "id": "ef1c0857e246ccfe",
+        "type": "mqtt out",
+        "z": "657a8b3.1526074",
+        "name": "Update",
+        "topic": "zigbee2mqtt/bridge/ota_update/update",
+        "qos": "",
+        "retain": "",
+        "broker": "e314300a.e8a55",
+        "x": 2620,
+        "y": 3340,
+        "wires": []
+    },
+    {
+        "id": "9594bc3733178674",
+        "type": "inject",
+        "z": "657a8b3.1526074",
+        "name": "",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "false",
+        "payloadType": "bool",
+        "x": 2390,
+        "y": 3280,
+        "wires": [
+            [
+                "851b245c3bbced81"
+            ]
+        ]
+    },
+    {
+        "id": "851b245c3bbced81",
+        "type": "change",
+        "z": "657a8b3.1526074",
+        "name": "disable",
+        "rules": [
+            {
+                "t": "set",
+                "p": "enabled",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2520,
+        "y": 3280,
+        "wires": [
+            [
+                "4f3691539f130552"
+            ]
+        ]
+    },
+    {
+        "id": "aaabe76fd99deb1a",
+        "type": "link out",
+        "z": "657a8b3.1526074",
+        "name": "switch_low_bat_alarm",
+        "links": [
+            "315c6c21.332d64",
+            "e25be39c.62b32",
+            "e056fd99.d1485",
+            "ba9aeb06.abafd8",
+            "fde57766.cf3338"
+        ],
+        "x": 2775,
+        "y": 3420,
+        "wires": []
+    },
+    {
+        "id": "bc41904653e3bf1d",
+        "type": "function",
+        "z": "657a8b3.1526074",
+        "name": "update?",
+        "func": "\nmsg.enabled=msg.payload.update.state==\"available\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2140,
+        "y": 3340,
+        "wires": [
+            [
+                "4f3691539f130552"
+            ]
+        ]
+    },
+    {
+        "id": "220de486ee8a44fb",
+        "type": "delay",
+        "z": "657a8b3.1526074",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "0.5",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 2400,
+        "y": 2840,
+        "wires": [
+            [
+                "410b79b41bdb58ca"
+            ]
+        ]
+    },
+    {
+        "id": "d416ed25c97dd6d3",
+        "type": "delay",
+        "z": "657a8b3.1526074",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "0.5",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 2400,
+        "y": 2880,
+        "wires": [
+            [
+                "9a577ea3616fd044"
+            ]
+        ]
+    },
+    {
+        "id": "fcf0c3375e8eb8e2",
+        "type": "delay",
+        "z": "657a8b3.1526074",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "0.5",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 2400,
+        "y": 2920,
+        "wires": [
+            [
+                "bd4e4cb7e8d766fe"
+            ]
+        ]
+    },
+    {
+        "id": "9dc9193d86860659",
+        "type": "delay",
+        "z": "657a8b3.1526074",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "0.5",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 2400,
+        "y": 2960,
+        "wires": [
+            [
+                "6e4e3e3a9789b751"
+            ]
+        ]
+    },
+    {
+        "id": "8ef9b5cb3dfcb4c7",
+        "type": "delay",
+        "z": "657a8b3.1526074",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "0.5",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 2400,
+        "y": 3040,
+        "wires": [
+            [
+                "49c9b9e3d0dacf8b"
+            ]
+        ]
+    },
+    {
+        "id": "0c5f122a4e3ffa37",
+        "type": "delay",
+        "z": "657a8b3.1526074",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "0.5",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 2400,
+        "y": 3000,
+        "wires": [
+            [
+                "e7c0e954e9da4962"
+            ]
+        ]
+    },
+    {
+        "id": "410b79b41bdb58ca",
+        "type": "debug",
+        "z": "657a8b3.1526074",
+        "name": "On",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2610,
+        "y": 2840,
+        "wires": []
+    },
+    {
+        "id": "9a577ea3616fd044",
+        "type": "debug",
+        "z": "657a8b3.1526074",
+        "name": "Off",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2610,
+        "y": 2880,
+        "wires": []
+    },
+    {
+        "id": "bd4e4cb7e8d766fe",
+        "type": "debug",
+        "z": "657a8b3.1526074",
+        "name": "Brightness up",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2640,
+        "y": 2920,
+        "wires": []
+    },
+    {
+        "id": "6e4e3e3a9789b751",
+        "type": "debug",
+        "z": "657a8b3.1526074",
+        "name": "Brightness down",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2650,
+        "y": 2960,
+        "wires": []
+    },
+    {
+        "id": "e7c0e954e9da4962",
+        "type": "debug",
+        "z": "657a8b3.1526074",
+        "name": "arrow_left_click",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2640,
+        "y": 3000,
+        "wires": []
+    },
+    {
+        "id": "49c9b9e3d0dacf8b",
+        "type": "debug",
+        "z": "657a8b3.1526074",
+        "name": "arrow_right_click",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2650,
+        "y": 3040,
+        "wires": []
+    },
+    {
+        "id": "f4146b24171b9f69",
+        "type": "delay",
+        "z": "657a8b3.1526074",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "0.5",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 2400,
+        "y": 3120,
+        "wires": [
+            [
+                "bcfbd42accf92bb8"
+            ]
+        ]
+    },
+    {
+        "id": "5a225e261ee50164",
+        "type": "delay",
+        "z": "657a8b3.1526074",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "0.5",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 2400,
+        "y": 3080,
+        "wires": [
+            [
+                "126434935c2faaad"
+            ]
+        ]
+    },
+    {
+        "id": "126434935c2faaad",
+        "type": "debug",
+        "z": "657a8b3.1526074",
+        "name": "arrow_left_hold",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2640,
+        "y": 3080,
+        "wires": []
+    },
+    {
+        "id": "bcfbd42accf92bb8",
+        "type": "debug",
+        "z": "657a8b3.1526074",
+        "name": "arrow_right_hold",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2650,
+        "y": 3120,
+        "wires": []
+    },
+    {
+        "id": "ea4519fdde985afd",
+        "type": "delay",
+        "z": "657a8b3.1526074",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "0.5",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 2400,
+        "y": 3200,
+        "wires": [
+            [
+                "8c05c9f2ce1373dd"
+            ]
+        ]
+    },
+    {
+        "id": "b0b1be40a7611544",
+        "type": "delay",
+        "z": "657a8b3.1526074",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "0.5",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 2400,
+        "y": 3160,
+        "wires": [
+            [
+                "a0932545e12ba199"
+            ]
+        ]
+    },
+    {
+        "id": "a0932545e12ba199",
+        "type": "debug",
+        "z": "657a8b3.1526074",
+        "name": "arrow_left_release",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2650,
+        "y": 3160,
+        "wires": []
+    },
+    {
+        "id": "8c05c9f2ce1373dd",
+        "type": "debug",
+        "z": "657a8b3.1526074",
+        "name": "arrow_right_release",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2660,
+        "y": 3200,
+        "wires": []
+    },
+    {
+        "id": "e314300a.e8a55",
+        "type": "mqtt-broker",
+        "name": "Server-Mqtt",
+        "broker": "servy.fritz.box",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "4229bceb.57ece4",
+        "type": "ui_group",
+        "name": "Zigbee",
+        "tab": "b128bba3.f99e38",
+        "order": 5,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "b128bba3.f99e38",
+        "type": "ui_tab",
+        "name": "Einstellungen",
+        "icon": "dashboard",
+        "order": 6,
+        "disabled": false,
+        "hidden": false
+    }
+]
