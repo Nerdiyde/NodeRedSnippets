@@ -1,0 +1,539 @@
+[
+    {
+        "id": "97226972fe3c9e4b",
+        "type": "comment",
+        "z": "78b1bede.9b035",
+        "name": "Control Fritz!DECT 200 Socket",
+        "info": "",
+        "x": 1290,
+        "y": 3680,
+        "wires": []
+    },
+    {
+        "id": "6e4c56659be5aed7",
+        "type": "fritz-outlet",
+        "z": "78b1bede.9b035",
+        "connection": "c2e6322e.33404",
+        "name": "",
+        "action": "getSwitchState",
+        "x": 1670,
+        "y": 3860,
+        "wires": [
+            [
+                "1694837231096929",
+                "3c9db4333ebae5b0",
+                "952b7fada7acf799"
+            ]
+        ]
+    },
+    {
+        "id": "8eb8f9d23c15cfc7",
+        "type": "inject",
+        "z": "78b1bede.9b035",
+        "name": "Set socket AIN",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "116300301396",
+        "payloadType": "str",
+        "x": 1320,
+        "y": 3720,
+        "wires": [
+            [
+                "58e77925615e2fec"
+            ]
+        ]
+    },
+    {
+        "id": "58e77925615e2fec",
+        "type": "change",
+        "z": "78b1bede.9b035",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "fritz_socket_1",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1550,
+        "y": 3720,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3c9db4333ebae5b0",
+        "type": "debug",
+        "z": "78b1bede.9b035",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 1850,
+        "y": 3880,
+        "wires": []
+    },
+    {
+        "id": "60032f96614dbd55",
+        "type": "inject",
+        "z": "78b1bede.9b035",
+        "name": "Get socket state",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payloadType": "str",
+        "x": 1330,
+        "y": 3860,
+        "wires": [
+            [
+                "b29c9ada30bd1741"
+            ]
+        ]
+    },
+    {
+        "id": "b29c9ada30bd1741",
+        "type": "change",
+        "z": "78b1bede.9b035",
+        "name": "inject AIN",
+        "rules": [
+            {
+                "t": "set",
+                "p": "ain",
+                "pt": "msg",
+                "to": "fritz_socket_1",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1500,
+        "y": 3860,
+        "wires": [
+            [
+                "6e4c56659be5aed7",
+                "9be6cc70446a9de9",
+                "da9554bfebc1c20b",
+                "18f651ad86d7a374"
+            ]
+        ]
+    },
+    {
+        "id": "748c94f42c7fa855",
+        "type": "ui_text",
+        "z": "78b1bede.9b035",
+        "group": "068803bf8356fe46",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Online status",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 2050,
+        "y": 3840,
+        "wires": []
+    },
+    {
+        "id": "1694837231096929",
+        "type": "function",
+        "z": "78b1bede.9b035",
+        "name": "convert state",
+        "func": "\nmsg.payload=msg.payload==\"1\" ? \"Online\" : \"Offline\";\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1860,
+        "y": 3840,
+        "wires": [
+            [
+                "748c94f42c7fa855"
+            ]
+        ]
+    },
+    {
+        "id": "9be6cc70446a9de9",
+        "type": "fritz-outlet",
+        "z": "78b1bede.9b035",
+        "connection": "c2e6322e.33404",
+        "name": "",
+        "action": "getTemperature",
+        "x": 1670,
+        "y": 3940,
+        "wires": [
+            [
+                "2ed37fbac937b171",
+                "fed55c687d2f6a5f"
+            ]
+        ]
+    },
+    {
+        "id": "fed55c687d2f6a5f",
+        "type": "ui_gauge",
+        "z": "78b1bede.9b035",
+        "name": "",
+        "group": "068803bf8356fe46",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "FRITZ!DECT 200 socket temperature",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": "10",
+        "max": "40",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 1995,
+        "y": 3969.66650390625,
+        "wires": []
+    },
+    {
+        "id": "2ed37fbac937b171",
+        "type": "debug",
+        "z": "78b1bede.9b035",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1895,
+        "y": 3929.66650390625,
+        "wires": []
+    },
+    {
+        "id": "da9554bfebc1c20b",
+        "type": "fritz-outlet",
+        "z": "78b1bede.9b035",
+        "connection": "c2e6322e.33404",
+        "name": "",
+        "action": "getSwitchPower",
+        "x": 1670,
+        "y": 4020,
+        "wires": [
+            [
+                "4c661bcb07bed081",
+                "49b387b078230fb0"
+            ]
+        ]
+    },
+    {
+        "id": "49b387b078230fb0",
+        "type": "ui_gauge",
+        "z": "78b1bede.9b035",
+        "name": "",
+        "group": "068803bf8356fe46",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "FRITZ!DECT 200 socket power",
+        "label": "W",
+        "format": "{{value}}",
+        "min": "0",
+        "max": "3000",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 1975,
+        "y": 4049.66650390625,
+        "wires": []
+    },
+    {
+        "id": "4c661bcb07bed081",
+        "type": "debug",
+        "z": "78b1bede.9b035",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1895,
+        "y": 4009.66650390625,
+        "wires": []
+    },
+    {
+        "id": "18f651ad86d7a374",
+        "type": "fritz-outlet",
+        "z": "78b1bede.9b035",
+        "connection": "c2e6322e.33404",
+        "name": "",
+        "action": "getSwitchEnergy",
+        "x": 1670,
+        "y": 4100,
+        "wires": [
+            [
+                "0aaa57d50fa4636d",
+                "bca57f2b493cea7c"
+            ]
+        ]
+    },
+    {
+        "id": "0aaa57d50fa4636d",
+        "type": "debug",
+        "z": "78b1bede.9b035",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1895,
+        "y": 4089.66650390625,
+        "wires": []
+    },
+    {
+        "id": "1d540a9221cc7d3c",
+        "type": "debug",
+        "z": "78b1bede.9b035",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 2050,
+        "y": 4240,
+        "wires": []
+    },
+    {
+        "id": "32671ce663283dd7",
+        "type": "inject",
+        "z": "78b1bede.9b035",
+        "name": "Set on",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "x": 1310,
+        "y": 4240,
+        "wires": [
+            [
+                "12c463ff4c576b7b"
+            ]
+        ]
+    },
+    {
+        "id": "12c463ff4c576b7b",
+        "type": "change",
+        "z": "78b1bede.9b035",
+        "name": "inject AIN",
+        "rules": [
+            {
+                "t": "set",
+                "p": "ain",
+                "pt": "msg",
+                "to": "fritz_socket_1",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1700,
+        "y": 4240,
+        "wires": [
+            [
+                "28fb6aedefdb8323"
+            ]
+        ]
+    },
+    {
+        "id": "4abda68bfe37c00b",
+        "type": "inject",
+        "z": "78b1bede.9b035",
+        "name": "Set off",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "false",
+        "payloadType": "bool",
+        "x": 1310,
+        "y": 4280,
+        "wires": [
+            [
+                "12c463ff4c576b7b"
+            ]
+        ]
+    },
+    {
+        "id": "4f4f4755b867d809",
+        "type": "ui_switch",
+        "z": "78b1bede.9b035",
+        "name": "",
+        "label": "State",
+        "tooltip": "Activate and deactivate the socket.",
+        "group": "068803bf8356fe46",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": "true",
+        "topic": "",
+        "topicType": "str",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": true,
+        "className": "",
+        "x": 1510,
+        "y": 4240,
+        "wires": [
+            [
+                "12c463ff4c576b7b"
+            ]
+        ]
+    },
+    {
+        "id": "952b7fada7acf799",
+        "type": "function",
+        "z": "78b1bede.9b035",
+        "name": "convert state",
+        "func": "\nmsg.payload=msg.payload==1;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1310,
+        "y": 4200,
+        "wires": [
+            [
+                "4f4f4755b867d809"
+            ]
+        ]
+    },
+    {
+        "id": "28fb6aedefdb8323",
+        "type": "fritz-outlet",
+        "z": "78b1bede.9b035",
+        "connection": "c2e6322e.33404",
+        "name": "",
+        "action": "setSwitchState",
+        "x": 1870,
+        "y": 4240,
+        "wires": [
+            [
+                "1d540a9221cc7d3c"
+            ]
+        ]
+    },
+    {
+        "id": "bca57f2b493cea7c",
+        "type": "ui_text",
+        "z": "78b1bede.9b035",
+        "group": "068803bf8356fe46",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "FRITZ!DECT 200 socket energy",
+        "format": "{{msg.payload}} kWh",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1970,
+        "y": 4140,
+        "wires": []
+    },
+    {
+        "id": "c2e6322e.33404",
+        "type": "fritz-api",
+        "name": "fritzBox",
+        "host": "http://fritz.box",
+        "strictSSL": true
+    },
+    {
+        "id": "068803bf8356fe46",
+        "type": "ui_group",
+        "name": "FRITZ!DECT 200 socket",
+        "tab": "748155f1.44babc",
+        "order": 25,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "748155f1.44babc",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    }
+]
