@@ -1,0 +1,747 @@
+[
+    {
+        "id": "a6e0447ebbdd075f",
+        "type": "mqtt in",
+        "z": "3f4bfd26.20bba2",
+        "name": "SYMFONISK 1",
+        "topic": "zigbee2mqtt/0xXXX",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "e314300a.e8a55",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 1740,
+        "y": 1880,
+        "wires": [
+            [
+                "9a0373423054b636"
+            ]
+        ]
+    },
+    {
+        "id": "9a0373423054b636",
+        "type": "json",
+        "z": "3f4bfd26.20bba2",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1910,
+        "y": 1880,
+        "wires": [
+            [
+                "7445db7e46ce823a",
+                "c788934c4ac443f9",
+                "ca9b78db6ba9380a",
+                "6976cc748c17a226",
+                "226e85fffd0c8663",
+                "92a856c684ccc980",
+                "3d35673b0a89e936"
+            ]
+        ]
+    },
+    {
+        "id": "7445db7e46ce823a",
+        "type": "debug",
+        "z": "3f4bfd26.20bba2",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 2070,
+        "y": 1800,
+        "wires": []
+    },
+    {
+        "id": "3d35673b0a89e936",
+        "type": "switch",
+        "z": "3f4bfd26.20bba2",
+        "name": "",
+        "property": "payload.action",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "brightness_move_up",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "brightness_move_down",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "toggle",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "brightness_step_up",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "brightness_step_down",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "brightness_stop",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 6,
+        "x": 2070,
+        "y": 1880,
+        "wires": [
+            [
+                "6716b1502e25dd0f",
+                "4f893b63f6ad0c5a"
+            ],
+            [
+                "bc26a3f8a9376292",
+                "287ca553bfb99b73"
+            ],
+            [
+                "0a506a85e16e52c3",
+                "0dd191d6c5fa3c58"
+            ],
+            [
+                "46b4f0d65e982689",
+                "035e6e1373e13965"
+            ],
+            [
+                "1638a709719b454b",
+                "e70e41a0105baaea"
+            ],
+            [
+                "866eb9dfa8599c27",
+                "0cd5d63032f996cc"
+            ]
+        ]
+    },
+    {
+        "id": "c788934c4ac443f9",
+        "type": "change",
+        "z": "3f4bfd26.20bba2",
+        "name": "battery",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.battery",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2080,
+        "y": 2000,
+        "wires": [
+            [
+                "c4d53c42b4eaaef1",
+                "110a0f275a30fb49"
+            ]
+        ]
+    },
+    {
+        "id": "ca9b78db6ba9380a",
+        "type": "change",
+        "z": "3f4bfd26.20bba2",
+        "name": "linkquality",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.linkquality",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2080,
+        "y": 2040,
+        "wires": [
+            [
+                "50c01591407cf348"
+            ]
+        ]
+    },
+    {
+        "id": "c4d53c42b4eaaef1",
+        "type": "ui_gauge",
+        "z": "3f4bfd26.20bba2",
+        "name": "",
+        "group": "b49ca73f946d308a",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Battery",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#ff0000",
+            "#e6e600",
+            "#80ff00"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 2300,
+        "y": 2000,
+        "wires": []
+    },
+    {
+        "id": "8be8f5bd0f5cd3eb",
+        "type": "ui_gauge",
+        "z": "3f4bfd26.20bba2",
+        "name": "",
+        "group": "b49ca73f946d308a",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Signal",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#ff0000",
+            "#e6e600",
+            "#80ff00"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 2450,
+        "y": 2040,
+        "wires": []
+    },
+    {
+        "id": "333fed054be21b15",
+        "type": "comment",
+        "z": "3f4bfd26.20bba2",
+        "name": "SYMFONISK  E1744: Livingroom",
+        "info": "",
+        "x": 1750,
+        "y": 1700,
+        "wires": []
+    },
+    {
+        "id": "110a0f275a30fb49",
+        "type": "function",
+        "z": "3f4bfd26.20bba2",
+        "name": "check",
+        "func": "    flow.set(\"batteryEmpty-rotaryDimmer1\", (msg.payload<=20));\n    msg.payload=(msg.payload<=20);\n    \nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 2450,
+        "y": 2000,
+        "wires": [
+            [
+                "01795b0a769cda09",
+                "4f3b79be3b1cc5a6"
+            ]
+        ]
+    },
+    {
+        "id": "01795b0a769cda09",
+        "type": "trigger",
+        "z": "3f4bfd26.20bba2",
+        "name": "",
+        "op1": "Battery level of SYMFONSIK E1744 remote is below 20%.",
+        "op2": "0",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "0",
+        "extend": false,
+        "overrideDelay": false,
+        "units": "ms",
+        "reset": "false",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 2630,
+        "y": 2000,
+        "wires": [
+            [
+                "e4d0a335d34ac945"
+            ]
+        ]
+    },
+    {
+        "id": "4f3b79be3b1cc5a6",
+        "type": "debug",
+        "z": "3f4bfd26.20bba2",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 2610,
+        "y": 2040,
+        "wires": []
+    },
+    {
+        "id": "6716b1502e25dd0f",
+        "type": "link out",
+        "z": "3f4bfd26.20bba2",
+        "name": "",
+        "links": [],
+        "x": 2255,
+        "y": 1760,
+        "wires": []
+    },
+    {
+        "id": "6976cc748c17a226",
+        "type": "change",
+        "z": "3f4bfd26.20bba2",
+        "name": "rate",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.rate",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2070,
+        "y": 2080,
+        "wires": [
+            [
+                "89c721d04b759c63"
+            ]
+        ]
+    },
+    {
+        "id": "226e85fffd0c8663",
+        "type": "change",
+        "z": "3f4bfd26.20bba2",
+        "name": "brightness",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.brightness",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2090,
+        "y": 2120,
+        "wires": [
+            [
+                "4786cd23b79ec1f0"
+            ]
+        ]
+    },
+    {
+        "id": "89c721d04b759c63",
+        "type": "debug",
+        "z": "3f4bfd26.20bba2",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 2290,
+        "y": 2080,
+        "wires": []
+    },
+    {
+        "id": "4786cd23b79ec1f0",
+        "type": "debug",
+        "z": "3f4bfd26.20bba2",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 2290,
+        "y": 2120,
+        "wires": []
+    },
+    {
+        "id": "bc26a3f8a9376292",
+        "type": "link out",
+        "z": "3f4bfd26.20bba2",
+        "name": "",
+        "links": [],
+        "x": 2255,
+        "y": 1800,
+        "wires": []
+    },
+    {
+        "id": "0a506a85e16e52c3",
+        "type": "link out",
+        "z": "3f4bfd26.20bba2",
+        "name": "",
+        "mode": "link",
+        "links": [],
+        "x": 2255,
+        "y": 1840,
+        "wires": []
+    },
+    {
+        "id": "46b4f0d65e982689",
+        "type": "link out",
+        "z": "3f4bfd26.20bba2",
+        "name": "",
+        "mode": "link",
+        "links": [],
+        "x": 2255,
+        "y": 1880,
+        "wires": []
+    },
+    {
+        "id": "1638a709719b454b",
+        "type": "link out",
+        "z": "3f4bfd26.20bba2",
+        "name": "",
+        "mode": "link",
+        "links": [],
+        "x": 2255,
+        "y": 1920,
+        "wires": []
+    },
+    {
+        "id": "866eb9dfa8599c27",
+        "type": "link out",
+        "z": "3f4bfd26.20bba2",
+        "name": "",
+        "links": [],
+        "x": 2255,
+        "y": 1960,
+        "wires": []
+    },
+    {
+        "id": "4f893b63f6ad0c5a",
+        "type": "debug",
+        "z": "3f4bfd26.20bba2",
+        "name": "brightness_move_up",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2420,
+        "y": 1760,
+        "wires": []
+    },
+    {
+        "id": "287ca553bfb99b73",
+        "type": "debug",
+        "z": "3f4bfd26.20bba2",
+        "name": "brightness_move_down",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2430,
+        "y": 1800,
+        "wires": []
+    },
+    {
+        "id": "035e6e1373e13965",
+        "type": "debug",
+        "z": "3f4bfd26.20bba2",
+        "name": "brightness_step_up",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2410,
+        "y": 1880,
+        "wires": []
+    },
+    {
+        "id": "0dd191d6c5fa3c58",
+        "type": "debug",
+        "z": "3f4bfd26.20bba2",
+        "name": "toggle",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2370,
+        "y": 1840,
+        "wires": []
+    },
+    {
+        "id": "92a856c684ccc980",
+        "type": "change",
+        "z": "3f4bfd26.20bba2",
+        "name": "update_available",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.update_available",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2110,
+        "y": 2160,
+        "wires": [
+            [
+                "1cc3b66fce8ea91b"
+            ]
+        ]
+    },
+    {
+        "id": "1cc3b66fce8ea91b",
+        "type": "ui_button",
+        "z": "3f4bfd26.20bba2",
+        "name": "",
+        "group": "b49ca73f946d308a",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Update",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "0xXX",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "x": 2300,
+        "y": 2160,
+        "wires": [
+            [
+                "ca0a3357aa1637e1"
+            ]
+        ]
+    },
+    {
+        "id": "ca0a3357aa1637e1",
+        "type": "mqtt out",
+        "z": "3f4bfd26.20bba2",
+        "name": "Update",
+        "topic": "zigbee2mqtt/bridge/ota_update/update",
+        "qos": "",
+        "retain": "",
+        "broker": "e314300a.e8a55",
+        "x": 2560,
+        "y": 2160,
+        "wires": []
+    },
+    {
+        "id": "7b3c127cc7d4a012",
+        "type": "inject",
+        "z": "3f4bfd26.20bba2",
+        "name": "",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "false",
+        "payloadType": "bool",
+        "x": 2090,
+        "y": 2200,
+        "wires": [
+            [
+                "35a2777b676b39fe"
+            ]
+        ]
+    },
+    {
+        "id": "35a2777b676b39fe",
+        "type": "change",
+        "z": "3f4bfd26.20bba2",
+        "name": "disable",
+        "rules": [
+            {
+                "t": "set",
+                "p": "enabled",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2220,
+        "y": 2200,
+        "wires": [
+            [
+                "1cc3b66fce8ea91b"
+            ]
+        ]
+    },
+    {
+        "id": "e4d0a335d34ac945",
+        "type": "link out",
+        "z": "3f4bfd26.20bba2",
+        "name": "",
+        "mode": "link",
+        "links": [
+            "e056fd99.d1485",
+            "27f00de6f8cd524a"
+        ],
+        "x": 2775,
+        "y": 2000,
+        "wires": []
+    },
+    {
+        "id": "e70e41a0105baaea",
+        "type": "debug",
+        "z": "3f4bfd26.20bba2",
+        "name": "brightness_step_down",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2420,
+        "y": 1920,
+        "wires": []
+    },
+    {
+        "id": "0cd5d63032f996cc",
+        "type": "debug",
+        "z": "3f4bfd26.20bba2",
+        "name": "brightness_step_up",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2410,
+        "y": 1960,
+        "wires": []
+    },
+    {
+        "id": "50c01591407cf348",
+        "type": "function",
+        "z": "3f4bfd26.20bba2",
+        "name": "convert",
+        "func": "msg.payload = ((msg.payload/255)*100).toFixed(0);  // convert LQI to percentage\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2300,
+        "y": 2040,
+        "wires": [
+            [
+                "8be8f5bd0f5cd3eb"
+            ]
+        ]
+    },
+    {
+        "id": "e314300a.e8a55",
+        "type": "mqtt-broker",
+        "name": "Server-Mqtt",
+        "broker": "servy.fritz.box",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "b49ca73f946d308a",
+        "type": "ui_group",
+        "name": "SYMFONISK E1744",
+        "tab": "78d6e6af20774f81",
+        "order": 6,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "78d6e6af20774f81",
+        "type": "ui_tab",
+        "name": "Buttons&Switches",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
