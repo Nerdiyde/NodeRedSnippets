@@ -1,0 +1,807 @@
+[
+    {
+        "id": "d4431133d0c8f8f4",
+        "type": "comment",
+        "z": "e0d59ed181385c46",
+        "name": "Ikea tradfri outlet 1",
+        "info": "",
+        "x": 590,
+        "y": 1740,
+        "wires": []
+    },
+    {
+        "id": "a09b49e75bcd4093",
+        "type": "mqtt in",
+        "z": "e0d59ed181385c46",
+        "name": "Tradffri outlet 1",
+        "topic": "zigbee2mqtt/0xXXX",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "e314300a.e8a55",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 620,
+        "y": 1840,
+        "wires": [
+            [
+                "518966234a7ec6b9"
+            ]
+        ]
+    },
+    {
+        "id": "518966234a7ec6b9",
+        "type": "json",
+        "z": "e0d59ed181385c46",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 790,
+        "y": 1840,
+        "wires": [
+            [
+                "477e481071994465",
+                "ca749905bf609040",
+                "6942e73c6614b7d8",
+                "7379ca6891063a5b",
+                "67c9c75a1378beac",
+                "b47b7e0ef936d409"
+            ]
+        ]
+    },
+    {
+        "id": "477e481071994465",
+        "type": "debug",
+        "z": "e0d59ed181385c46",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 950,
+        "y": 1840,
+        "wires": []
+    },
+    {
+        "id": "ca749905bf609040",
+        "type": "change",
+        "z": "e0d59ed181385c46",
+        "name": "linkquality",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.linkquality",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 960,
+        "y": 1920,
+        "wires": [
+            [
+                "7adfa02f9463b03e"
+            ]
+        ]
+    },
+    {
+        "id": "2f4e69da0427f8b6",
+        "type": "ui_gauge",
+        "z": "e0d59ed181385c46",
+        "name": "",
+        "group": "24c991bc2bd7bc8a",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Signal",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "10",
+        "colors": [
+            "#ff0000",
+            "#e6e600",
+            "#80ff00"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 1310,
+        "y": 1920,
+        "wires": []
+    },
+    {
+        "id": "bbb09a92758e73ec",
+        "type": "mqtt out",
+        "z": "e0d59ed181385c46",
+        "name": "",
+        "topic": "zigbee2mqtt/0xXXX/set/state",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "e314300a.e8a55",
+        "x": 1520,
+        "y": 2060,
+        "wires": []
+    },
+    {
+        "id": "aa2bb415c4ca223d",
+        "type": "ui_switch",
+        "z": "e0d59ed181385c46",
+        "name": "",
+        "label": "State",
+        "tooltip": "",
+        "group": "24c991bc2bd7bc8a",
+        "order": 13,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": "true",
+        "topic": "",
+        "topicType": "str",
+        "style": "",
+        "onvalue": "ON",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "OFF",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "animate": true,
+        "className": "",
+        "x": 1090,
+        "y": 1960,
+        "wires": [
+            [
+                "bbb09a92758e73ec",
+                "1f6e2eb5c0660445"
+            ]
+        ]
+    },
+    {
+        "id": "1f6e2eb5c0660445",
+        "type": "debug",
+        "z": "e0d59ed181385c46",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 1450,
+        "y": 2100,
+        "wires": []
+    },
+    {
+        "id": "6942e73c6614b7d8",
+        "type": "change",
+        "z": "e0d59ed181385c46",
+        "name": "state",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.state",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 950,
+        "y": 1960,
+        "wires": [
+            [
+                "aa2bb415c4ca223d"
+            ]
+        ]
+    },
+    {
+        "id": "f611bc61b3cdcc92",
+        "type": "link in",
+        "z": "e0d59ed181385c46",
+        "name": "Tradfri_outlet1_control(ON/OFF/TOGGLE)",
+        "links": [
+            "2ce11359.3277ac",
+            "cf6bb11c.76fa9"
+        ],
+        "x": 915,
+        "y": 2020,
+        "wires": [
+            [
+                "bbb09a92758e73ec",
+                "1f6e2eb5c0660445"
+            ]
+        ]
+    },
+    {
+        "id": "7379ca6891063a5b",
+        "type": "change",
+        "z": "e0d59ed181385c46",
+        "name": "update_available",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.update_available",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 990,
+        "y": 1880,
+        "wires": [
+            [
+                "80dea39847ea6451"
+            ]
+        ]
+    },
+    {
+        "id": "80dea39847ea6451",
+        "type": "ui_button",
+        "z": "e0d59ed181385c46",
+        "name": "",
+        "group": "24c991bc2bd7bc8a",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Update",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "0xXXX",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "x": 1320,
+        "y": 1880,
+        "wires": [
+            [
+                "9f1223451dceab0a"
+            ]
+        ]
+    },
+    {
+        "id": "9f1223451dceab0a",
+        "type": "mqtt out",
+        "z": "e0d59ed181385c46",
+        "name": "Update",
+        "topic": "zigbee2mqtt/bridge/ota_update/update",
+        "qos": "",
+        "retain": "",
+        "broker": "e314300a.e8a55",
+        "x": 1460,
+        "y": 1880,
+        "wires": []
+    },
+    {
+        "id": "d25b35448ad9b6cd",
+        "type": "inject",
+        "z": "e0d59ed181385c46",
+        "name": "",
+        "props": [
+            {
+                "p": "payload",
+                "v": "false",
+                "vt": "bool"
+            },
+            {
+                "p": "topic",
+                "v": "",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "false",
+        "payloadType": "bool",
+        "x": 1310,
+        "y": 1840,
+        "wires": [
+            [
+                "bb0845bab87fcca4"
+            ]
+        ]
+    },
+    {
+        "id": "bb0845bab87fcca4",
+        "type": "change",
+        "z": "e0d59ed181385c46",
+        "name": "disable",
+        "rules": [
+            {
+                "t": "set",
+                "p": "enabled",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1440,
+        "y": 1840,
+        "wires": [
+            [
+                "80dea39847ea6451"
+            ]
+        ]
+    },
+    {
+        "id": "7aa3b27eb0559142",
+        "type": "inject",
+        "z": "e0d59ed181385c46",
+        "name": "ON",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "ON",
+        "payloadType": "str",
+        "x": 970,
+        "y": 2060,
+        "wires": [
+            [
+                "bbb09a92758e73ec",
+                "1f6e2eb5c0660445"
+            ]
+        ]
+    },
+    {
+        "id": "6f540b4eb97ade6e",
+        "type": "inject",
+        "z": "e0d59ed181385c46",
+        "name": "OFF",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "OFF",
+        "payloadType": "str",
+        "x": 970,
+        "y": 2100,
+        "wires": [
+            [
+                "1f6e2eb5c0660445",
+                "bbb09a92758e73ec"
+            ]
+        ]
+    },
+    {
+        "id": "44c094b769a70503",
+        "type": "mqtt out",
+        "z": "e0d59ed181385c46",
+        "name": "",
+        "topic": "zigbee2mqtt/0xXXX/set/power_on_behavior",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "e314300a.e8a55",
+        "x": 1570,
+        "y": 2200,
+        "wires": []
+    },
+    {
+        "id": "3790f0bec8b68eb5",
+        "type": "ui_switch",
+        "z": "e0d59ed181385c46",
+        "name": "",
+        "label": "Power on behavior",
+        "tooltip": "",
+        "group": "24c991bc2bd7bc8a",
+        "order": 13,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": "true",
+        "topic": "",
+        "topicType": "str",
+        "style": "",
+        "onvalue": "on",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "off",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "animate": true,
+        "className": "",
+        "x": 1210,
+        "y": 2160,
+        "wires": [
+            [
+                "44c094b769a70503"
+            ]
+        ]
+    },
+    {
+        "id": "e21dc65ae4ede762",
+        "type": "inject",
+        "z": "e0d59ed181385c46",
+        "name": "ON",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "ON",
+        "payloadType": "str",
+        "x": 970,
+        "y": 2200,
+        "wires": [
+            [
+                "44c094b769a70503"
+            ]
+        ]
+    },
+    {
+        "id": "55adf538d9a92120",
+        "type": "inject",
+        "z": "e0d59ed181385c46",
+        "name": "OFF",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "OFF",
+        "payloadType": "str",
+        "x": 970,
+        "y": 2240,
+        "wires": [
+            [
+                "44c094b769a70503"
+            ]
+        ]
+    },
+    {
+        "id": "67c9c75a1378beac",
+        "type": "change",
+        "z": "e0d59ed181385c46",
+        "name": "power_on_behavior",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.power_on_behavior",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 990,
+        "y": 2160,
+        "wires": [
+            [
+                "3790f0bec8b68eb5"
+            ]
+        ]
+    },
+    {
+        "id": "7adfa02f9463b03e",
+        "type": "function",
+        "z": "e0d59ed181385c46",
+        "name": "convert",
+        "func": "msg.payload = ((msg.payload/255)*100).toFixed(0);  // convert LQI to percentage\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1100,
+        "y": 1920,
+        "wires": [
+            [
+                "2f4e69da0427f8b6"
+            ]
+        ]
+    },
+    {
+        "id": "b47b7e0ef936d409",
+        "type": "function",
+        "z": "e0d59ed181385c46",
+        "name": "calculate",
+        "func": "if (msg.payload===\"init\")\n{\n    flow.set(\"last_seen_door_tradfri_socket_1\",0);\n    \n    msg.payload = \"Never\"\n    return msg;\n} else\n{\n    let local_datetime_str = new Date().toLocaleString(\"en-US\", { timeZone: \"Europe/Berlin\" });\n    msg.local_datetime_str = local_datetime_str;\n    \n    now=new Date(local_datetime_str);\n    \n    \n    flow.set(\"last_seen_door_tradfri_socket_1\",now);\n    \n    Day=now.getDate();\n    Month=now.getMonth()+1;\n    Year=now.getYear()+1900;\n    Hours=now.getHours();\n    Minutes=now.getMinutes();\n    Seconds=now.getSeconds();\n    \n     if (Month<10)\n     Month=\"0\"+Month;\n    \n     if (Day<10)\n     Day=\"0\"+Day;\n    \n     if (Seconds<10)\n     Seconds=\"0\"+Seconds;\n     \n     if (Minutes<10)\n     Minutes=\"0\"+Minutes;\n     \n     if (Hours<10)\n     Hours=\"0\"+Hours;\n     \n    msg.now=now;\n    msg.Day=Day;\n    msg.Month=Month;\n    msg.Year=Year;\n    msg.Hours=Hours;\n    msg.Minutes=Minutes;\n    msg.Seconds=Seconds;\n     \n     \n    msg.timestamp=Hours+\":\"+Minutes+\":\"+Seconds;\n    \n    \n    msg.payload=Day+\".\"+Month+\".\"+Year+\" @ \"+Hours+\":\"+Minutes+\":\"+Seconds;\n    return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 960,
+        "y": 2280,
+        "wires": [
+            [
+                "4257c1df80098e34",
+                "0bf40b9da7868452"
+            ]
+        ]
+    },
+    {
+        "id": "4257c1df80098e34",
+        "type": "ui_text",
+        "z": "e0d59ed181385c46",
+        "group": "24c991bc2bd7bc8a",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Last seen",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1180,
+        "y": 2280,
+        "wires": []
+    },
+    {
+        "id": "6d9fa7d7046a0d68",
+        "type": "inject",
+        "z": "e0d59ed181385c46",
+        "name": "init",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "init",
+        "payloadType": "str",
+        "x": 650,
+        "y": 2240,
+        "wires": [
+            [
+                "b47b7e0ef936d409"
+            ]
+        ]
+    },
+    {
+        "id": "0bf40b9da7868452",
+        "type": "debug",
+        "z": "e0d59ed181385c46",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1390,
+        "y": 2280,
+        "wires": []
+    },
+    {
+        "id": "cad62e7bfb14a093",
+        "type": "inject",
+        "z": "e0d59ed181385c46",
+        "name": "test",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 650,
+        "y": 2280,
+        "wires": [
+            [
+                "b47b7e0ef936d409"
+            ]
+        ]
+    },
+    {
+        "id": "d68615fa34827840",
+        "type": "inject",
+        "z": "e0d59ed181385c46",
+        "name": "check",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payloadType": "date",
+        "x": 660,
+        "y": 2340,
+        "wires": [
+            [
+                "62f7bec79b99d1ef"
+            ]
+        ]
+    },
+    {
+        "id": "e6493e9f3c2b9a49",
+        "type": "delay",
+        "z": "e0d59ed181385c46",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "day",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1300,
+        "y": 2340,
+        "wires": [
+            [
+                "f1d0b2807fe9575f"
+            ]
+        ]
+    },
+    {
+        "id": "62f7bec79b99d1ef",
+        "type": "function",
+        "z": "e0d59ed181385c46",
+        "name": "alarm_if_long_time_no_see",
+        "func": "function get_formatted_time_from_duration(duration_in_seconds) \n{\n    seconds=parseInt(((duration_in_seconds % 3600) % 60));\n    minutes=parseInt(((duration_in_seconds % 3600) / 60));\n    hours=parseInt((duration_in_seconds / 3600));\n    days=parseInt((hours / 24));\n    weeks=parseInt((days / 7));\n    days=parseInt((days % 7));\n    hours=parseInt((hours % 24));\n    \n     if (days<10)\n     days=\"0\"+days;\n    \n     if (seconds<10)\n     seconds=\"0\"+seconds;\n     \n     if (minutes<10)\n     minutes=\"0\"+minutes;\n     \n     if (hours<10)\n     hours=\"0\"+hours;\n    \n    if (days==\"00\")\n    {\n        return hours+\":\"+minutes+\":\"+seconds+\" hours\";\n    }\n    \n    if (weeks==\"00\")\n    {\n        return days+\" days and \"+hours+\":\"+minutes+\":\"+seconds+\" hours\";\n    }\n    \n    return weeks + \"weeks \" + days+\" days and \"+hours+\":\"+minutes+\":\"+seconds+\" hours\";\n\n}\n\n\nvar timeDif=(((Date.now())-flow.get(\"last_seen_door_tradfri_socket_1\"))/1000).toFixed(0);\nmsg.timeDif=timeDif;\n\nif (flow.get(\"last_seen_door_tradfri_socket_1\") > 0)\n{\n    if (timeDif >= 7200)\n    {\n        msg.payload=\"Tradfri outlet 1 not seen since \"+get_formatted_time_from_duration(timeDif)+\".\"\n        return msg;\n    }\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1020,
+        "y": 2340,
+        "wires": [
+            [
+                "e6493e9f3c2b9a49",
+                "77176aeaa95440bf"
+            ]
+        ]
+    },
+    {
+        "id": "77176aeaa95440bf",
+        "type": "debug",
+        "z": "e0d59ed181385c46",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1750,
+        "y": 2340,
+        "wires": []
+    },
+    {
+        "id": "f1d0b2807fe9575f",
+        "type": "link out",
+        "z": "e0d59ed181385c46",
+        "name": "",
+        "mode": "link",
+        "links": [
+            "66bb072372d16b1b"
+        ],
+        "x": 1495,
+        "y": 2340,
+        "wires": []
+    },
+    {
+        "id": "e314300a.e8a55",
+        "type": "mqtt-broker",
+        "name": "Server-Mqtt",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "24c991bc2bd7bc8a",
+        "type": "ui_group",
+        "name": "TRADFRI outlet 1",
+        "tab": "f3eba1ef51feea7d",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "f3eba1ef51feea7d",
+        "type": "ui_tab",
+        "name": "Sockets",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
