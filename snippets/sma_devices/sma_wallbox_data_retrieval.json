@@ -1,0 +1,1222 @@
+[
+    {
+        "id": "2c45436cf2b5eee7",
+        "type": "inject",
+        "z": "d508c14c91735cff",
+        "name": "get data",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "x": 360,
+        "y": 240,
+        "wires": [
+            [
+                "1d5e87a68cfbe1cf"
+            ]
+        ]
+    },
+    {
+        "id": "42e643f1fb8cfa9f",
+        "type": "exec",
+        "z": "d508c14c91735cff",
+        "command": "",
+        "addpay": "payload",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "retrieve token",
+        "x": 770,
+        "y": 240,
+        "wires": [
+            [
+                "a6647fc1c26c96cf",
+                "6acbd0c1f76ebca9"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "85e348fdd8812fe7",
+        "type": "inject",
+        "z": "d508c14c91735cff",
+        "name": "get_data_only",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payloadType": "date",
+        "x": 380,
+        "y": 300,
+        "wires": [
+            [
+                "a3f744f3b7c17f03"
+            ]
+        ]
+    },
+    {
+        "id": "8846c5ac434f3aba",
+        "type": "exec",
+        "z": "d508c14c91735cff",
+        "command": "",
+        "addpay": "payload",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "retrieve data",
+        "x": 760,
+        "y": 300,
+        "wires": [
+            [
+                "5e74e6d5809d5823"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "a3f744f3b7c17f03",
+        "type": "function",
+        "z": "d508c14c91735cff",
+        "name": "prepare command",
+        "func": "msg.payload =\"curl http://\"+flow.get(\"wallbox_data_hostname\")+\"/api/v1/measurements/live/ -d \\\"[{\\\\\\\"componentId\\\\\\\":\\\\\\\"IGULD:SELF\\\\\\\"}]\\\" -H \\\"Authorization: Bearer \"+flow.get(\"wallbox_data_retrieve_token\")+\"\\\"\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 300,
+        "wires": [
+            [
+                "8846c5ac434f3aba"
+            ]
+        ]
+    },
+    {
+        "id": "9afbdf0480ba3f6c",
+        "type": "function",
+        "z": "d508c14c91735cff",
+        "name": "save_token",
+        "func": "flow.set(\"wallbox_data_retrieve_token\", msg.payload.access_token);\nflow.set(\"wallbox_data_retrieve_token_date\", Date.now());\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1100,
+        "y": 240,
+        "wires": [
+            [
+                "a3f744f3b7c17f03"
+            ]
+        ]
+    },
+    {
+        "id": "a6647fc1c26c96cf",
+        "type": "json",
+        "z": "d508c14c91735cff",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 940,
+        "y": 240,
+        "wires": [
+            [
+                "9afbdf0480ba3f6c"
+            ]
+        ]
+    },
+    {
+        "id": "5e74e6d5809d5823",
+        "type": "json",
+        "z": "d508c14c91735cff",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 940,
+        "y": 300,
+        "wires": [
+            [
+                "3d75bb6c51187ce8",
+                "723568e8e1d7047c",
+                "1a0dc852684e5dbc"
+            ]
+        ]
+    },
+    {
+        "id": "3d75bb6c51187ce8",
+        "type": "debug",
+        "z": "d508c14c91735cff",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1100,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "723568e8e1d7047c",
+        "type": "mqtt out",
+        "z": "d508c14c91735cff",
+        "name": "distribute_wallbox_data",
+        "topic": "wallbox_data/",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "e314300a.e8a55",
+        "x": 1160,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "1a0dc852684e5dbc",
+        "type": "link out",
+        "z": "d508c14c91735cff",
+        "name": "wallbox_data",
+        "mode": "link",
+        "links": [
+            "1c7f01560d98cf0c",
+            "36bb4c8517d2e802",
+            "4e3df1add7d65150",
+            "aaea8d9cba52d843",
+            "32aa44a8a41a0647",
+            "09a4af40bf9bd276",
+            "1dac2a777687d317",
+            "a1209e4ab226d673",
+            "d3c5c3502de07ef1",
+            "cefed7c689d23f23",
+            "c4e11c12e7ddcc2a",
+            "e6c0ef109478f4d8",
+            "8cc50d71fdd260aa",
+            "236e89f75666eea2",
+            "430ec4c89d7fc972",
+            "388383951bf6b7ee",
+            "085b339f6bfdb03e"
+        ],
+        "x": 1065,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "1c7f01560d98cf0c",
+        "type": "link in",
+        "z": "d508c14c91735cff",
+        "name": "",
+        "links": [
+            "1a0dc852684e5dbc"
+        ],
+        "x": 395,
+        "y": 440,
+        "wires": [
+            [
+                "ee4bb21b287ee48f"
+            ]
+        ]
+    },
+    {
+        "id": "36bb4c8517d2e802",
+        "type": "link in",
+        "z": "d508c14c91735cff",
+        "name": "",
+        "links": [
+            "1a0dc852684e5dbc"
+        ],
+        "x": 395,
+        "y": 480,
+        "wires": [
+            [
+                "8124b6d9a144f34d"
+            ]
+        ]
+    },
+    {
+        "id": "4e3df1add7d65150",
+        "type": "link in",
+        "z": "d508c14c91735cff",
+        "name": "",
+        "links": [
+            "1a0dc852684e5dbc"
+        ],
+        "x": 395,
+        "y": 520,
+        "wires": [
+            [
+                "57823abda7a3a5dd"
+            ]
+        ]
+    },
+    {
+        "id": "aaea8d9cba52d843",
+        "type": "link in",
+        "z": "d508c14c91735cff",
+        "name": "",
+        "links": [
+            "1a0dc852684e5dbc"
+        ],
+        "x": 395,
+        "y": 560,
+        "wires": [
+            [
+                "68595709dd5bdc97"
+            ]
+        ]
+    },
+    {
+        "id": "32aa44a8a41a0647",
+        "type": "link in",
+        "z": "d508c14c91735cff",
+        "name": "",
+        "links": [
+            "1a0dc852684e5dbc"
+        ],
+        "x": 395,
+        "y": 600,
+        "wires": [
+            [
+                "27edba49319f44df"
+            ]
+        ]
+    },
+    {
+        "id": "09a4af40bf9bd276",
+        "type": "link in",
+        "z": "d508c14c91735cff",
+        "name": "",
+        "links": [
+            "1a0dc852684e5dbc"
+        ],
+        "x": 395,
+        "y": 640,
+        "wires": [
+            [
+                "9fc0987737b0fc50"
+            ]
+        ]
+    },
+    {
+        "id": "1dac2a777687d317",
+        "type": "link in",
+        "z": "d508c14c91735cff",
+        "name": "",
+        "links": [
+            "1a0dc852684e5dbc"
+        ],
+        "x": 395,
+        "y": 680,
+        "wires": [
+            [
+                "4c64368a741c8355"
+            ]
+        ]
+    },
+    {
+        "id": "a1209e4ab226d673",
+        "type": "link in",
+        "z": "d508c14c91735cff",
+        "name": "",
+        "links": [
+            "1a0dc852684e5dbc"
+        ],
+        "x": 395,
+        "y": 720,
+        "wires": [
+            [
+                "16aafdba0c0e768d"
+            ]
+        ]
+    },
+    {
+        "id": "1d5e87a68cfbe1cf",
+        "type": "function",
+        "z": "d508c14c91735cff",
+        "name": "prepare command",
+        "func": "\nvar token_lifetime = 3600;\n\nvar timeDif = flow.get(\"wallbox_data_retrieve_token_date\") > 0 ? (((Date.now())-flow.get(\"wallbox_data_retrieve_token_date\"))/1000).toFixed(0) : token_lifetime+1;\nmsg.timeDif = timeDif;\n\nif (flow.get(\"wallbox_data_retrieve_token_date\")==undefined || timeDif > token_lifetime) //usually the token is valid for 1 hour. So after this time we will first retrieve a new one and continue then pulling the live data.\n{\n    msg.payload =\"curl http://\"+flow.get(\"wallbox_data_hostname\")+\"/api/v1/token -d \\\"grant_type=password&username=\"+flow.get(\"wallbox_data_username\")+\"&password=\"+flow.get(\"wallbox_data_password\")+\"\\\"\";\n    return [msg, null];\n} else // the currently saved token is still valid so we will reuse this and can pull the live data directly\n{\n    return [null, msg];\n}\n\n",
+        "outputs": 2,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 240,
+        "wires": [
+            [
+                "42e643f1fb8cfa9f",
+                "8794a07667125c63"
+            ],
+            [
+                "a3f744f3b7c17f03"
+            ]
+        ]
+    },
+    {
+        "id": "a773a5aa7bdd0407",
+        "type": "inject",
+        "z": "d508c14c91735cff",
+        "name": "initiate variables",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payloadType": "date",
+        "x": 390,
+        "y": 160,
+        "wires": [
+            [
+                "9aaa6b2196ef5db8"
+            ]
+        ]
+    },
+    {
+        "id": "9aaa6b2196ef5db8",
+        "type": "function",
+        "z": "d508c14c91735cff",
+        "name": "define your credentials here",
+        "func": "//Note: your credential data is saved in plain text! So if you share this code you should double check that you removed your credentials from here.\n\nvar username=\"\";\nvar password=\"\";\nvar wallbox_hostname=\"192.168.1.15\";\n\nflow.set(\"wallbox_data_username\", username);\nflow.set(\"wallbox_data_password\", password);\nflow.set(\"wallbox_data_hostname\", wallbox_hostname);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 640,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6883a3fc8f57c0b9",
+        "type": "comment",
+        "z": "d508c14c91735cff",
+        "name": "SMA Wallbox data fetch",
+        "info": "",
+        "x": 280,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "71e7f861c695186d",
+        "type": "ui_text",
+        "z": "d508c14c91735cff",
+        "group": "b98414c29faed5bf",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Input current L2",
+        "format": "{{msg.payload}} A",
+        "layout": "row-spread",
+        "className": "",
+        "x": 740,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "d6b09596c85d8acd",
+        "type": "ui_text",
+        "z": "d508c14c91735cff",
+        "group": "b98414c29faed5bf",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Input current L3",
+        "format": "{{msg.payload}} A",
+        "layout": "row-spread",
+        "className": "",
+        "x": 740,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "a07a23327b17e4e9",
+        "type": "ui_text",
+        "z": "d508c14c91735cff",
+        "group": "b98414c29faed5bf",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Frequency",
+        "format": "{{msg.payload}} Hz",
+        "layout": "row-spread",
+        "className": "",
+        "x": 730,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "febbd8eb11fb3f02",
+        "type": "ui_text",
+        "z": "d508c14c91735cff",
+        "group": "b98414c29faed5bf",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Input voltage L1",
+        "format": "{{msg.payload}} V",
+        "layout": "row-spread",
+        "className": "",
+        "x": 740,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "9ba31a8bd3f88bf0",
+        "type": "ui_text",
+        "z": "d508c14c91735cff",
+        "group": "b98414c29faed5bf",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Input voltage L2",
+        "format": "{{msg.payload}} V",
+        "layout": "row-spread",
+        "className": "",
+        "x": 740,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "14208cd33f3cbf0e",
+        "type": "ui_text",
+        "z": "d508c14c91735cff",
+        "group": "b98414c29faed5bf",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Input voltage L3",
+        "format": "{{msg.payload}} V",
+        "layout": "row-spread",
+        "className": "",
+        "x": 740,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "b746ecc2f0d307b2",
+        "type": "ui_text",
+        "z": "d508c14c91735cff",
+        "group": "b98414c29faed5bf",
+        "order": 8,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "power factor",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 730,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "ec91638bcd806eb7",
+        "type": "ui_text",
+        "z": "d508c14c91735cff",
+        "group": "b98414c29faed5bf",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Input current L1",
+        "format": "{{msg.payload}} A",
+        "layout": "row-spread",
+        "className": "",
+        "x": 740,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "6acbd0c1f76ebca9",
+        "type": "debug",
+        "z": "d508c14c91735cff",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 984.765625,
+        "y": 196.75,
+        "wires": []
+    },
+    {
+        "id": "8794a07667125c63",
+        "type": "debug",
+        "z": "d508c14c91735cff",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 820,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "ee4bb21b287ee48f",
+        "type": "function",
+        "z": "d508c14c91735cff",
+        "name": "convert",
+        "func": "msg.payload = String(msg.payload[2].values[0].value.toFixed(2));\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 440,
+        "wires": [
+            [
+                "ec91638bcd806eb7"
+            ]
+        ]
+    },
+    {
+        "id": "8124b6d9a144f34d",
+        "type": "function",
+        "z": "d508c14c91735cff",
+        "name": "convert",
+        "func": "msg.payload = String(msg.payload[3].values[0].value.toFixed(2));\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 480,
+        "wires": [
+            [
+                "71e7f861c695186d"
+            ]
+        ]
+    },
+    {
+        "id": "57823abda7a3a5dd",
+        "type": "function",
+        "z": "d508c14c91735cff",
+        "name": "convert",
+        "func": "msg.payload = String(msg.payload[4].values[0].value.toFixed(2));\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 520,
+        "wires": [
+            [
+                "d6b09596c85d8acd"
+            ]
+        ]
+    },
+    {
+        "id": "68595709dd5bdc97",
+        "type": "function",
+        "z": "d508c14c91735cff",
+        "name": "convert",
+        "func": "msg.payload = String(msg.payload[5].values[0].value.toFixed(2));\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 560,
+        "wires": [
+            [
+                "a07a23327b17e4e9"
+            ]
+        ]
+    },
+    {
+        "id": "27edba49319f44df",
+        "type": "function",
+        "z": "d508c14c91735cff",
+        "name": "convert",
+        "func": "msg.payload = String(msg.payload[6].values[0].value.toFixed(2));\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 600,
+        "wires": [
+            [
+                "febbd8eb11fb3f02"
+            ]
+        ]
+    },
+    {
+        "id": "9fc0987737b0fc50",
+        "type": "function",
+        "z": "d508c14c91735cff",
+        "name": "convert",
+        "func": "msg.payload = String(msg.payload[7].values[0].value.toFixed(2));\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 640,
+        "wires": [
+            [
+                "9ba31a8bd3f88bf0"
+            ]
+        ]
+    },
+    {
+        "id": "4c64368a741c8355",
+        "type": "function",
+        "z": "d508c14c91735cff",
+        "name": "convert",
+        "func": "msg.payload = String(msg.payload[8].values[0].value.toFixed(2));\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 680,
+        "wires": [
+            [
+                "14208cd33f3cbf0e"
+            ]
+        ]
+    },
+    {
+        "id": "16aafdba0c0e768d",
+        "type": "function",
+        "z": "d508c14c91735cff",
+        "name": "convert",
+        "func": "msg.payload = String(msg.payload[9].values[0].value.toFixed(2));\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 720,
+        "wires": [
+            [
+                "b746ecc2f0d307b2"
+            ]
+        ]
+    },
+    {
+        "id": "d3c5c3502de07ef1",
+        "type": "link in",
+        "z": "d508c14c91735cff",
+        "name": "",
+        "links": [
+            "1a0dc852684e5dbc"
+        ],
+        "x": 395,
+        "y": 760,
+        "wires": [
+            [
+                "2c215a4f2f2beab2"
+            ]
+        ]
+    },
+    {
+        "id": "03f1aa84ec5440cc",
+        "type": "ui_text",
+        "z": "d508c14c91735cff",
+        "group": "b98414c29faed5bf",
+        "order": 8,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Charging energy",
+        "format": "{{msg.payload}} Wh",
+        "layout": "row-spread",
+        "className": "",
+        "x": 750,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "2c215a4f2f2beab2",
+        "type": "function",
+        "z": "d508c14c91735cff",
+        "name": "convert",
+        "func": "msg.payload = String(msg.payload[0].values[0].value.toFixed(2));\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 760,
+        "wires": [
+            [
+                "03f1aa84ec5440cc"
+            ]
+        ]
+    },
+    {
+        "id": "cefed7c689d23f23",
+        "type": "link in",
+        "z": "d508c14c91735cff",
+        "name": "",
+        "links": [
+            "1a0dc852684e5dbc"
+        ],
+        "x": 395,
+        "y": 1080,
+        "wires": [
+            [
+                "6a31e9975de22fd8"
+            ]
+        ]
+    },
+    {
+        "id": "5eb142dea6e4d001",
+        "type": "ui_text",
+        "z": "d508c14c91735cff",
+        "group": "b98414c29faed5bf",
+        "order": 8,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Switch state",
+        "format": "{{msg.payload}} ",
+        "layout": "row-spread",
+        "className": "",
+        "x": 730,
+        "y": 1080,
+        "wires": []
+    },
+    {
+        "id": "6a31e9975de22fd8",
+        "type": "function",
+        "z": "d508c14c91735cff",
+        "name": "convert",
+        "func": "msg.payload = msg.payload[0].values[0].value==4950 ? \"On\" : \"Off\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 1080,
+        "wires": [
+            [
+                "5eb142dea6e4d001"
+            ]
+        ]
+    },
+    {
+        "id": "c4e11c12e7ddcc2a",
+        "type": "link in",
+        "z": "d508c14c91735cff",
+        "name": "",
+        "links": [
+            "1a0dc852684e5dbc"
+        ],
+        "x": 395,
+        "y": 800,
+        "wires": [
+            [
+                "851f3a4f67a98776"
+            ]
+        ]
+    },
+    {
+        "id": "1051a543e07a68fc",
+        "type": "ui_text",
+        "z": "d508c14c91735cff",
+        "group": "b98414c29faed5bf",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Apparent power",
+        "format": "{{msg.payload}} VA",
+        "layout": "row-spread",
+        "className": "",
+        "x": 740,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "851f3a4f67a98776",
+        "type": "function",
+        "z": "d508c14c91735cff",
+        "name": "convert",
+        "func": "msg.payload = String(msg.payload[10].values[0].value.toFixed(2));\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 800,
+        "wires": [
+            [
+                "1051a543e07a68fc"
+            ]
+        ]
+    },
+    {
+        "id": "e6c0ef109478f4d8",
+        "type": "link in",
+        "z": "d508c14c91735cff",
+        "name": "",
+        "links": [
+            "1a0dc852684e5dbc"
+        ],
+        "x": 395,
+        "y": 840,
+        "wires": [
+            [
+                "d6954f2595bb727d"
+            ]
+        ]
+    },
+    {
+        "id": "75b024d3360bfed3",
+        "type": "ui_text",
+        "z": "d508c14c91735cff",
+        "group": "b98414c29faed5bf",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Reactive power",
+        "format": "{{msg.payload}} var",
+        "layout": "row-spread",
+        "className": "",
+        "x": 740,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "d6954f2595bb727d",
+        "type": "function",
+        "z": "d508c14c91735cff",
+        "name": "convert",
+        "func": "msg.payload = String(msg.payload[11].values[0].value.toFixed(2));\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 840,
+        "wires": [
+            [
+                "75b024d3360bfed3"
+            ]
+        ]
+    },
+    {
+        "id": "8cc50d71fdd260aa",
+        "type": "link in",
+        "z": "d508c14c91735cff",
+        "name": "",
+        "links": [
+            "1a0dc852684e5dbc"
+        ],
+        "x": 395,
+        "y": 880,
+        "wires": [
+            [
+                "2b1fae6c9132259d"
+            ]
+        ]
+    },
+    {
+        "id": "9f6968f50cf6d8c6",
+        "type": "ui_text",
+        "z": "d508c14c91735cff",
+        "group": "b98414c29faed5bf",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Energy meter",
+        "format": "{{msg.payload}} kWh",
+        "layout": "row-spread",
+        "className": "",
+        "x": 740,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "2b1fae6c9132259d",
+        "type": "function",
+        "z": "d508c14c91735cff",
+        "name": "convert",
+        "func": "msg.payload = String((msg.payload[13].values[0].value/1000).toFixed(2));\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 880,
+        "wires": [
+            [
+                "9f6968f50cf6d8c6"
+            ]
+        ]
+    },
+    {
+        "id": "236e89f75666eea2",
+        "type": "link in",
+        "z": "d508c14c91735cff",
+        "name": "",
+        "links": [
+            "1a0dc852684e5dbc"
+        ],
+        "x": 395,
+        "y": 960,
+        "wires": [
+            [
+                "8e4fe2fe1129c90b"
+            ]
+        ]
+    },
+    {
+        "id": "52e9ef78c4e790f2",
+        "type": "ui_text",
+        "z": "d508c14c91735cff",
+        "group": "b98414c29faed5bf",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Event message",
+        "format": "{{msg.payload}} ",
+        "layout": "row-spread",
+        "className": "",
+        "x": 740,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "8e4fe2fe1129c90b",
+        "type": "function",
+        "z": "d508c14c91735cff",
+        "name": "convert",
+        "func": "msg.payload = String((msg.payload[19].values[0].value).toFixed(2));\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 960,
+        "wires": [
+            [
+                "52e9ef78c4e790f2"
+            ]
+        ]
+    },
+    {
+        "id": "388383951bf6b7ee",
+        "type": "link in",
+        "z": "d508c14c91735cff",
+        "name": "",
+        "links": [
+            "1a0dc852684e5dbc"
+        ],
+        "x": 395,
+        "y": 1000,
+        "wires": [
+            [
+                "65d0f54be4e6235f"
+            ]
+        ]
+    },
+    {
+        "id": "7e367ad5eea78af2",
+        "type": "ui_text",
+        "z": "d508c14c91735cff",
+        "group": "b98414c29faed5bf",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Wallbox state",
+        "format": "{{msg.payload}} ",
+        "layout": "row-spread",
+        "className": "",
+        "x": 740,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "65d0f54be4e6235f",
+        "type": "function",
+        "z": "d508c14c91735cff",
+        "name": "convert",
+        "func": "msg.payload = String((msg.payload[19].values[0].value).toFixed(2));\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 1000,
+        "wires": [
+            [
+                "7e367ad5eea78af2"
+            ]
+        ]
+    },
+    {
+        "id": "085b339f6bfdb03e",
+        "type": "link in",
+        "z": "d508c14c91735cff",
+        "name": "",
+        "links": [
+            "1a0dc852684e5dbc"
+        ],
+        "x": 395,
+        "y": 1040,
+        "wires": [
+            [
+                "e3990b3bebf086d9"
+            ]
+        ]
+    },
+    {
+        "id": "8b1c4908105a7042",
+        "type": "ui_text",
+        "z": "d508c14c91735cff",
+        "group": "b98414c29faed5bf",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Charging state",
+        "format": "{{msg.payload}} ",
+        "layout": "row-spread",
+        "className": "",
+        "x": 740,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "e3990b3bebf086d9",
+        "type": "function",
+        "z": "d508c14c91735cff",
+        "name": "convert",
+        "func": "msg.payload = String((msg.payload[19].values[0].value-200111).toFixed(0));\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 1040,
+        "wires": [
+            [
+                "8b1c4908105a7042"
+            ]
+        ]
+    },
+    {
+        "id": "e314300a.e8a55",
+        "type": "mqtt-broker",
+        "name": "Server-Mqtt",
+        "broker": "servy.fritz.box",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "b98414c29faed5bf",
+        "type": "ui_group",
+        "name": "Wallbox",
+        "tab": "4161445c81c4d226",
+        "order": 5,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "4161445c81c4d226",
+        "type": "ui_tab",
+        "name": "SHM",
+        "icon": "fa-bolt ",
+        "order": 8,
+        "disabled": false,
+        "hidden": false
+    }
+]
