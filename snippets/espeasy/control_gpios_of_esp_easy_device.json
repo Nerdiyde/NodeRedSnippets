@@ -1,0 +1,512 @@
+[
+    {
+        "id": "ecc0119e7bb44f5c",
+        "type": "inject",
+        "z": "2bfb0626.bbf15a",
+        "name": "switch on",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "x": 960,
+        "y": 1640,
+        "wires": [
+            [
+                "9e2dde8259bde7bb"
+            ]
+        ]
+    },
+    {
+        "id": "50ceb6eb1ae766fd",
+        "type": "inject",
+        "z": "2bfb0626.bbf15a",
+        "name": "switch off",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "false",
+        "payloadType": "bool",
+        "x": 960,
+        "y": 1680,
+        "wires": [
+            [
+                "9e2dde8259bde7bb"
+            ]
+        ]
+    },
+    {
+        "id": "9e2dde8259bde7bb",
+        "type": "function",
+        "z": "2bfb0626.bbf15a",
+        "name": "build_command",
+        "func": "// define your settings here\n\nvar gpio_pin = 12; // = represents \"D6\" on a wemos d1 mini\nvar espeasy_device_name = \"EspEasy_GPIO\"\n\n//do not modify anything beyond this line\n\nvar gpio_state = msg.payload;\nmsg.topic = String(espeasy_device_name) + \"/cmd\";\nmsg.payload = \"GPIO,\" + String(gpio_pin) + \",\" + (gpio_state ? \"1\" : \"0\");\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1180,
+        "y": 1660,
+        "wires": [
+            [
+                "ac41165dda572841",
+                "63903fa65fa409c3"
+            ]
+        ]
+    },
+    {
+        "id": "ac41165dda572841",
+        "type": "mqtt out",
+        "z": "2bfb0626.bbf15a",
+        "name": "",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "e314300a.e8a55",
+        "x": 1350,
+        "y": 1660,
+        "wires": []
+    },
+    {
+        "id": "63903fa65fa409c3",
+        "type": "debug",
+        "z": "2bfb0626.bbf15a",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 1470,
+        "y": 1660,
+        "wires": []
+    },
+    {
+        "id": "cc85ea953cd4e7d9",
+        "type": "comment",
+        "z": "2bfb0626.bbf15a",
+        "name": "Set GPIO to specific state",
+        "info": "",
+        "x": 930,
+        "y": 1600,
+        "wires": []
+    },
+    {
+        "id": "375c95dd2d259250",
+        "type": "inject",
+        "z": "2bfb0626.bbf15a",
+        "name": "toggle",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "false",
+        "payloadType": "bool",
+        "x": 950,
+        "y": 1780,
+        "wires": [
+            [
+                "ee9be4b9b2c60294"
+            ]
+        ]
+    },
+    {
+        "id": "ee9be4b9b2c60294",
+        "type": "function",
+        "z": "2bfb0626.bbf15a",
+        "name": "build_command",
+        "func": "// define your settings here\n\nvar gpio_pin = 12; // = represents \"D6\" on a wemos d1 mini\nvar espeasy_device_name = \"EspEasy_GPIO\"\n\n//do not modify anything beyond this line\n\nmsg.topic = String(espeasy_device_name) + \"/cmd\";\nmsg.payload = \"GPIOtoggle,\" + gpio_pin;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1180,
+        "y": 1780,
+        "wires": [
+            [
+                "52f84c9cab2e86e7",
+                "fc4479b3eddd71fd"
+            ]
+        ]
+    },
+    {
+        "id": "52f84c9cab2e86e7",
+        "type": "mqtt out",
+        "z": "2bfb0626.bbf15a",
+        "name": "",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "e314300a.e8a55",
+        "x": 1350,
+        "y": 1780,
+        "wires": []
+    },
+    {
+        "id": "fc4479b3eddd71fd",
+        "type": "debug",
+        "z": "2bfb0626.bbf15a",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 1470,
+        "y": 1780,
+        "wires": []
+    },
+    {
+        "id": "30debc7621ef872e",
+        "type": "comment",
+        "z": "2bfb0626.bbf15a",
+        "name": "Toggle GPIO state",
+        "info": "",
+        "x": 910,
+        "y": 1740,
+        "wires": []
+    },
+    {
+        "id": "3043b5aa80dd35bb",
+        "type": "inject",
+        "z": "2bfb0626.bbf15a",
+        "name": "send pulse",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "false",
+        "payloadType": "bool",
+        "x": 960,
+        "y": 1880,
+        "wires": [
+            [
+                "5ec54e205e67478f"
+            ]
+        ]
+    },
+    {
+        "id": "5ec54e205e67478f",
+        "type": "function",
+        "z": "2bfb0626.bbf15a",
+        "name": "build_command",
+        "func": "// define your settings here\n\nvar gpio_pin = 12; // = represents \"D6\" on a wemos d1 mini\nvar espeasy_device_name = \"EspEasy_GPIO\";\nvar pulse_duration = \"3\"; // possible values 1 to 999 seconds\n\n//do not modify anything beyond this line\n\nvar gpio_state = msg.payload;\nmsg.topic = String(espeasy_device_name) + \"/cmd\";\nmsg.payload = \"LongPulse,\" + String(gpio_pin) + \",\" + (gpio_state ? \"1\" : \"0\")+\",\" + String(pulse_duration);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1180,
+        "y": 1880,
+        "wires": [
+            [
+                "a82c3650ac97e7b8",
+                "5436fbafc73002ab"
+            ]
+        ]
+    },
+    {
+        "id": "a82c3650ac97e7b8",
+        "type": "mqtt out",
+        "z": "2bfb0626.bbf15a",
+        "name": "",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "e314300a.e8a55",
+        "x": 1350,
+        "y": 1880,
+        "wires": []
+    },
+    {
+        "id": "5436fbafc73002ab",
+        "type": "debug",
+        "z": "2bfb0626.bbf15a",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 1470,
+        "y": 1880,
+        "wires": []
+    },
+    {
+        "id": "1f947928f4b3e74a",
+        "type": "comment",
+        "z": "2bfb0626.bbf15a",
+        "name": "Send Long pulse to GPIO (1 to 999 seconds)",
+        "info": "",
+        "x": 990,
+        "y": 1840,
+        "wires": []
+    },
+    {
+        "id": "e6a8c03648b74097",
+        "type": "inject",
+        "z": "2bfb0626.bbf15a",
+        "name": "send pulse",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "false",
+        "payloadType": "bool",
+        "x": 960,
+        "y": 1980,
+        "wires": [
+            [
+                "43125c652e05344a"
+            ]
+        ]
+    },
+    {
+        "id": "43125c652e05344a",
+        "type": "function",
+        "z": "2bfb0626.bbf15a",
+        "name": "build_command",
+        "func": "// define your settings here\n\nvar gpio_pin = 12; // = represents \"D6\" on a wemos d1 mini\nvar espeasy_device_name = \"EspEasy_GPIO\";\nvar pulse_duration = \"1000\"; // possible values 10 to 15000 milliseconds\n\n//do not modify anything beyond this line\n\nvar gpio_state = msg.payload;\nmsg.topic = String(espeasy_device_name) + \"/cmd\";\nmsg.payload = \"LongPulse_mS,\" + String(gpio_pin) + \",\" + (gpio_state ? \"1\" : \"0\")+\",\" + String(pulse_duration);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1180,
+        "y": 1980,
+        "wires": [
+            [
+                "58eb1b7eb1d66619",
+                "11b04c10fe677901"
+            ]
+        ]
+    },
+    {
+        "id": "58eb1b7eb1d66619",
+        "type": "mqtt out",
+        "z": "2bfb0626.bbf15a",
+        "name": "",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "e314300a.e8a55",
+        "x": 1350,
+        "y": 1980,
+        "wires": []
+    },
+    {
+        "id": "11b04c10fe677901",
+        "type": "debug",
+        "z": "2bfb0626.bbf15a",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 1470,
+        "y": 1980,
+        "wires": []
+    },
+    {
+        "id": "128f3bd431fdf5ed",
+        "type": "comment",
+        "z": "2bfb0626.bbf15a",
+        "name": "Send longer pulses to GPIO (10 to 15000 milliseconds)",
+        "info": "",
+        "x": 1020,
+        "y": 1940,
+        "wires": []
+    },
+    {
+        "id": "54f061bd89d76f44",
+        "type": "inject",
+        "z": "2bfb0626.bbf15a",
+        "name": "send pulse",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "false",
+        "payloadType": "bool",
+        "x": 960,
+        "y": 2080,
+        "wires": [
+            [
+                "246a8d3676d56da7"
+            ]
+        ]
+    },
+    {
+        "id": "246a8d3676d56da7",
+        "type": "function",
+        "z": "2bfb0626.bbf15a",
+        "name": "build_command",
+        "func": "// define your settings here\n\nvar gpio_pin = 12; // = represents \"D6\" on a wemos d1 mini\nvar espeasy_device_name = \"EspEasy_GPIO\";\nvar pulse_duration = \"1000\"; // possible values 1 to 1000 milliseconds\n\n//do not modify anything beyond this line\n\nvar gpio_state = msg.payload;\nmsg.topic = String(espeasy_device_name) + \"/cmd\";\nmsg.payload = \"Pulse,\" + String(gpio_pin) + \",\" + (gpio_state ? \"1\" : \"0\")+\",\" + String(pulse_duration);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1180,
+        "y": 2080,
+        "wires": [
+            [
+                "94d294552f43e705",
+                "9ff461a80cfd1dce"
+            ]
+        ]
+    },
+    {
+        "id": "94d294552f43e705",
+        "type": "mqtt out",
+        "z": "2bfb0626.bbf15a",
+        "name": "",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "e314300a.e8a55",
+        "x": 1350,
+        "y": 2080,
+        "wires": []
+    },
+    {
+        "id": "9ff461a80cfd1dce",
+        "type": "debug",
+        "z": "2bfb0626.bbf15a",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 1470,
+        "y": 2080,
+        "wires": []
+    },
+    {
+        "id": "4d5f2af6edb36708",
+        "type": "comment",
+        "z": "2bfb0626.bbf15a",
+        "name": "Send short pulse to GPIO (1 to 1000 milliseconds)",
+        "info": "",
+        "x": 1010,
+        "y": 2040,
+        "wires": []
+    },
+    {
+        "id": "e314300a.e8a55",
+        "type": "mqtt-broker",
+        "name": "Server-Mqtt",
+        "broker": "servy.fritz.box",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    }
+]
