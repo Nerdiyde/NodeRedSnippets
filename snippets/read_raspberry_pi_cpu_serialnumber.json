@@ -1,0 +1,86 @@
+[
+    {
+        "id": "48a9301478dea057",
+        "type": "inject",
+        "z": "2dcf0cc0.aeb894",
+        "name": "read CPU ID",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payloadType": "date",
+        "x": 250,
+        "y": 4600,
+        "wires": [
+            [
+                "84e93b1f0fa7e0b3"
+            ]
+        ]
+    },
+    {
+        "id": "84e93b1f0fa7e0b3",
+        "type": "exec",
+        "z": "2dcf0cc0.aeb894",
+        "command": "cat /proc/cpuinfo | grep Serial | cut -d \":\" -f2",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 530,
+        "y": 4600,
+        "wires": [
+            [
+                "088075609b0f6bb1"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "a6335829b13d1c1c",
+        "type": "debug",
+        "z": "2dcf0cc0.aeb894",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 550,
+        "y": 4660,
+        "wires": []
+    },
+    {
+        "id": "088075609b0f6bb1",
+        "type": "function",
+        "z": "2dcf0cc0.aeb894",
+        "name": "trim whitespaces",
+        "func": "msg.payload = msg.payload.trim();\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 4660,
+        "wires": [
+            [
+                "a6335829b13d1c1c"
+            ]
+        ]
+    }
+]
