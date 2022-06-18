@@ -1,1 +1,424 @@
-[{"id":"df862dc9.786fd","type":"inject","z":"ba705cfb.7ee0a","name":"Get calllist","topic":"","payload":"","payloadType":"date","repeat":"60","crontab":"","once":true,"onceDelay":0.1,"x":250,"y":1920,"wires":[["db8c5bd2.dd2eb8"]]},{"id":"ed5632c3.3e17","type":"comment","z":"ba705cfb.7ee0a","name":"Show Calllist","info":"","x":190,"y":1880,"wires":[]},{"id":"db8c5bd2.dd2eb8","type":"fritzbox-calllist","z":"ba705cfb.7ee0a","device":"358f95ae.ef43ea","name":"","action":"","max":"10","maxdays":"","x":470,"y":1920,"wires":[["6f0ec0b4.3a573"]]},{"id":"6f0ec0b4.3a573","type":"function","z":"ba705cfb.7ee0a","name":"collectData","func":"\nvar callListEntries = [];\nvar incAnswCallListEntries = [];\nvar missedCallListEntries = [];\nvar outgoingCallListEntries = [];\n\n    for (var i = 0; (i<msg.payload.Call.length && i<20); i++)\n    {\n        if (msg.payload.Call[i].Type!==undefined)\n        {\n            var inOrOut=\"-\";\n            if(msg.payload.Call[i].Type==1)\n            {\n                //Eingehender Angenommener Anruf\n                inOrOut=\"> incoming answ.\";\n                \n                incAnswCallListEntries.push({\n                direction:  inOrOut,\n                date:  msg.payload.Call[i].Date,\n                name:  msg.payload.Call[i].Name,\n                number:  msg.payload.Call[i].Caller\n                });\n            } else if(msg.payload.Call[i].Type==2)\n            {\n                //Eingehender Nicht-Angenommener Anruf\n                inOrOut=\">> missed\";\n                \n                missedCallListEntries.push({\n                direction:  inOrOut,\n                date:  msg.payload.Call[i].Date,\n                name:  msg.payload.Call[i].Name,\n                number:  msg.payload.Call[i].Caller\n                });\n            } else if(msg.payload.Call[i].Type==3)\n            {\n                //Ausgehender Nicht-Angenommener Anruf\n                inOrOut=\"<< outgoing\";\n                \n                outgoingCallListEntries.push({\n                direction:  inOrOut,\n                date:  msg.payload.Call[i].Date,\n                name:  msg.payload.Call[i].Name,\n                number:  msg.payload.Call[i].Caller\n                });\n            }\n            \n            callListEntries.push({\n            direction:  inOrOut,\n            date:  msg.payload.Call[i].Date,\n            name:  msg.payload.Call[i].Name,\n            number:  msg.payload.Call[i].Caller\n            });\n        }\n    }\n\nvar msgNew= {payload: callListEntries};\nmsgNew.incAnsw=incAnswCallListEntries;\nmsgNew.missed=missedCallListEntries;\nmsgNew.outgoing=outgoingCallListEntries;\nreturn msgNew;","outputs":1,"noerr":0,"x":690,"y":1920,"wires":[["ed0678b3.1c6c98","ddf9b2c0.049d5","b2c8c704.bb61b8","8b7f87c9.120bf8","f3f3769c.7037a8"]]},{"id":"ed0678b3.1c6c98","type":"ui_table","z":"ba705cfb.7ee0a","group":"abc07dab.63606","name":"FritzBox-Calllist-all","order":1,"width":"20","height":"10","columns":[{"field":"direction","title":"direction","width":"","align":"left","formatter":"plaintext","formatterParams":{"target":"_blank"}},{"field":"date","title":"date","width":"","align":"left","formatter":"plaintext","formatterParams":{"target":"_blank"}},{"field":"name","title":"name","width":"","align":"left","formatter":"plaintext","formatterParams":{"target":"_blank"}},{"field":"number","title":"number","width":"","align":"left","formatter":"plaintext","formatterParams":{"target":"_blank"}}],"outputs":0,"cts":false,"x":930,"y":1920,"wires":[]},{"id":"ddf9b2c0.049d5","type":"change","z":"ba705cfb.7ee0a","name":"incAnsw","rules":[{"t":"set","p":"payload","pt":"msg","to":"incAnsw","tot":"msg"}],"action":"","property":"","from":"","to":"","reg":false,"x":900,"y":1960,"wires":[["ac3cb12b.6b9d8"]]},{"id":"b2c8c704.bb61b8","type":"change","z":"ba705cfb.7ee0a","name":"missed","rules":[{"t":"set","p":"payload","pt":"msg","to":"missed","tot":"msg"}],"action":"","property":"","from":"","to":"","reg":false,"x":900,"y":2000,"wires":[["cf4b41d0.417e3"]]},{"id":"8b7f87c9.120bf8","type":"change","z":"ba705cfb.7ee0a","name":"outgoing","rules":[{"t":"set","p":"payload","pt":"msg","to":"outgoing","tot":"msg"}],"action":"","property":"","from":"","to":"","reg":false,"x":900,"y":2040,"wires":[["728a7c24.88f024"]]},{"id":"ac3cb12b.6b9d8","type":"ui_table","z":"ba705cfb.7ee0a","group":"abc07dab.63606","name":"FritzBox-Calllist-incoming-answered","order":1,"width":"20","height":"10","columns":[{"field":"direction","title":"direction","width":"","align":"left","formatter":"plaintext","formatterParams":{"target":"_blank"}},{"field":"date","title":"date","width":"","align":"left","formatter":"plaintext","formatterParams":{"target":"_blank"}},{"field":"name","title":"name","width":"","align":"left","formatter":"plaintext","formatterParams":{"target":"_blank"}},{"field":"number","title":"number","width":"","align":"left","formatter":"plaintext","formatterParams":{"target":"_blank"}}],"outputs":0,"cts":false,"x":1170,"y":1960,"wires":[]},{"id":"cf4b41d0.417e3","type":"ui_table","z":"ba705cfb.7ee0a","group":"abc07dab.63606","name":"FritzBox-Calllist-missed","order":1,"width":"20","height":"10","columns":[{"field":"direction","title":"direction","width":"","align":"left","formatter":"plaintext","formatterParams":{"target":"_blank"}},{"field":"date","title":"date","width":"","align":"left","formatter":"plaintext","formatterParams":{"target":"_blank"}},{"field":"name","title":"name","width":"","align":"left","formatter":"plaintext","formatterParams":{"target":"_blank"}},{"field":"number","title":"number","width":"","align":"left","formatter":"plaintext","formatterParams":{"target":"_blank"}}],"outputs":0,"cts":false,"x":1130,"y":2000,"wires":[]},{"id":"728a7c24.88f024","type":"ui_table","z":"ba705cfb.7ee0a","group":"abc07dab.63606","name":"FritzBox-Calllist-outgoing","order":1,"width":"20","height":"10","columns":[{"field":"direction","title":"direction","width":"","align":"left","formatter":"plaintext","formatterParams":{"target":"_blank"}},{"field":"date","title":"date","width":"","align":"left","formatter":"plaintext","formatterParams":{"target":"_blank"}},{"field":"name","title":"name","width":"","align":"left","formatter":"plaintext","formatterParams":{"target":"_blank"}},{"field":"number","title":"number","width":"","align":"left","formatter":"plaintext","formatterParams":{"target":"_blank"}}],"outputs":0,"cts":false,"x":1130,"y":2040,"wires":[]},{"id":"f3f3769c.7037a8","type":"debug","z":"ba705cfb.7ee0a","name":"","active":false,"tosidebar":true,"console":false,"tostatus":false,"complete":"true","targetType":"full","x":890,"y":1880,"wires":[]},{"id":"358f95ae.ef43ea","type":"fritzbox-config","z":"","name":"fritzBox","host":"fritz.box","port":"49000","ssl":false},{"id":"abc07dab.63606","type":"ui_group","z":"","name":"Telefon","tab":"b881d91c.f73d98","disp":true,"width":"20","collapse":false},{"id":"b881d91c.f73d98","type":"ui_tab","z":"","name":"Status","icon":"dashboard","order":4,"disabled":false,"hidden":false}]
+[
+    {
+        "id": "4d06089f31496e4b",
+        "type": "inject",
+        "z": "2bfb0626.bbf15a",
+        "name": "Get calllist",
+        "repeat": "60",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 370,
+        "y": 2540,
+        "wires": [
+            [
+                "107fbb8410a51cc0"
+            ]
+        ]
+    },
+    {
+        "id": "8f5ab1dfd60154f8",
+        "type": "comment",
+        "z": "2bfb0626.bbf15a",
+        "name": "Show Calllist",
+        "info": "",
+        "x": 310,
+        "y": 2500,
+        "wires": []
+    },
+    {
+        "id": "107fbb8410a51cc0",
+        "type": "fritzbox-calllist",
+        "z": "2bfb0626.bbf15a",
+        "device": "358f95ae.ef43ea",
+        "name": "",
+        "action": "",
+        "max": "10",
+        "maxdays": "",
+        "x": 590,
+        "y": 2540,
+        "wires": [
+            [
+                "cb04d29d1ca8d289"
+            ]
+        ]
+    },
+    {
+        "id": "cb04d29d1ca8d289",
+        "type": "function",
+        "z": "2bfb0626.bbf15a",
+        "name": "collectData",
+        "func": "\nvar callListEntries = [];\nvar incAnswCallListEntries = [];\nvar missedCallListEntries = [];\nvar outgoingCallListEntries = [];\n\n    for (var i = 0; (i<msg.payload.Call.length && i<20); i++)\n    {\n        if (msg.payload.Call[i].Type!==undefined)\n        {\n            var inOrOut=\"-\";\n            if(msg.payload.Call[i].Type==1)\n            {\n                //Eingehender Angenommener Anruf\n                inOrOut=\"> incoming answ.\";\n                \n                incAnswCallListEntries.push({\n                direction:  inOrOut,\n                date:  msg.payload.Call[i].Date,\n                name:  msg.payload.Call[i].Name,\n                number:  msg.payload.Call[i].Caller\n                });\n            } else if(msg.payload.Call[i].Type==2)\n            {\n                //Eingehender Nicht-Angenommener Anruf\n                inOrOut=\">> missed\";\n                \n                missedCallListEntries.push({\n                direction:  inOrOut,\n                date:  msg.payload.Call[i].Date,\n                name:  msg.payload.Call[i].Name,\n                number:  msg.payload.Call[i].Caller\n                });\n            } else if(msg.payload.Call[i].Type==3)\n            {\n                //Ausgehender Nicht-Angenommener Anruf\n                inOrOut=\"<< outgoing\";\n                \n                outgoingCallListEntries.push({\n                direction:  inOrOut,\n                date:  msg.payload.Call[i].Date,\n                name:  msg.payload.Call[i].Name,\n                number:  msg.payload.Call[i].Called\n                });\n            }\n            \n            callListEntries.push({\n            direction:  inOrOut,\n            date:  msg.payload.Call[i].Date,\n            name:  msg.payload.Call[i].Name,\n            number:  msg.payload.Call[i].Caller\n            });\n        }\n    }\n\nvar msgNew= {payload: callListEntries};\nmsgNew.incAnsw=incAnswCallListEntries;\nmsgNew.missed=missedCallListEntries;\nmsgNew.outgoing=outgoingCallListEntries;\nreturn msgNew;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 810,
+        "y": 2540,
+        "wires": [
+            [
+                "01707e802cca7f48",
+                "87a8c69f1cb6fc71",
+                "97a5be41a32dc7ef",
+                "236ec53426cc9e6a",
+                "5dd87ee46e8b0591"
+            ]
+        ]
+    },
+    {
+        "id": "01707e802cca7f48",
+        "type": "ui_table",
+        "z": "2bfb0626.bbf15a",
+        "group": "abc07dab.63606",
+        "name": "FritzBox-Calllist-all",
+        "order": 1,
+        "width": "20",
+        "height": "10",
+        "columns": [
+            {
+                "field": "direction",
+                "title": "direction",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "date",
+                "title": "date",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "name",
+                "title": "name",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "number",
+                "title": "number",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            }
+        ],
+        "outputs": 0,
+        "cts": false,
+        "x": 1050,
+        "y": 2540,
+        "wires": []
+    },
+    {
+        "id": "87a8c69f1cb6fc71",
+        "type": "change",
+        "z": "2bfb0626.bbf15a",
+        "name": "incAnsw",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "incAnsw",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1020,
+        "y": 2580,
+        "wires": [
+            [
+                "a743097a6998b370"
+            ]
+        ]
+    },
+    {
+        "id": "97a5be41a32dc7ef",
+        "type": "change",
+        "z": "2bfb0626.bbf15a",
+        "name": "missed",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "missed",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1020,
+        "y": 2620,
+        "wires": [
+            [
+                "776d40c6a5af1627"
+            ]
+        ]
+    },
+    {
+        "id": "236ec53426cc9e6a",
+        "type": "change",
+        "z": "2bfb0626.bbf15a",
+        "name": "outgoing",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "outgoing",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1020,
+        "y": 2660,
+        "wires": [
+            [
+                "c4f746824f457f4e"
+            ]
+        ]
+    },
+    {
+        "id": "a743097a6998b370",
+        "type": "ui_table",
+        "z": "2bfb0626.bbf15a",
+        "group": "abc07dab.63606",
+        "name": "FritzBox-Calllist-incoming-answered",
+        "order": 1,
+        "width": "20",
+        "height": "10",
+        "columns": [
+            {
+                "field": "direction",
+                "title": "direction",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "date",
+                "title": "date",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "name",
+                "title": "name",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "number",
+                "title": "number",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            }
+        ],
+        "outputs": 0,
+        "cts": false,
+        "x": 1290,
+        "y": 2580,
+        "wires": []
+    },
+    {
+        "id": "776d40c6a5af1627",
+        "type": "ui_table",
+        "z": "2bfb0626.bbf15a",
+        "group": "abc07dab.63606",
+        "name": "FritzBox-Calllist-missed",
+        "order": 1,
+        "width": "20",
+        "height": "10",
+        "columns": [
+            {
+                "field": "direction",
+                "title": "direction",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "date",
+                "title": "date",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "name",
+                "title": "name",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "number",
+                "title": "number",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            }
+        ],
+        "outputs": 0,
+        "cts": false,
+        "x": 1250,
+        "y": 2620,
+        "wires": []
+    },
+    {
+        "id": "c4f746824f457f4e",
+        "type": "ui_table",
+        "z": "2bfb0626.bbf15a",
+        "group": "abc07dab.63606",
+        "name": "FritzBox-Calllist-outgoing",
+        "order": 1,
+        "width": "20",
+        "height": "10",
+        "columns": [
+            {
+                "field": "direction",
+                "title": "direction",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "date",
+                "title": "date",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "name",
+                "title": "name",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "number",
+                "title": "number",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            }
+        ],
+        "outputs": 0,
+        "cts": false,
+        "x": 1250,
+        "y": 2660,
+        "wires": []
+    },
+    {
+        "id": "5dd87ee46e8b0591",
+        "type": "debug",
+        "z": "2bfb0626.bbf15a",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 1010,
+        "y": 2500,
+        "wires": []
+    },
+    {
+        "id": "358f95ae.ef43ea",
+        "type": "fritzbox-config",
+        "name": "fritzBox",
+        "host": "fritz.box",
+        "port": "49443",
+        "ssl": true,
+        "user": "Fabeulous"
+    },
+    {
+        "id": "abc07dab.63606",
+        "type": "ui_group",
+        "name": "Telefon",
+        "tab": "b881d91c.f73d98",
+        "order": 3,
+        "disp": true,
+        "width": "20",
+        "collapse": false
+    },
+    {
+        "id": "b881d91c.f73d98",
+        "type": "ui_tab",
+        "name": "Status",
+        "icon": "dashboard",
+        "order": 4,
+        "disabled": false,
+        "hidden": false
+    }
+]
