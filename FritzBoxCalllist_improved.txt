@@ -1,8 +1,8 @@
 [
     {
-        "id": "4d06089f31496e4b",
+        "id": "ed6d5f68.1d46b",
         "type": "inject",
-        "z": "2bfb0626.bbf15a",
+        "z": "78b1bede.9b035",
         "name": "Get calllist",
         "repeat": "60",
         "crontab": "",
@@ -11,68 +11,164 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 370,
-        "y": 2540,
+        "x": 230,
+        "y": 3260,
         "wires": [
             [
-                "107fbb8410a51cc0"
+                "59ece26.395581c"
             ]
         ]
     },
     {
-        "id": "8f5ab1dfd60154f8",
+        "id": "fa6ce0df.270fe",
         "type": "comment",
-        "z": "2bfb0626.bbf15a",
+        "z": "78b1bede.9b035",
         "name": "Show Calllist",
         "info": "",
-        "x": 310,
-        "y": 2500,
+        "x": 170,
+        "y": 3220,
         "wires": []
     },
     {
-        "id": "107fbb8410a51cc0",
+        "id": "59ece26.395581c",
         "type": "fritzbox-calllist",
-        "z": "2bfb0626.bbf15a",
+        "z": "78b1bede.9b035",
         "device": "358f95ae.ef43ea",
         "name": "",
         "action": "",
         "max": "10",
         "maxdays": "",
-        "x": 590,
-        "y": 2540,
+        "x": 450,
+        "y": 3260,
         "wires": [
             [
-                "cb04d29d1ca8d289"
+                "f17b4c1d.20bee"
             ]
         ]
     },
     {
-        "id": "cb04d29d1ca8d289",
+        "id": "f17b4c1d.20bee",
         "type": "function",
-        "z": "2bfb0626.bbf15a",
+        "z": "78b1bede.9b035",
         "name": "collectData",
-        "func": "\nvar callListEntries = [];\nvar incAnswCallListEntries = [];\nvar missedCallListEntries = [];\nvar outgoingCallListEntries = [];\n\n    for (var i = 0; (i<msg.payload.Call.length && i<20); i++)\n    {\n        if (msg.payload.Call[i].Type!==undefined)\n        {\n            var inOrOut=\"-\";\n            if(msg.payload.Call[i].Type==1)\n            {\n                //Eingehender Angenommener Anruf\n                inOrOut=\"> incoming answ.\";\n                \n                incAnswCallListEntries.push({\n                direction:  inOrOut,\n                date:  msg.payload.Call[i].Date,\n                name:  msg.payload.Call[i].Name,\n                number:  msg.payload.Call[i].Caller\n                });\n            } else if(msg.payload.Call[i].Type==2)\n            {\n                //Eingehender Nicht-Angenommener Anruf\n                inOrOut=\">> missed\";\n                \n                missedCallListEntries.push({\n                direction:  inOrOut,\n                date:  msg.payload.Call[i].Date,\n                name:  msg.payload.Call[i].Name,\n                number:  msg.payload.Call[i].Caller\n                });\n            } else if(msg.payload.Call[i].Type==3)\n            {\n                //Ausgehender Nicht-Angenommener Anruf\n                inOrOut=\"<< outgoing\";\n                \n                outgoingCallListEntries.push({\n                direction:  inOrOut,\n                date:  msg.payload.Call[i].Date,\n                name:  msg.payload.Call[i].Name,\n                number:  msg.payload.Call[i].Called\n                });\n            }\n            \n            callListEntries.push({\n            direction:  inOrOut,\n            date:  msg.payload.Call[i].Date,\n            name:  msg.payload.Call[i].Name,\n            number:  msg.payload.Call[i].Caller\n            });\n        }\n    }\n\nvar msgNew= {payload: callListEntries};\nmsgNew.incAnsw=incAnswCallListEntries;\nmsgNew.missed=missedCallListEntries;\nmsgNew.outgoing=outgoingCallListEntries;\nreturn msgNew;",
+        "func": "\nvar callListEntries = [];\nvar incAnswCallListEntries = [];\nvar missedCallListEntries = [];\nvar outgoingCallListEntries = [];\n\n    for (var i = 0; (i<msg.payload.Call.length && i<20); i++)\n    {\n        if (msg.payload.Call[i].Type!==undefined)\n        {\n            var inOrOut=\"-\";\n            \n            if(msg.payload.Call[i].Type==1)\n            {\n                //Eingehender Angenommener Anruf\n                inOrOut=\"< incoming answ.\";\n                \n                incAnswCallListEntries.push({\n                direction:  inOrOut,\n                date:  msg.payload.Call[i].Date,\n                name:  msg.payload.Call[i].Name,\n                number:  msg.payload.Call[i].Caller\n                });\n            } else if(msg.payload.Call[i].Type==2)\n            {\n                //Eingehender Nicht-Angenommener Anruf\n                inOrOut=\"<< missed\";\n                \n                missedCallListEntries.push({\n                direction:  inOrOut,\n                date:  msg.payload.Call[i].Date,\n                name:  msg.payload.Call[i].Name,\n                number:  msg.payload.Call[i].Caller\n                });\n            } else if(msg.payload.Call[i].Type==3)\n            {\n                //Ausgehender Nicht-Angenommener Anruf\n                inOrOut=\">> outgoing\";\n                \n                outgoingCallListEntries.push({\n                direction:  inOrOut,\n                date:  msg.payload.Call[i].Date,\n                name:  msg.payload.Call[i].Name,\n                number:  msg.payload.Call[i].Called\n                });\n            }\n            \n            callListEntries.push({\n            direction:  inOrOut,\n            date:  msg.payload.Call[i].Date,\n            name:  msg.payload.Call[i].Name,\n            number:  msg.payload.Call[i].Type==3 ? msg.payload.Call[i].Called : msg.payload.Call[i].Caller\n            });\n        }\n    }\n\nvar msgNew= {payload: callListEntries};\nmsgNew.incAnsw=incAnswCallListEntries;\nmsgNew.missed=missedCallListEntries;\nmsgNew.outgoing=outgoingCallListEntries;\nreturn msgNew;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 810,
-        "y": 2540,
+        "x": 670,
+        "y": 3260,
         "wires": [
             [
-                "01707e802cca7f48",
-                "87a8c69f1cb6fc71",
-                "97a5be41a32dc7ef",
-                "236ec53426cc9e6a",
-                "5dd87ee46e8b0591"
+                "56045f9e.35c8c",
+                "24fc57c.df44ea8",
+                "db8e1588.952a08",
+                "439a5c5b.cbd0d4",
+                "e42e21ee5ccc97a7"
             ]
         ]
     },
     {
-        "id": "01707e802cca7f48",
+        "id": "56045f9e.35c8c",
+        "type": "change",
+        "z": "78b1bede.9b035",
+        "name": "incAnsw",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "incAnsw",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 880,
+        "y": 3300,
+        "wires": [
+            [
+                "c62db2bdb10fe1f6"
+            ]
+        ]
+    },
+    {
+        "id": "24fc57c.df44ea8",
+        "type": "change",
+        "z": "78b1bede.9b035",
+        "name": "missed",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "missed",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 880,
+        "y": 3340,
+        "wires": [
+            [
+                "97441703a480e68f"
+            ]
+        ]
+    },
+    {
+        "id": "db8e1588.952a08",
+        "type": "change",
+        "z": "78b1bede.9b035",
+        "name": "outgoing",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "outgoing",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 880,
+        "y": 3380,
+        "wires": [
+            [
+                "7dde9d21ad9bd1f0"
+            ]
+        ]
+    },
+    {
+        "id": "439a5c5b.cbd0d4",
+        "type": "debug",
+        "z": "78b1bede.9b035",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 870,
+        "y": 3220,
+        "wires": []
+    },
+    {
+        "id": "e42e21ee5ccc97a7",
         "type": "ui_table",
-        "z": "2bfb0626.bbf15a",
+        "z": "78b1bede.9b035",
         "group": "abc07dab.63606",
         "name": "FritzBox-Calllist-all",
         "order": 1,
@@ -122,95 +218,14 @@
         ],
         "outputs": 0,
         "cts": false,
-        "x": 1050,
-        "y": 2540,
+        "x": 1100,
+        "y": 3260,
         "wires": []
     },
     {
-        "id": "87a8c69f1cb6fc71",
-        "type": "change",
-        "z": "2bfb0626.bbf15a",
-        "name": "incAnsw",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "incAnsw",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1020,
-        "y": 2580,
-        "wires": [
-            [
-                "a743097a6998b370"
-            ]
-        ]
-    },
-    {
-        "id": "97a5be41a32dc7ef",
-        "type": "change",
-        "z": "2bfb0626.bbf15a",
-        "name": "missed",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "missed",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1020,
-        "y": 2620,
-        "wires": [
-            [
-                "776d40c6a5af1627"
-            ]
-        ]
-    },
-    {
-        "id": "236ec53426cc9e6a",
-        "type": "change",
-        "z": "2bfb0626.bbf15a",
-        "name": "outgoing",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "outgoing",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1020,
-        "y": 2660,
-        "wires": [
-            [
-                "c4f746824f457f4e"
-            ]
-        ]
-    },
-    {
-        "id": "a743097a6998b370",
+        "id": "c62db2bdb10fe1f6",
         "type": "ui_table",
-        "z": "2bfb0626.bbf15a",
+        "z": "78b1bede.9b035",
         "group": "abc07dab.63606",
         "name": "FritzBox-Calllist-incoming-answered",
         "order": 1,
@@ -260,14 +275,14 @@
         ],
         "outputs": 0,
         "cts": false,
-        "x": 1290,
-        "y": 2580,
+        "x": 1160,
+        "y": 3300,
         "wires": []
     },
     {
-        "id": "776d40c6a5af1627",
+        "id": "97441703a480e68f",
         "type": "ui_table",
-        "z": "2bfb0626.bbf15a",
+        "z": "78b1bede.9b035",
         "group": "abc07dab.63606",
         "name": "FritzBox-Calllist-missed",
         "order": 1,
@@ -317,14 +332,14 @@
         ],
         "outputs": 0,
         "cts": false,
-        "x": 1250,
-        "y": 2620,
+        "x": 1120,
+        "y": 3340,
         "wires": []
     },
     {
-        "id": "c4f746824f457f4e",
+        "id": "7dde9d21ad9bd1f0",
         "type": "ui_table",
-        "z": "2bfb0626.bbf15a",
+        "z": "78b1bede.9b035",
         "group": "abc07dab.63606",
         "name": "FritzBox-Calllist-outgoing",
         "order": 1,
@@ -374,23 +389,8 @@
         ],
         "outputs": 0,
         "cts": false,
-        "x": 1250,
-        "y": 2660,
-        "wires": []
-    },
-    {
-        "id": "5dd87ee46e8b0591",
-        "type": "debug",
-        "z": "2bfb0626.bbf15a",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "x": 1010,
-        "y": 2500,
+        "x": 1120,
+        "y": 3380,
         "wires": []
     },
     {
@@ -400,7 +400,7 @@
         "host": "fritz.box",
         "port": "49443",
         "ssl": true,
-        "user": "Fabeulous"
+        "user": "Fab"
     },
     {
         "id": "abc07dab.63606",
