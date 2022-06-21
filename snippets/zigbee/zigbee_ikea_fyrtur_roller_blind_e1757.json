@@ -1,0 +1,789 @@
+[
+    {
+        "id": "da15d3a726f3f5c4",
+        "type": "mqtt in",
+        "z": "f96fe1ba66e0cb43",
+        "name": "Blind 1",
+        "topic": "zigbee2mqtt/0x804b50fffe62325e",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "e314300a.e8a55",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 150,
+        "y": 200,
+        "wires": [
+            [
+                "6c363aa71978c5f3"
+            ]
+        ]
+    },
+    {
+        "id": "6c363aa71978c5f3",
+        "type": "json",
+        "z": "f96fe1ba66e0cb43",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 330,
+        "y": 200,
+        "wires": [
+            [
+                "ea08dcb279c96abe",
+                "7c1f24def3f7ce4a",
+                "7bc7479f9149ff49",
+                "04575b40a346a68d",
+                "443ce12cb620d2d8"
+            ]
+        ]
+    },
+    {
+        "id": "ea08dcb279c96abe",
+        "type": "debug",
+        "z": "f96fe1ba66e0cb43",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 470,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "7c1f24def3f7ce4a",
+        "type": "change",
+        "z": "f96fe1ba66e0cb43",
+        "name": "linkquality",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.linkquality",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 480,
+        "y": 200,
+        "wires": [
+            [
+                "44d7a1a26a6d146a"
+            ]
+        ]
+    },
+    {
+        "id": "7bc7479f9149ff49",
+        "type": "change",
+        "z": "f96fe1ba66e0cb43",
+        "name": "position",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.position",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "blind_1_position",
+                "pt": "global",
+                "to": "payload.position",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 480,
+        "y": 280,
+        "wires": [
+            [
+                "5a7e1cfc346d9b65"
+            ]
+        ]
+    },
+    {
+        "id": "777e99411bd6e7eb",
+        "type": "comment",
+        "z": "f96fe1ba66e0cb43",
+        "name": "Fenster-Blende FYRTUR (E1757) 1 (0x804b50fffe62325e): Bedroom right window",
+        "info": "",
+        "x": 360,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "44d7a1a26a6d146a",
+        "type": "ui_gauge",
+        "z": "f96fe1ba66e0cb43",
+        "name": "",
+        "group": "f9ced20756b90b1e",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Blind 1 Signal",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#ff0000",
+            "#e6e600",
+            "#80ff00"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 680,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "04575b40a346a68d",
+        "type": "change",
+        "z": "f96fe1ba66e0cb43",
+        "name": "update_available",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.update_available",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 530,
+        "y": 620,
+        "wires": [
+            [
+                "93bea1865b020540"
+            ]
+        ]
+    },
+    {
+        "id": "93bea1865b020540",
+        "type": "ui_button",
+        "z": "f96fe1ba66e0cb43",
+        "name": "",
+        "group": "f9ced20756b90b1e",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Blind 1 update",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "0x804b50fffe62325e",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "x": 820,
+        "y": 620,
+        "wires": [
+            [
+                "88694096fe61c432"
+            ]
+        ]
+    },
+    {
+        "id": "88694096fe61c432",
+        "type": "mqtt out",
+        "z": "f96fe1ba66e0cb43",
+        "name": "Update",
+        "topic": "zigbee2mqtt/bridge/ota_update/update",
+        "qos": "",
+        "retain": "",
+        "broker": "e314300a.e8a55",
+        "x": 1000,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "e84d4d090dfc8338",
+        "type": "inject",
+        "z": "f96fe1ba66e0cb43",
+        "name": "",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "false",
+        "payloadType": "bool",
+        "x": 510,
+        "y": 660,
+        "wires": [
+            [
+                "fd1486a296a96887"
+            ]
+        ]
+    },
+    {
+        "id": "fd1486a296a96887",
+        "type": "change",
+        "z": "f96fe1ba66e0cb43",
+        "name": "disable",
+        "rules": [
+            {
+                "t": "set",
+                "p": "enabled",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 640,
+        "y": 660,
+        "wires": [
+            [
+                "93bea1865b020540"
+            ]
+        ]
+    },
+    {
+        "id": "5a7e1cfc346d9b65",
+        "type": "ui_slider",
+        "z": "f96fe1ba66e0cb43",
+        "name": "",
+        "label": "Blind 1 position",
+        "tooltip": "",
+        "group": "f9ced20756b90b1e",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "outs": "end",
+        "topic": "topic",
+        "topicType": "msg",
+        "min": 0,
+        "max": "100",
+        "step": 1,
+        "className": "",
+        "x": 680,
+        "y": 280,
+        "wires": [
+            [
+                "96421dd511864b56"
+            ]
+        ]
+    },
+    {
+        "id": "bc710e36e8a83efe",
+        "type": "mqtt out",
+        "z": "f96fe1ba66e0cb43",
+        "name": "Blind 1 set",
+        "topic": "zigbee2mqtt/0x804b50fffe62325e/set",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "e314300a.e8a55",
+        "x": 1010,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "96421dd511864b56",
+        "type": "function",
+        "z": "f96fe1ba66e0cb43",
+        "name": "",
+        "func": "\nmsg.payload = '{\"position\": '+msg.payload+'}'\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 780,
+        "y": 380,
+        "wires": [
+            [
+                "bc710e36e8a83efe",
+                "7cc0f1d00cf12931"
+            ]
+        ]
+    },
+    {
+        "id": "b3632454880ef500",
+        "type": "inject",
+        "z": "f96fe1ba66e0cb43",
+        "name": "OPEN",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "OPEN",
+        "payloadType": "str",
+        "x": 490,
+        "y": 500,
+        "wires": [
+            [
+                "5dbe9ef6a14d2b5f"
+            ]
+        ]
+    },
+    {
+        "id": "04ca6b1ac873eaae",
+        "type": "inject",
+        "z": "f96fe1ba66e0cb43",
+        "name": "CLOSE",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "CLOSE",
+        "payloadType": "str",
+        "x": 490,
+        "y": 540,
+        "wires": [
+            [
+                "5dbe9ef6a14d2b5f"
+            ]
+        ]
+    },
+    {
+        "id": "5dbe9ef6a14d2b5f",
+        "type": "function",
+        "z": "f96fe1ba66e0cb43",
+        "name": "",
+        "func": "\nmsg.payload = '{\"state\": \"'+msg.payload+'\"}'\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 780,
+        "y": 580,
+        "wires": [
+            [
+                "bc710e36e8a83efe",
+                "0762c5d91a62bcee"
+            ]
+        ]
+    },
+    {
+        "id": "efa9ab9412e59236",
+        "type": "link in",
+        "z": "f96fe1ba66e0cb43",
+        "name": "blind_1_control(OPEN/CLOSE)",
+        "links": [
+            "01eb2a404151a6af",
+            "d7c63c402dda4b33",
+            "bdf79e15b7cc8160",
+            "e496e0ca2951c35b",
+            "cefe1e25a210b6f6"
+        ],
+        "x": 435,
+        "y": 580,
+        "wires": [
+            [
+                "5dbe9ef6a14d2b5f"
+            ]
+        ]
+    },
+    {
+        "id": "051f17a19f4af2b5",
+        "type": "inject",
+        "z": "f96fe1ba66e0cb43",
+        "name": "Close to 50%",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "50",
+        "payloadType": "str",
+        "x": 510,
+        "y": 340,
+        "wires": [
+            [
+                "96421dd511864b56"
+            ]
+        ]
+    },
+    {
+        "id": "d3ecbe598d6be1c0",
+        "type": "link in",
+        "z": "f96fe1ba66e0cb43",
+        "name": "blind_1_set_position(0-100)",
+        "links": [
+            "01eb2a404151a6af",
+            "d7c63c402dda4b33",
+            "bdf79e15b7cc8160",
+            "e496e0ca2951c35b",
+            "cefe1e25a210b6f6",
+            "ae476b16335ac210"
+        ],
+        "x": 435,
+        "y": 380,
+        "wires": [
+            [
+                "96421dd511864b56"
+            ]
+        ]
+    },
+    {
+        "id": "443ce12cb620d2d8",
+        "type": "change",
+        "z": "f96fe1ba66e0cb43",
+        "name": "battery",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.battery",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 470,
+        "y": 240,
+        "wires": [
+            [
+                "f3a49af7ee1cda73",
+                "5a423355f138ba14",
+                "bf33593ceae114b9"
+            ]
+        ]
+    },
+    {
+        "id": "f3a49af7ee1cda73",
+        "type": "ui_gauge",
+        "z": "f96fe1ba66e0cb43",
+        "name": "",
+        "group": "f9ced20756b90b1e",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Blind 1 battery",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#ff0000",
+            "#e6e600",
+            "#80ff00"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 680,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "4afcedf8733a4878",
+        "type": "ui_button",
+        "z": "f96fe1ba66e0cb43",
+        "name": "",
+        "group": "f9ced20756b90b1e",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Blind 1 open",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "OPEN",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "x": 490,
+        "y": 420,
+        "wires": [
+            [
+                "5dbe9ef6a14d2b5f"
+            ]
+        ]
+    },
+    {
+        "id": "d41e32e38d45274f",
+        "type": "ui_button",
+        "z": "f96fe1ba66e0cb43",
+        "name": "",
+        "group": "f9ced20756b90b1e",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Blind 1 close",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "CLOSE",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "x": 490,
+        "y": 460,
+        "wires": [
+            [
+                "5dbe9ef6a14d2b5f"
+            ]
+        ]
+    },
+    {
+        "id": "5a423355f138ba14",
+        "type": "function",
+        "z": "f96fe1ba66e0cb43",
+        "name": "check",
+        "func": "    msg.payload=(msg.payload<=20);\n    \nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 870,
+        "y": 240,
+        "wires": [
+            [
+                "b7f99676671ad6b6"
+            ]
+        ]
+    },
+    {
+        "id": "b7f99676671ad6b6",
+        "type": "trigger",
+        "z": "f96fe1ba66e0cb43",
+        "name": "",
+        "op1": "Battery level of roller blind right window is below 20%.",
+        "op2": "0",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "0",
+        "extend": false,
+        "overrideDelay": false,
+        "units": "ms",
+        "reset": "false",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 1040,
+        "y": 240,
+        "wires": [
+            [
+                "5ad0118c359aa522"
+            ]
+        ]
+    },
+    {
+        "id": "5ad0118c359aa522",
+        "type": "link out",
+        "z": "f96fe1ba66e0cb43",
+        "name": "",
+        "mode": "link",
+        "links": [
+            "e056fd99.d1485",
+            "27f00de6f8cd524a"
+        ],
+        "x": 1175,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "cd3e19e7e109e9d7",
+        "type": "ui_chart",
+        "z": "f96fe1ba66e0cb43",
+        "name": "",
+        "group": "f9ced20756b90b1e",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "label": "Battery history",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "auto",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": "12",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "604800",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1140,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "bf33593ceae114b9",
+        "type": "delay",
+        "z": "f96fe1ba66e0cb43",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "day",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 920,
+        "y": 280,
+        "wires": [
+            [
+                "cd3e19e7e109e9d7"
+            ]
+        ]
+    },
+    {
+        "id": "0762c5d91a62bcee",
+        "type": "debug",
+        "z": "f96fe1ba66e0cb43",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 990,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "7cc0f1d00cf12931",
+        "type": "debug",
+        "z": "f96fe1ba66e0cb43",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 990,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "e314300a.e8a55",
+        "type": "mqtt-broker",
+        "name": "Server-Mqtt",
+        "broker": "servy.fritz.box",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "f9ced20756b90b1e",
+        "type": "ui_group",
+        "name": "Bedroom right window",
+        "tab": "a268a761e1f1f71f",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "a268a761e1f1f71f",
+        "type": "ui_tab",
+        "name": "Blinds",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
