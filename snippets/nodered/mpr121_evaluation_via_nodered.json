@@ -1,0 +1,2131 @@
+[
+    {
+        "id": "1977453a.63414b",
+        "type": "debug",
+        "z": "6423811d66b9c025",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 630,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "ffd63859.09d578",
+        "type": "debug",
+        "z": "6423811d66b9c025",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 630,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "4c648356.3eb62c",
+        "type": "debug",
+        "z": "6423811d66b9c025",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 630,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "79801b94.ec7284",
+        "type": "debug",
+        "z": "6423811d66b9c025",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 630,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "27bbfe25.973c12",
+        "type": "debug",
+        "z": "6423811d66b9c025",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 630,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "d9f3990f.b6b3b8",
+        "type": "debug",
+        "z": "6423811d66b9c025",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 630,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "88d24aed.abd358",
+        "type": "debug",
+        "z": "6423811d66b9c025",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 630,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "e5f62769.c9c248",
+        "type": "debug",
+        "z": "6423811d66b9c025",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 630,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "3ef1ade.9294c52",
+        "type": "debug",
+        "z": "6423811d66b9c025",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 630,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "fe895e31.2197b",
+        "type": "debug",
+        "z": "6423811d66b9c025",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 630,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "92c458df.b20118",
+        "type": "debug",
+        "z": "6423811d66b9c025",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 630,
+        "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "52b72d3.c758fd4",
+        "type": "debug",
+        "z": "6423811d66b9c025",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 630,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "3f7e3716.f65888",
+        "type": "function",
+        "z": "6423811d66b9c025",
+        "name": "check touch threshold",
+        "func": "var msgTemp ={ payload: (msg.payload.pin<=flow.get(\"touchThreshold[\"+0+\"]\"))};\nmsgTemp.pin=msg.payload.pin\nreturn msgTemp;\n\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 180,
+        "wires": [
+            [
+                "5e41c66e.81c938",
+                "71b137ab.e8e048"
+            ]
+        ]
+    },
+    {
+        "id": "5e41c66e.81c938",
+        "type": "trigger",
+        "z": "6423811d66b9c025",
+        "name": "touched",
+        "op1": "touched",
+        "op2": "0",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "0",
+        "extend": false,
+        "units": "ms",
+        "reset": "false",
+        "bytopic": "all",
+        "outputs": 1,
+        "x": 880,
+        "y": 180,
+        "wires": [
+            [
+                "fa5deb36.c9f798",
+                "2b6ac00e69e9d7e8"
+            ]
+        ]
+    },
+    {
+        "id": "fa5deb36.c9f798",
+        "type": "debug",
+        "z": "6423811d66b9c025",
+        "name": "electrode 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1050,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "71b137ab.e8e048",
+        "type": "trigger",
+        "z": "6423811d66b9c025",
+        "name": "released",
+        "op1": "released",
+        "op2": "0",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "0",
+        "extend": false,
+        "units": "ms",
+        "reset": "true",
+        "bytopic": "all",
+        "outputs": 1,
+        "x": 880,
+        "y": 220,
+        "wires": [
+            [
+                "fa5deb36.c9f798",
+                "bf9bc069.2f167"
+            ]
+        ]
+    },
+    {
+        "id": "bf9bc069.2f167",
+        "type": "link out",
+        "z": "6423811d66b9c025",
+        "name": "electrode1_released",
+        "mode": "link",
+        "links": [],
+        "x": 1015,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "78bf876d.b16f98",
+        "type": "function",
+        "z": "6423811d66b9c025",
+        "name": "check touch threshold",
+        "func": "var msgTemp ={ payload: (msg.payload.pin<=flow.get(\"touchThreshold[\"+1+\"]\"))};\nreturn msgTemp;\n\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 660,
+        "y": 260,
+        "wires": [
+            [
+                "8f9d3891.e29af8",
+                "5a3632b3.5d918c"
+            ]
+        ]
+    },
+    {
+        "id": "8f9d3891.e29af8",
+        "type": "trigger",
+        "z": "6423811d66b9c025",
+        "name": "touched",
+        "op1": "touched",
+        "op2": "0",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "0",
+        "extend": false,
+        "units": "ms",
+        "reset": "false",
+        "bytopic": "all",
+        "outputs": 1,
+        "x": 880,
+        "y": 260,
+        "wires": [
+            [
+                "44a97b67.d2d4d4",
+                "c3253fb7f3a08cf6"
+            ]
+        ]
+    },
+    {
+        "id": "44a97b67.d2d4d4",
+        "type": "debug",
+        "z": "6423811d66b9c025",
+        "name": "electrode 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 1050,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "5a3632b3.5d918c",
+        "type": "trigger",
+        "z": "6423811d66b9c025",
+        "name": "released",
+        "op1": "released",
+        "op2": "0",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "0",
+        "extend": false,
+        "units": "ms",
+        "reset": "true",
+        "bytopic": "all",
+        "outputs": 1,
+        "x": 880,
+        "y": 300,
+        "wires": [
+            [
+                "44a97b67.d2d4d4",
+                "8e765614.3f1588"
+            ]
+        ]
+    },
+    {
+        "id": "8e765614.3f1588",
+        "type": "link out",
+        "z": "6423811d66b9c025",
+        "name": "electrode2",
+        "links": [],
+        "x": 1015,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "b167caca.9e2108",
+        "type": "function",
+        "z": "6423811d66b9c025",
+        "name": "check touch threshold",
+        "func": "var msgTemp ={ payload: (msg.payload.pin<=flow.get(\"touchThreshold[\"+2+\"]\"))};\nreturn msgTemp;\n\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 660,
+        "y": 340,
+        "wires": [
+            [
+                "42fa24fc.9454dc",
+                "7fc2c2f9.52167c"
+            ]
+        ]
+    },
+    {
+        "id": "42fa24fc.9454dc",
+        "type": "trigger",
+        "z": "6423811d66b9c025",
+        "name": "touched",
+        "op1": "touched",
+        "op2": "0",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "0",
+        "extend": false,
+        "units": "ms",
+        "reset": "false",
+        "bytopic": "all",
+        "outputs": 1,
+        "x": 880,
+        "y": 340,
+        "wires": [
+            [
+                "41500b66.59e904",
+                "77c97b11e06fb658"
+            ]
+        ]
+    },
+    {
+        "id": "41500b66.59e904",
+        "type": "debug",
+        "z": "6423811d66b9c025",
+        "name": "electrode 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 1050,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "7fc2c2f9.52167c",
+        "type": "trigger",
+        "z": "6423811d66b9c025",
+        "name": "released",
+        "op1": "released",
+        "op2": "0",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "0",
+        "extend": false,
+        "units": "ms",
+        "reset": "true",
+        "bytopic": "all",
+        "outputs": 1,
+        "x": 880,
+        "y": 380,
+        "wires": [
+            [
+                "41500b66.59e904",
+                "1a05cc4a.142f34"
+            ]
+        ]
+    },
+    {
+        "id": "1a05cc4a.142f34",
+        "type": "link out",
+        "z": "6423811d66b9c025",
+        "name": "electrode3",
+        "mode": "link",
+        "links": [],
+        "x": 1015,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "7a3e6c5.c211394",
+        "type": "function",
+        "z": "6423811d66b9c025",
+        "name": "check touch threshold",
+        "func": "var msgTemp ={ payload: (msg.payload.pin<=flow.get(\"touchThreshold[\"+3+\"]\"))};\nreturn msgTemp;\n\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 660,
+        "y": 420,
+        "wires": [
+            [
+                "b4a5cf52.53304",
+                "edc407ac.b282c8"
+            ]
+        ]
+    },
+    {
+        "id": "b4a5cf52.53304",
+        "type": "trigger",
+        "z": "6423811d66b9c025",
+        "name": "touched",
+        "op1": "touched",
+        "op2": "0",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "0",
+        "extend": false,
+        "units": "ms",
+        "reset": "false",
+        "bytopic": "all",
+        "outputs": 1,
+        "x": 880,
+        "y": 420,
+        "wires": [
+            [
+                "8f31f678.dfda88",
+                "fd5ab8b1d0da7fa1"
+            ]
+        ]
+    },
+    {
+        "id": "8f31f678.dfda88",
+        "type": "debug",
+        "z": "6423811d66b9c025",
+        "name": "electrode 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 1050,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "edc407ac.b282c8",
+        "type": "trigger",
+        "z": "6423811d66b9c025",
+        "name": "released",
+        "op1": "released",
+        "op2": "0",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "0",
+        "extend": false,
+        "units": "ms",
+        "reset": "true",
+        "bytopic": "all",
+        "outputs": 1,
+        "x": 880,
+        "y": 460,
+        "wires": [
+            [
+                "8f31f678.dfda88",
+                "6e838019.7dfd9"
+            ]
+        ]
+    },
+    {
+        "id": "6e838019.7dfd9",
+        "type": "link out",
+        "z": "6423811d66b9c025",
+        "name": "electrode4",
+        "links": [
+            "b59bfccc.d9b66"
+        ],
+        "x": 1015,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "f47896ee.8a2928",
+        "type": "function",
+        "z": "6423811d66b9c025",
+        "name": "check touch threshold",
+        "func": "var msgTemp ={ payload: (msg.payload.pin<=flow.get(\"touchThreshold[\"+4+\"]\"))};\nreturn msgTemp;\n\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 660,
+        "y": 500,
+        "wires": [
+            [
+                "dcd6348c.7e0838",
+                "a541497b.5f3ba8"
+            ]
+        ]
+    },
+    {
+        "id": "dcd6348c.7e0838",
+        "type": "trigger",
+        "z": "6423811d66b9c025",
+        "name": "touched",
+        "op1": "touched",
+        "op2": "0",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "0",
+        "extend": false,
+        "units": "ms",
+        "reset": "false",
+        "bytopic": "all",
+        "outputs": 1,
+        "x": 880,
+        "y": 500,
+        "wires": [
+            [
+                "c4154fd9.b3de6",
+                "13b4d0e6.ae18af",
+                "39f5b5a5e31d35bf"
+            ]
+        ]
+    },
+    {
+        "id": "c4154fd9.b3de6",
+        "type": "debug",
+        "z": "6423811d66b9c025",
+        "name": "electrode 5",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 1050,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "a541497b.5f3ba8",
+        "type": "trigger",
+        "z": "6423811d66b9c025",
+        "name": "released",
+        "op1": "released",
+        "op2": "0",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "0",
+        "extend": false,
+        "units": "ms",
+        "reset": "true",
+        "bytopic": "all",
+        "outputs": 1,
+        "x": 880,
+        "y": 540,
+        "wires": [
+            [
+                "c4154fd9.b3de6",
+                "13b4d0e6.ae18af"
+            ]
+        ]
+    },
+    {
+        "id": "13b4d0e6.ae18af",
+        "type": "link out",
+        "z": "6423811d66b9c025",
+        "name": "electrode5",
+        "links": [],
+        "x": 1015,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "8cc4f874.d5b028",
+        "type": "function",
+        "z": "6423811d66b9c025",
+        "name": "check touch threshold",
+        "func": "var msgTemp ={ payload: (msg.payload.pin<=flow.get(\"touchThreshold[\"+5+\"]\"))};\nreturn msgTemp;\n\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 660,
+        "y": 580,
+        "wires": [
+            [
+                "e16fe6fc.5d93f8",
+                "16913b89.0df3c4"
+            ]
+        ]
+    },
+    {
+        "id": "e16fe6fc.5d93f8",
+        "type": "trigger",
+        "z": "6423811d66b9c025",
+        "name": "touched",
+        "op1": "touched",
+        "op2": "0",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "0",
+        "extend": false,
+        "units": "ms",
+        "reset": "false",
+        "bytopic": "all",
+        "outputs": 1,
+        "x": 880,
+        "y": 580,
+        "wires": [
+            [
+                "33ecf6bd.5bd0ba",
+                "887e875a.7e3318",
+                "880e7bbf9f248e6c"
+            ]
+        ]
+    },
+    {
+        "id": "33ecf6bd.5bd0ba",
+        "type": "debug",
+        "z": "6423811d66b9c025",
+        "name": "electrode 6",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 1050,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "16913b89.0df3c4",
+        "type": "trigger",
+        "z": "6423811d66b9c025",
+        "name": "released",
+        "op1": "released",
+        "op2": "0",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "0",
+        "extend": false,
+        "units": "ms",
+        "reset": "true",
+        "bytopic": "all",
+        "outputs": 1,
+        "x": 880,
+        "y": 620,
+        "wires": [
+            [
+                "33ecf6bd.5bd0ba",
+                "887e875a.7e3318"
+            ]
+        ]
+    },
+    {
+        "id": "887e875a.7e3318",
+        "type": "link out",
+        "z": "6423811d66b9c025",
+        "name": "electrode6",
+        "links": [],
+        "x": 1015,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "f83d98cd.ac98f8",
+        "type": "function",
+        "z": "6423811d66b9c025",
+        "name": "check touch threshold",
+        "func": "var msgTemp ={ payload: (msg.payload.pin<=flow.get(\"touchThreshold[\"+6+\"]\"))};\nreturn msgTemp;\n\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 660,
+        "y": 660,
+        "wires": [
+            [
+                "f09dc501.cd2748",
+                "626d9df4.683e34"
+            ]
+        ]
+    },
+    {
+        "id": "f09dc501.cd2748",
+        "type": "trigger",
+        "z": "6423811d66b9c025",
+        "name": "touched",
+        "op1": "touched",
+        "op2": "0",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "0",
+        "extend": false,
+        "units": "ms",
+        "reset": "false",
+        "bytopic": "all",
+        "outputs": 1,
+        "x": 880,
+        "y": 660,
+        "wires": [
+            [
+                "6b1540c7.ff1d8",
+                "52eb42b7.d44afc",
+                "fbea1df836d78de6"
+            ]
+        ]
+    },
+    {
+        "id": "6b1540c7.ff1d8",
+        "type": "debug",
+        "z": "6423811d66b9c025",
+        "name": "electrode 7",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 1050,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "626d9df4.683e34",
+        "type": "trigger",
+        "z": "6423811d66b9c025",
+        "name": "released",
+        "op1": "released",
+        "op2": "0",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "0",
+        "extend": false,
+        "units": "ms",
+        "reset": "true",
+        "bytopic": "all",
+        "outputs": 1,
+        "x": 880,
+        "y": 700,
+        "wires": [
+            [
+                "6b1540c7.ff1d8",
+                "52eb42b7.d44afc"
+            ]
+        ]
+    },
+    {
+        "id": "52eb42b7.d44afc",
+        "type": "link out",
+        "z": "6423811d66b9c025",
+        "name": "electrode7",
+        "links": [],
+        "x": 1015,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "92906544.9ab438",
+        "type": "function",
+        "z": "6423811d66b9c025",
+        "name": "check touch threshold",
+        "func": "var msgTemp ={ payload: (msg.payload.pin<=flow.get(\"touchThreshold[\"+7+\"]\"))};\nreturn msgTemp;\n\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 660,
+        "y": 740,
+        "wires": [
+            [
+                "98b848b1.ed6668",
+                "b6f3d172.0753c"
+            ]
+        ]
+    },
+    {
+        "id": "98b848b1.ed6668",
+        "type": "trigger",
+        "z": "6423811d66b9c025",
+        "name": "touched",
+        "op1": "touched",
+        "op2": "0",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "0",
+        "extend": false,
+        "units": "ms",
+        "reset": "false",
+        "bytopic": "all",
+        "outputs": 1,
+        "x": 880,
+        "y": 740,
+        "wires": [
+            [
+                "9694bd39.e2973",
+                "de92a5fe.0d20a8",
+                "30ea74660b4c8b12"
+            ]
+        ]
+    },
+    {
+        "id": "9694bd39.e2973",
+        "type": "debug",
+        "z": "6423811d66b9c025",
+        "name": "electrode 8",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 1050,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "b6f3d172.0753c",
+        "type": "trigger",
+        "z": "6423811d66b9c025",
+        "name": "released",
+        "op1": "released",
+        "op2": "0",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "0",
+        "extend": false,
+        "units": "ms",
+        "reset": "true",
+        "bytopic": "all",
+        "outputs": 1,
+        "x": 880,
+        "y": 780,
+        "wires": [
+            [
+                "9694bd39.e2973",
+                "de92a5fe.0d20a8"
+            ]
+        ]
+    },
+    {
+        "id": "de92a5fe.0d20a8",
+        "type": "link out",
+        "z": "6423811d66b9c025",
+        "name": "electrode8",
+        "links": [],
+        "x": 1015,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "28edcc81.f02a44",
+        "type": "function",
+        "z": "6423811d66b9c025",
+        "name": "check touch threshold",
+        "func": "var msgTemp ={ payload: (msg.payload.pin<=flow.get(\"touchThreshold[\"+8+\"]\"))};\nreturn msgTemp;\n\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 660,
+        "y": 820,
+        "wires": [
+            [
+                "e2626c28.589a5",
+                "888154ef.480fd8"
+            ]
+        ]
+    },
+    {
+        "id": "e2626c28.589a5",
+        "type": "trigger",
+        "z": "6423811d66b9c025",
+        "name": "touched",
+        "op1": "touched",
+        "op2": "0",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "0",
+        "extend": false,
+        "units": "ms",
+        "reset": "false",
+        "bytopic": "all",
+        "outputs": 1,
+        "x": 880,
+        "y": 820,
+        "wires": [
+            [
+                "1d8b0fae.ec09e",
+                "a7840065.749f",
+                "c41594f5bd1ccbe3"
+            ]
+        ]
+    },
+    {
+        "id": "1d8b0fae.ec09e",
+        "type": "debug",
+        "z": "6423811d66b9c025",
+        "name": "electrode 9",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 1050,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "888154ef.480fd8",
+        "type": "trigger",
+        "z": "6423811d66b9c025",
+        "name": "released",
+        "op1": "released",
+        "op2": "0",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "0",
+        "extend": false,
+        "units": "ms",
+        "reset": "true",
+        "bytopic": "all",
+        "outputs": 1,
+        "x": 880,
+        "y": 860,
+        "wires": [
+            [
+                "1d8b0fae.ec09e",
+                "a7840065.749f"
+            ]
+        ]
+    },
+    {
+        "id": "a7840065.749f",
+        "type": "link out",
+        "z": "6423811d66b9c025",
+        "name": "electrode9",
+        "links": [],
+        "x": 1015,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "24679217.a13ace",
+        "type": "function",
+        "z": "6423811d66b9c025",
+        "name": "check touch threshold",
+        "func": "var msgTemp ={ payload: (msg.payload.pin<=flow.get(\"touchThreshold[\"+9+\"]\"))};\nreturn msgTemp;\n\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 660,
+        "y": 900,
+        "wires": [
+            [
+                "587d43b7.e4a32c",
+                "2605a467.c7048c"
+            ]
+        ]
+    },
+    {
+        "id": "587d43b7.e4a32c",
+        "type": "trigger",
+        "z": "6423811d66b9c025",
+        "name": "touched",
+        "op1": "touched",
+        "op2": "0",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "0",
+        "extend": false,
+        "units": "ms",
+        "reset": "false",
+        "bytopic": "all",
+        "outputs": 1,
+        "x": 880,
+        "y": 900,
+        "wires": [
+            [
+                "4d0e6862.dc0148",
+                "9ec56deb.fe635",
+                "3c2bc92091aa5ded"
+            ]
+        ]
+    },
+    {
+        "id": "4d0e6862.dc0148",
+        "type": "debug",
+        "z": "6423811d66b9c025",
+        "name": "electrode 10",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 1050,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "2605a467.c7048c",
+        "type": "trigger",
+        "z": "6423811d66b9c025",
+        "name": "released",
+        "op1": "released",
+        "op2": "0",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "0",
+        "extend": false,
+        "units": "ms",
+        "reset": "true",
+        "bytopic": "all",
+        "outputs": 1,
+        "x": 880,
+        "y": 940,
+        "wires": [
+            [
+                "4d0e6862.dc0148",
+                "9ec56deb.fe635"
+            ]
+        ]
+    },
+    {
+        "id": "9ec56deb.fe635",
+        "type": "link out",
+        "z": "6423811d66b9c025",
+        "name": "electrode10",
+        "links": [],
+        "x": 1015,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "6f485baf.a25464",
+        "type": "function",
+        "z": "6423811d66b9c025",
+        "name": "check touch threshold",
+        "func": "var msgTemp ={ payload: (msg.payload.pin<=flow.get(\"touchThreshold[\"+10+\"]\"))};\nreturn msgTemp;\n\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 660,
+        "y": 980,
+        "wires": [
+            [
+                "3be23995.a30bd6",
+                "4735386e.f57a48"
+            ]
+        ]
+    },
+    {
+        "id": "3be23995.a30bd6",
+        "type": "trigger",
+        "z": "6423811d66b9c025",
+        "name": "touched",
+        "op1": "touched",
+        "op2": "0",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "0",
+        "extend": false,
+        "units": "ms",
+        "reset": "false",
+        "bytopic": "all",
+        "outputs": 1,
+        "x": 880,
+        "y": 980,
+        "wires": [
+            [
+                "4bc96e3f.7a834",
+                "b8bc0968.c7f698",
+                "884fd0b9dcff9e08"
+            ]
+        ]
+    },
+    {
+        "id": "4bc96e3f.7a834",
+        "type": "debug",
+        "z": "6423811d66b9c025",
+        "name": "electrode 11",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 1050,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "4735386e.f57a48",
+        "type": "trigger",
+        "z": "6423811d66b9c025",
+        "name": "released",
+        "op1": "released",
+        "op2": "0",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "0",
+        "extend": false,
+        "units": "ms",
+        "reset": "true",
+        "bytopic": "all",
+        "outputs": 1,
+        "x": 880,
+        "y": 1020,
+        "wires": [
+            [
+                "4bc96e3f.7a834",
+                "b8bc0968.c7f698"
+            ]
+        ]
+    },
+    {
+        "id": "b8bc0968.c7f698",
+        "type": "link out",
+        "z": "6423811d66b9c025",
+        "name": "electrode11",
+        "links": [],
+        "x": 1015,
+        "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "d3e93a58.ed0028",
+        "type": "function",
+        "z": "6423811d66b9c025",
+        "name": "check touch threshold",
+        "func": "var msgTemp ={ payload: (msg.payload.pin<=flow.get(\"touchThreshold[\"+11+\"]\"))};\nreturn msgTemp;\n\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 660,
+        "y": 1060,
+        "wires": [
+            [
+                "af582788.6aea18",
+                "54321729.4f6338"
+            ]
+        ]
+    },
+    {
+        "id": "af582788.6aea18",
+        "type": "trigger",
+        "z": "6423811d66b9c025",
+        "name": "touched",
+        "op1": "touched",
+        "op2": "0",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "0",
+        "extend": false,
+        "units": "ms",
+        "reset": "false",
+        "bytopic": "all",
+        "outputs": 1,
+        "x": 880,
+        "y": 1060,
+        "wires": [
+            [
+                "6f3b9a27.a63764",
+                "5c7d46cf.8d2f58",
+                "4015487059bfd2d5"
+            ]
+        ]
+    },
+    {
+        "id": "6f3b9a27.a63764",
+        "type": "debug",
+        "z": "6423811d66b9c025",
+        "name": "electrode 12",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 1050,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "54321729.4f6338",
+        "type": "trigger",
+        "z": "6423811d66b9c025",
+        "name": "released",
+        "op1": "released",
+        "op2": "0",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "0",
+        "extend": false,
+        "units": "ms",
+        "reset": "true",
+        "bytopic": "all",
+        "outputs": 1,
+        "x": 880,
+        "y": 1100,
+        "wires": [
+            [
+                "6f3b9a27.a63764",
+                "5c7d46cf.8d2f58"
+            ]
+        ]
+    },
+    {
+        "id": "5c7d46cf.8d2f58",
+        "type": "link out",
+        "z": "6423811d66b9c025",
+        "name": "electrode12",
+        "links": [],
+        "x": 1015,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "b9b87f97.07f06",
+        "type": "change",
+        "z": "6423811d66b9c025",
+        "name": "mapping",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "msg.payload.pin",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1360,
+        "y": 180,
+        "wires": [
+            [
+                "2ea5d44e.a65d5c"
+            ]
+        ]
+    },
+    {
+        "id": "b69cc9b2.f2ae18",
+        "type": "change",
+        "z": "6423811d66b9c025",
+        "name": "mapping",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "msg.payload.pin",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1360,
+        "y": 260,
+        "wires": [
+            [
+                "d6702483.0519c8"
+            ]
+        ]
+    },
+    {
+        "id": "f1604f73.665af",
+        "type": "change",
+        "z": "6423811d66b9c025",
+        "name": "mapping",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "msg.payload.pin",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1360,
+        "y": 340,
+        "wires": [
+            [
+                "fe577f3d.78ed2"
+            ]
+        ]
+    },
+    {
+        "id": "7f64ba8d.b1c0b4",
+        "type": "change",
+        "z": "6423811d66b9c025",
+        "name": "mapping",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "msg.payload.pin",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1360,
+        "y": 420,
+        "wires": [
+            [
+                "c89c7b8f.8dfc48"
+            ]
+        ]
+    },
+    {
+        "id": "e0807947.429238",
+        "type": "change",
+        "z": "6423811d66b9c025",
+        "name": "mapping",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "msg.payload.pin",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1360,
+        "y": 500,
+        "wires": [
+            [
+                "3c756b17.df6e74"
+            ]
+        ]
+    },
+    {
+        "id": "14b9676f.52c819",
+        "type": "change",
+        "z": "6423811d66b9c025",
+        "name": "mapping",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "msg.payload.pin",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1360,
+        "y": 580,
+        "wires": [
+            [
+                "430a8f40.bcdbc"
+            ]
+        ]
+    },
+    {
+        "id": "20b43148.a7082e",
+        "type": "change",
+        "z": "6423811d66b9c025",
+        "name": "mapping",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "msg.payload.pin",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1360,
+        "y": 660,
+        "wires": [
+            [
+                "363b93d6.2062fc"
+            ]
+        ]
+    },
+    {
+        "id": "b161f6de.536088",
+        "type": "change",
+        "z": "6423811d66b9c025",
+        "name": "mapping",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "msg.payload.pin",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1360,
+        "y": 740,
+        "wires": [
+            [
+                "fed7c9d0.b1e848"
+            ]
+        ]
+    },
+    {
+        "id": "d56e0547.b0b5c8",
+        "type": "change",
+        "z": "6423811d66b9c025",
+        "name": "mapping",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "msg.payload.pin",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1360,
+        "y": 820,
+        "wires": [
+            [
+                "c7ccd911.2db6f8"
+            ]
+        ]
+    },
+    {
+        "id": "7bc62034.9673c",
+        "type": "change",
+        "z": "6423811d66b9c025",
+        "name": "mapping",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "msg.payload.pin",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1360,
+        "y": 900,
+        "wires": [
+            [
+                "b4a1094c.5317e8"
+            ]
+        ]
+    },
+    {
+        "id": "eb7c1db6.d839",
+        "type": "change",
+        "z": "6423811d66b9c025",
+        "name": "mapping",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "msg.payload.pin",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1360,
+        "y": 980,
+        "wires": [
+            [
+                "4bdbff0a.2d87b"
+            ]
+        ]
+    },
+    {
+        "id": "6da0e1c8.ce0d9",
+        "type": "change",
+        "z": "6423811d66b9c025",
+        "name": "mapping",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "msg.payload.pin",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1360,
+        "y": 1060,
+        "wires": [
+            [
+                "62c16f85.6af93"
+            ]
+        ]
+    },
+    {
+        "id": "d518a309.61003",
+        "type": "mpr121-p",
+        "z": "6423811d66b9c025",
+        "name": "",
+        "address": 90,
+        "i2cbus": 1,
+        "polling": "500",
+        "x": 200,
+        "y": 640,
+        "wires": [
+            [
+                "1977453a.63414b",
+                "3f7e3716.f65888",
+                "b9b87f97.07f06"
+            ],
+            [
+                "ffd63859.09d578",
+                "78bf876d.b16f98",
+                "b69cc9b2.f2ae18"
+            ],
+            [
+                "4c648356.3eb62c",
+                "b167caca.9e2108",
+                "f1604f73.665af"
+            ],
+            [
+                "79801b94.ec7284",
+                "7a3e6c5.c211394",
+                "7f64ba8d.b1c0b4"
+            ],
+            [
+                "27bbfe25.973c12",
+                "f47896ee.8a2928",
+                "e0807947.429238"
+            ],
+            [
+                "d9f3990f.b6b3b8",
+                "8cc4f874.d5b028",
+                "14b9676f.52c819"
+            ],
+            [
+                "88d24aed.abd358",
+                "f83d98cd.ac98f8",
+                "20b43148.a7082e"
+            ],
+            [
+                "e5f62769.c9c248",
+                "92906544.9ab438",
+                "b161f6de.536088"
+            ],
+            [
+                "3ef1ade.9294c52",
+                "28edcc81.f02a44",
+                "d56e0547.b0b5c8"
+            ],
+            [
+                "fe895e31.2197b",
+                "24679217.a13ace",
+                "7bc62034.9673c"
+            ],
+            [
+                "92c458df.b20118",
+                "6f485baf.a25464",
+                "eb7c1db6.d839"
+            ],
+            [
+                "52b72d3.c758fd4",
+                "d3e93a58.ed0028",
+                "6da0e1c8.ce0d9"
+            ]
+        ]
+    },
+    {
+        "id": "2ea5d44e.a65d5c",
+        "type": "ui_gauge",
+        "z": "6423811d66b9c025",
+        "name": "",
+        "group": "d9a11c48.d4ec",
+        "order": 12,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Electrode1",
+        "label": "",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "255",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 1510,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "d6702483.0519c8",
+        "type": "ui_gauge",
+        "z": "6423811d66b9c025",
+        "name": "",
+        "group": "d9a11c48.d4ec",
+        "order": 12,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Electrode2",
+        "label": "",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "255",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 1510,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "fe577f3d.78ed2",
+        "type": "ui_gauge",
+        "z": "6423811d66b9c025",
+        "name": "",
+        "group": "d9a11c48.d4ec",
+        "order": 12,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Electrode3",
+        "label": "",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "255",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 1510,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "c89c7b8f.8dfc48",
+        "type": "ui_gauge",
+        "z": "6423811d66b9c025",
+        "name": "",
+        "group": "d9a11c48.d4ec",
+        "order": 12,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Electrode4",
+        "label": "",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "255",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 1510,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "3c756b17.df6e74",
+        "type": "ui_gauge",
+        "z": "6423811d66b9c025",
+        "name": "",
+        "group": "d9a11c48.d4ec",
+        "order": 12,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Electrode5",
+        "label": "",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "255",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 1510,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "430a8f40.bcdbc",
+        "type": "ui_gauge",
+        "z": "6423811d66b9c025",
+        "name": "",
+        "group": "d9a11c48.d4ec",
+        "order": 12,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Electrode6",
+        "label": "",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "255",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 1510,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "363b93d6.2062fc",
+        "type": "ui_gauge",
+        "z": "6423811d66b9c025",
+        "name": "",
+        "group": "d9a11c48.d4ec",
+        "order": 12,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Electrode7",
+        "label": "",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "255",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 1510,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "fed7c9d0.b1e848",
+        "type": "ui_gauge",
+        "z": "6423811d66b9c025",
+        "name": "",
+        "group": "d9a11c48.d4ec",
+        "order": 12,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Electrode8",
+        "label": "",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "255",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 1510,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "c7ccd911.2db6f8",
+        "type": "ui_gauge",
+        "z": "6423811d66b9c025",
+        "name": "",
+        "group": "d9a11c48.d4ec",
+        "order": 12,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Electrode9",
+        "label": "",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "255",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 1510,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "b4a1094c.5317e8",
+        "type": "ui_gauge",
+        "z": "6423811d66b9c025",
+        "name": "",
+        "group": "d9a11c48.d4ec",
+        "order": 12,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Electrode10",
+        "label": "",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "255",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 1510,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "4bdbff0a.2d87b",
+        "type": "ui_gauge",
+        "z": "6423811d66b9c025",
+        "name": "",
+        "group": "d9a11c48.d4ec",
+        "order": 12,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Electrode11",
+        "label": "",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "255",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 1510,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "62c16f85.6af93",
+        "type": "ui_gauge",
+        "z": "6423811d66b9c025",
+        "name": "",
+        "group": "d9a11c48.d4ec",
+        "order": 12,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Electrode12",
+        "label": "",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "255",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 1510,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "2b6ac00e69e9d7e8",
+        "type": "link out",
+        "z": "6423811d66b9c025",
+        "name": "electrode1_touched",
+        "mode": "link",
+        "links": [
+            "d07a3f6383a773ad"
+        ],
+        "x": 1175,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "c3253fb7f3a08cf6",
+        "type": "link out",
+        "z": "6423811d66b9c025",
+        "name": "electrode2_touched",
+        "mode": "link",
+        "links": [],
+        "x": 1175,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "77c97b11e06fb658",
+        "type": "link out",
+        "z": "6423811d66b9c025",
+        "name": "electrode3_touched",
+        "mode": "link",
+        "links": [],
+        "x": 1175,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "fd5ab8b1d0da7fa1",
+        "type": "link out",
+        "z": "6423811d66b9c025",
+        "name": "electrode1_touched",
+        "mode": "link",
+        "links": [],
+        "x": 1175,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "39f5b5a5e31d35bf",
+        "type": "link out",
+        "z": "6423811d66b9c025",
+        "name": "electrode5_touched",
+        "mode": "link",
+        "links": [],
+        "x": 1175,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "880e7bbf9f248e6c",
+        "type": "link out",
+        "z": "6423811d66b9c025",
+        "name": "electrode6_touched",
+        "mode": "link",
+        "links": [],
+        "x": 1175,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "fbea1df836d78de6",
+        "type": "link out",
+        "z": "6423811d66b9c025",
+        "name": "electrode7_touched",
+        "mode": "link",
+        "links": [],
+        "x": 1175,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "30ea74660b4c8b12",
+        "type": "link out",
+        "z": "6423811d66b9c025",
+        "name": "electrode8_touched",
+        "mode": "link",
+        "links": [],
+        "x": 1175,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "c41594f5bd1ccbe3",
+        "type": "link out",
+        "z": "6423811d66b9c025",
+        "name": "electrode9_touched",
+        "mode": "link",
+        "links": [],
+        "x": 1175,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "3c2bc92091aa5ded",
+        "type": "link out",
+        "z": "6423811d66b9c025",
+        "name": "electrode10_touched",
+        "mode": "link",
+        "links": [],
+        "x": 1175,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "884fd0b9dcff9e08",
+        "type": "link out",
+        "z": "6423811d66b9c025",
+        "name": "electrode11_touched",
+        "mode": "link",
+        "links": [],
+        "x": 1175,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "4015487059bfd2d5",
+        "type": "link out",
+        "z": "6423811d66b9c025",
+        "name": "electrode12_touched",
+        "mode": "link",
+        "links": [],
+        "x": 1175,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "d9a11c48.d4ec",
+        "type": "ui_group",
+        "name": "MPR121",
+        "tab": "157697a5.ce0fd8",
+        "order": 3,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "157697a5.ce0fd8",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
