@@ -1,0 +1,224 @@
+[
+    {
+        "id": "dbe313ef98cc0fa5",
+        "type": "rpi-gpio in",
+        "z": "b5cff8f3071a0fec",
+        "name": "",
+        "pin": "23",
+        "intype": "tri",
+        "debounce": "25",
+        "read": true,
+        "bcm": true,
+        "x": 550,
+        "y": 1320,
+        "wires": [
+            [
+                "0598c3c107fd369e",
+                "dd4aa2041d8a718a",
+                "067ac3bbd3220811"
+            ]
+        ]
+    },
+    {
+        "id": "0598c3c107fd369e",
+        "type": "debug",
+        "z": "b5cff8f3071a0fec",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 790,
+        "y": 1280,
+        "wires": []
+    },
+    {
+        "id": "dd4aa2041d8a718a",
+        "type": "function",
+        "z": "b5cff8f3071a0fec",
+        "name": "saveTimestamp",
+        "func": "if (msg.payload==1)\n{\n    global.set(\"lastMovementDetected\", Date.now());\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 810,
+        "y": 1320,
+        "wires": [
+            [
+                "cc1cebaed7746fba",
+                "d5ca3f64cf3f393e",
+                "a24123491925daa3"
+            ]
+        ]
+    },
+    {
+        "id": "cc1cebaed7746fba",
+        "type": "debug",
+        "z": "b5cff8f3071a0fec",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 1010,
+        "y": 1240,
+        "wires": []
+    },
+    {
+        "id": "d5ca3f64cf3f393e",
+        "type": "link out",
+        "z": "b5cff8f3071a0fec",
+        "name": "",
+        "links": [
+            "decb325e.9d9af"
+        ],
+        "x": 975,
+        "y": 1320,
+        "wires": []
+    },
+    {
+        "id": "067ac3bbd3220811",
+        "type": "function",
+        "z": "b5cff8f3071a0fec",
+        "name": "convertToColor",
+        "func": "if (msg.payload==1)\n    {\n        msg.background =\"green\";\n    } else\n    {\n        msg.background =\"red\";\n    }\n\nreturn msg",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 710,
+        "y": 1360,
+        "wires": [
+            [
+                "86a6ae771255d9df"
+            ]
+        ]
+    },
+    {
+        "id": "4f660819b795ad19",
+        "type": "inject",
+        "z": "b5cff8f3071a0fec",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "1",
+        "payloadType": "num",
+        "x": 570,
+        "y": 1240,
+        "wires": [
+            [
+                "dd4aa2041d8a718a",
+                "0598c3c107fd369e"
+            ]
+        ]
+    },
+    {
+        "id": "cc1067d6bb6c4188",
+        "type": "inject",
+        "z": "b5cff8f3071a0fec",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0",
+        "payloadType": "num",
+        "x": 570,
+        "y": 1280,
+        "wires": [
+            [
+                "dd4aa2041d8a718a",
+                "0598c3c107fd369e"
+            ]
+        ]
+    },
+    {
+        "id": "86a6ae771255d9df",
+        "type": "ui_button",
+        "z": "b5cff8f3071a0fec",
+        "name": "",
+        "group": "718fba78cec03515",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Motion detected?",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "{{msg.background}}",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "x": 920,
+        "y": 1360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a24123491925daa3",
+        "type": "mqtt out",
+        "z": "b5cff8f3071a0fec",
+        "name": "",
+        "topic": "testTopic",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "",
+        "x": 1020,
+        "y": 1280,
+        "wires": []
+    },
+    {
+        "id": "718fba78cec03515",
+        "type": "ui_group",
+        "name": "MotionSensor",
+        "tab": "157697a5.ce0fd8",
+        "order": 5,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "157697a5.ce0fd8",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]

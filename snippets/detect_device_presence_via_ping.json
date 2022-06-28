@@ -1,0 +1,93 @@
+[
+    {
+        "id": "947cec2bb498ac46",
+        "type": "ping",
+        "z": "f8554984.efc148",
+        "protocol": "Automatic",
+        "mode": "triggered",
+        "name": "",
+        "host": "",
+        "timer": "20",
+        "inputs": 1,
+        "x": 910,
+        "y": 3600,
+        "wires": [
+            [
+                "2d9fbf18001004bd"
+            ]
+        ]
+    },
+    {
+        "id": "8acaa07aacfaf155",
+        "type": "inject",
+        "z": "f8554984.efc148",
+        "name": "IP inject",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "60",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "",
+        "topic": "",
+        "payload": "192.168.100.100",
+        "payloadType": "str",
+        "x": 740,
+        "y": 3600,
+        "wires": [
+            [
+                "947cec2bb498ac46"
+            ]
+        ]
+    },
+    {
+        "id": "2d9fbf18001004bd",
+        "type": "function",
+        "z": "f8554984.efc148",
+        "name": "Detect Presence",
+        "func": "\nmsg.present = (msg.payload > 0 && msg.payload < 10000);\nglobal.set(\"device_is_present\", msg.present);\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1080,
+        "y": 3600,
+        "wires": [
+            [
+                "af7a514a5e97a922",
+                "c8fc6503775b2768"
+            ]
+        ]
+    },
+    {
+        "id": "af7a514a5e97a922",
+        "type": "debug",
+        "z": "f8554984.efc148",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1270,
+        "y": 3640,
+        "wires": []
+    },
+    {
+        "id": "c8fc6503775b2768",
+        "type": "link out",
+        "z": "f8554984.efc148",
+        "name": "presence_out",
+        "mode": "link",
+        "links": [],
+        "x": 1235,
+        "y": 3600,
+        "wires": []
+    }
+]
