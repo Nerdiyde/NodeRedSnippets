@@ -1309,7 +1309,7 @@
                 "mask": ""
             },
             {
-                "type": "hex",
+                "type": "byte",
                 "name": "v1",
                 "offset": 600,
                 "length": 1,
@@ -1318,7 +1318,7 @@
                 "mask": ""
             },
             {
-                "type": "hex",
+                "type": "byte",
                 "name": "v2",
                 "offset": 601,
                 "length": 1,
@@ -1327,7 +1327,7 @@
                 "mask": ""
             },
             {
-                "type": "hex",
+                "type": "byte",
                 "name": "v3",
                 "offset": 602,
                 "length": 1,
